@@ -1,40 +1,25 @@
-﻿import Link from 'next/link';
-
-const TOOLBOX = [
+﻿const GROUPS = [
   {
-    href: '/tools/pomodoro',
-    icon: '??',
-    title: '番茄钟 Pomodoro',
-    summary: '25 分钟专注、 5 分钟休息、 4 轮后长休息，支持自定义时长与声效提示。',
-    inspiration: 'astroud/pomodoro-react-app',
-  },
-  {
-    href: '/tools/todo',
-    icon: '?',
-    title: '待办清单',
-    summary: '基于 LocalStorage 保存任务状态，支持优先级与专注模式。',
-    inspiration: 'taniarascia/todo',
-  },
-  {
-    href: '/tools/white-noise',
-    icon: '??',
-    title: '白噪声播放器',
-    summary: '内置多种环境音，支持混音与音量调节，可伴随专注或冥想。',
-    inspiration: 'petele/SoundDrown',
-  },
-  {
-    href: '/tools/dark-room',
-    icon: '??',
     title: '小黑屋自习室',
-    summary: '全屏沉浸模式，搭配背景音乐与激励语，帮助进入深度专注。',
-    inspiration: 'ryanmcdermott/clean-screen',
+    description:
+      '以沉浸式专注为核心，内置白噪音混音与待办速记，便于快速进入工作状态。',
+    action: { label: '进入自习室', href: '/tools/dark-room' },
+    highlights: [
+      '深色氛围背景可一键切换全屏 / 亮度',
+      '白噪音播放器与速记待办保持视觉一致',
+      '适合番茄钟、冲刺写作、晚间自习等场景',
+    ],
   },
   {
-    href: '/tools/meditation',
-    icon: '??',
-    title: '冥想室',
-    summary: '环境音混合、呼吸节奏与念头记录，打造专属冥想空间。',
-    inspiration: 'trynoice/web-app-v0',
+    title: '冥想空间',
+    description:
+      '跟随 4-4-6 呼吸节奏进行静心练习，辅以轻量白噪音陪伴，帮助调整状态。',
+    action: { label: '开启冥想', href: '/tools/meditation' },
+    highlights: [
+      '动态图形呈现吸气 / 停留 / 呼气节奏',
+      '自带冥想笔记区，记录情绪与体感变化',
+      '白噪音快速入口，保持冥想与日常联动',
+    ],
   },
 ];
 
@@ -42,30 +27,42 @@ export default function ToolsIndex() {
   return (
     <div className="space-y-12">
       <header className="space-y-4">
-        <p className="text-sm font-semibold text-brand-600">效率工具箱</p>
-        <h1 className="text-3xl font-display font-bold text-slate-900">把番茄钟、待办、白噪声和冥想带到同一个页面</h1>
+        <p className="text-sm font-semibold text-brand-600">效率工具合集</p>
+        <h1 className="text-3xl font-display font-bold text-slate-900">围绕专注与冥想打造的一体化练习空间</h1>
         <p className="max-w-2xl text-sm leading-relaxed text-slate-600">
-          功能页直接使用 React 组件实现，以 Next.js Pages 路由组织在 <code className="rounded bg-slate-100 px-2 py-1">/pages/tools/</code>。所有状态都在浏览器本地管理，无需后端即可运行。
+          工具按照使用场景划分为“自习室”和“冥想”两大主体，每个主体内嵌常用组件，单击按钮即可进入体验。
         </p>
       </header>
-      <div className="grid gap-6 md:grid-cols-2">
-        {TOOLBOX.map((tool) => (
-          <Link
-            key={tool.href}
-            href={tool.href}
-            className="group flex flex-col justify-between gap-4 rounded-2xl border border-slate-200 bg-white/90 p-6 shadow-sm transition hover:-translate-y-1 hover:border-brand-200 hover:shadow-xl"
+
+      <div className="grid gap-8 lg:grid-cols-2">
+        {GROUPS.map((group) => (
+          <section
+            key={group.title}
+            className="flex flex-col gap-6 rounded-3xl border border-slate-200 bg-white p-8 shadow-sm transition hover:-translate-y-1 hover:border-brand-200 hover:shadow-xl"
           >
             <div className="space-y-3">
-              <span className="text-3xl">{tool.icon}</span>
-              <h2 className="text-xl font-display font-semibold text-slate-900 group-hover:text-brand-700">
-                {tool.title}
-              </h2>
-              <p className="text-sm leading-relaxed text-slate-600">{tool.summary}</p>
+              <h2 className="text-2xl font-display font-semibold text-slate-900">{group.title}</h2>
+              <p className="text-sm leading-relaxed text-slate-600">{group.description}</p>
             </div>
-            <span className="text-xs uppercase tracking-wide text-slate-400">
-              灵感来源：{tool.inspiration}
-            </span>
-          </Link>
+
+            <ul className="space-y-2 text-sm text-slate-500">
+              {group.highlights.map((item) => (
+                <li key={item} className="flex items-start gap-2">
+                  <span className="mt-1 inline-flex h-2 w-2 flex-shrink-0 rounded-full bg-brand-300" />
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+
+            <div className="flex items-center gap-3">
+              <a
+                href={group.action.href}
+                className="inline-flex items-center justify-center rounded-full bg-brand-600 px-5 py-2 text-sm font-semibold text-white shadow-soft transition hover:bg-brand-700"
+              >
+                {group.action.label}
+              </a>
+            </div>
+          </section>
         ))}
       </div>
     </div>

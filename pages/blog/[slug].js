@@ -29,6 +29,11 @@ export default function BlogPost({ frontMatter, mdxSource }) {
   );
 }
 
+BlogPost.getBreadcrumbItems = (props) => [
+  { label: '学习日志', href: '/blog' },
+  { label: props?.frontMatter?.title || '文章详情' },
+];
+
 const MDX_COMPONENTS = {
   a: (props) => (
     <a {...props} className="font-semibold text-brand-600 no-underline hover:text-brand-700" />

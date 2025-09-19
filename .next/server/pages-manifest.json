@@ -4,6 +4,6 @@
   "/_document": "pages/_document.js",
   "/tools/dark-room": "pages/tools/dark-room.js",
   "/": "pages/index.js",
-  "/blog": "pages/blog.js",
-  "/tools": "pages/tools.js"
+  "/tools": "pages/tools.js",
+  "/tools/meditation": "pages/tools/meditation.js"
 }

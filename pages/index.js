@@ -1,5 +1,7 @@
 ﻿import Link from 'next/link';
 import PostCard from '../components/PostCard';
+import TodoWidget from '../components/tools/TodoWidget';
+import WhiteNoisePlayer from '../components/tools/WhiteNoisePlayer';
 import { getAllPosts } from '../lib/mdx';
 
 export default function Home({ posts }) {
@@ -52,61 +54,50 @@ export default function Home({ posts }) {
         <div className="flex items-center justify-between">
           <div>
             <h2 className="text-2xl font-display font-semibold text-slate-900">效率工具预览</h2>
-            <p className="text-sm text-slate-500">番茄钟、待办清单、白噪声、自习室与冥想中心一应俱全。</p>
+            <p className="text-sm text-slate-500">白噪音与待办清单可直接在首页快速使用，亦可跳转至完整页面。</p>
           </div>
           <Link href="/tools" className="text-sm font-semibold text-brand-600 hover:text-brand-700">
             前往工具页 →
           </Link>
         </div>
-        <div className="grid gap-6 md:grid-cols-2">
-          {TOOLS.map((tool) => (
-            <Link
-              key={tool.href}
-              href={tool.href}
-              className="group flex h-full flex-col justify-between rounded-2xl border border-slate-200 bg-white/90 p-6 shadow-sm transition hover:-translate-y-1 hover:border-brand-200 hover:shadow-xl"
-            >
-              <div className="space-y-3">
-                <span className="text-2xl">{tool.icon}</span>
-                <h3 className="text-xl font-display font-semibold text-slate-900 group-hover:text-brand-700">
-                  {tool.title}
-                </h3>
-                <p className="text-sm leading-relaxed text-slate-600">{tool.description}</p>
+        <div className="grid gap-6 lg:grid-cols-2">
+          <div className="space-y-4 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-400">Ambient Mixer</p>
+                <h3 className="mt-2 text-lg font-display font-semibold text-slate-900">白噪音陪伴</h3>
               </div>
-              <span className="mt-6 text-sm font-semibold text-brand-600 group-hover:text-brand-700">了解更多 →</span>
-            </Link>
-          ))}
+              <Link
+                href="/tools/white-noise"
+                className="inline-flex items-center rounded-full border border-slate-200 px-3 py-1 text-xs font-semibold text-slate-500 transition hover:border-brand-200 hover:text-brand-700"
+              >
+                打开完整设置
+              </Link>
+            </div>
+            <WhiteNoisePlayer tone="light" showStats={false} showControls={false} className="border-0 p-0 shadow-none" />
+          </div>
+
+          <div className="space-y-4 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-400">Quick Planner</p>
+                <h3 className="mt-2 text-lg font-display font-semibold text-slate-900">待办速记</h3>
+              </div>
+              <Link
+                href="/tools/todo"
+                className="inline-flex items-center rounded-full border border-slate-200 px-3 py-1 text-xs font-semibold text-slate-500 transition hover:border-brand-200 hover:text-brand-700"
+              >
+                打开完整设置
+              </Link>
+            </div>
+            <TodoWidget tone="light" className="border-0 p-0 shadow-none" />
+          </div>
         </div>
       </section>
     </div>
   );
 }
 
-const TOOLS = [
-  {
-    href: '/tools/pomodoro',
-    icon: '??',
-    title: '番茄钟 Pomodoro',
-    description: '25/5 专注循环、长休提醒与进度可视化，保持专注节奏。',
-  },
-  {
-    href: '/tools/todo',
-    icon: '?',
-    title: '待办清单',
-    description: '轻量级待办管理，支持优先级、状态切换与本地存储同步。',
-  },
-  {
-    href: '/tools/white-noise',
-    icon: '??',
-    title: '白噪声播放器',
-    description: '多种环境音一键播放，支持循环与混音，营造沉浸氛围。',
-  },
-  {
-    href: '/tools/meditation',
-    icon: '??',
-    title: '冥想空间',
-    description: '定时冥想、呼吸引导与环境音搭配，帮助建立安静的休息仪式。',
-  },
-];
 
 export async function getStaticProps() {
   const posts = getAllPosts().slice(0, 3);

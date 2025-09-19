@@ -1,10 +1,9 @@
 {
-  "/_app": "pages/_app.js",
   "/_error": "pages/_error.js",
+  "/_app": "pages/_app.js",
   "/_document": "pages/_document.js",
+  "/tools/dark-room": "pages/tools/dark-room.js",
   "/": "pages/index.js",
-  "/tools/pomodoro": "pages/tools/pomodoro.js",
-  "/blog/[slug]": "pages/blog/[slug].js",
   "/blog": "pages/blog.js",
   "/tools": "pages/tools.js"
 }

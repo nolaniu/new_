@@ -242,3 +242,8 @@ function playBell() {
   gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 1.2);
   oscillator.stop(ctx.currentTime + 1.3);
 }
+
+PomodoroPage.getBreadcrumbItems = () => [
+  { label: '效率工具', href: '/tools' },
+  { label: '番茄钟' },
+];

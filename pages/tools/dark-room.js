@@ -1,21 +1,30 @@
-﻿import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 
 const QUOTES = [
-  '专注是一种稀缺资源，把它花在最值得的事情上。',
-  '保持心流，用行动替代焦虑。',
-  '只要开始，就已经领先于过去的自己。',
-  '静下心来，听见自己的想法。',
-  '把注意力放在正在做的事情上，其余的留待之后。',
+  '专注是一项可以习得的技能，耐心是最好的导师。',
+  '所有的创造都始于宁静，先让心慢下来。',
+  '记录想法的顺间，就已经在和拖延保持距离。',
+  '保持对当下的觉察，你会发现时间过得更扎实。',
+  '当你真正投入，世界就会为你让路。',
 ];
 
+const pickRandomQuote = (current) => {
+  if (!QUOTES.length) return '';
+  if (QUOTES.length === 1) return QUOTES[0];
+  let next = current;
+  while (next === current) {
+    next = QUOTES[Math.floor(Math.random() * QUOTES.length)];
+  }
+  return next;
+};
+
 export default function DarkRoomPage() {
-  const [quote, setQuote] = useState(() => randomQuote());
+  const [quote, setQuote] = useState(QUOTES[0]);
   const [notes, setNotes] = useState('');
   const [dimmed, setDimmed] = useState(true);
 
   const handleKeydown = useCallback((event) => {
     if (event.key === 'Escape') {
-      setDimmed(false);
       exitFullscreen();
     }
   }, []);
@@ -30,18 +39,15 @@ export default function DarkRoomPage() {
     [dimmed],
   );
 
-  function randomizeQuote() {
-    setQuote(randomQuote());
-  }
+  const toggleDimmed = () => setDimmed((prev) => !prev);
 
-  async function toggleFullscreen() {
-    if (typeof document === 'undefined') return;
-    if (!document.fullscreenElement) {
-      await document.documentElement.requestFullscreen();
-    } else {
-      await document.exitFullscreen();
-    }
-  }
+  useEffect(() => {
+    setQuote((current) => pickRandomQuote(current));
+  }, []);
+
+  const randomizeQuote = () => {
+    setQuote((current) => pickRandomQuote(current));
+  };
 
   return (
     <div className={`relative flex min-h-screen flex-col items-center justify-center px-6 py-16 transition ${backgroundClass}`}>
@@ -58,17 +64,17 @@ export default function DarkRoomPage() {
         </span>
         <h1 className="text-5xl font-display font-bold text-slate-100 sm:text-6xl">小黑屋专注室</h1>
         <p className="max-w-xl text-base leading-relaxed text-slate-300">
-          灵感来源于 clean-screen，进入页面后只保留一行激励语与背景音控制。按 ESC 可以退出，点击下方按钮可以开启或关闭全屏模式。
+          灵感来自 clean-screen，进入页面后只保留励志语与背景音控制。按 ESC 可以退出，点击下方按钮可以开启或关闭全屏模式。
         </p>
 
         <figure className="w-full rounded-3xl border border-slate-800 bg-slate-900/60 p-8 shadow-2xl backdrop-blur">
           <blockquote className="text-2xl font-semibold text-slate-100">“{quote}”</blockquote>
-          <figcaption className="mt-4 flex items-center justify-between text-xs text-slate-500">
-            <span>按 ESC 退出全屏 / 点击右侧换一句</span>
+          <figcaption className="mt-4 flex flex-col gap-3 text-xs text-slate-500 sm:flex-row sm:items-center sm:justify-between">
+            <span>提示：ESC 退出全屏｜随时切换下一句</span>
             <button
               type="button"
               onClick={randomizeQuote}
-              className="rounded-full border border-slate-700 px-3 py-1 text-[10px] font-semibold uppercase tracking-widest text-slate-300 hover:border-brand-500 hover:text-brand-300"
+              className="self-start rounded-full border border-slate-700 px-4 py-1 text-[10px] font-semibold uppercase tracking-[0.4em] text-slate-300 hover:border-brand-400/80 hover:text-brand-200"
             >
               换一句
             </button>
@@ -85,7 +91,7 @@ export default function DarkRoomPage() {
         <div className="flex flex-wrap items-center justify-center gap-3 text-xs font-semibold text-slate-300">
           <button
             type="button"
-            onClick={() => setDimmed((prev) => !prev)}
+            onClick={toggleDimmed}
             className="rounded-full border border-slate-700 px-4 py-2 hover:border-brand-500 hover:text-brand-300"
           >
             {dimmed ? '提高亮度' : '降低亮度'}
@@ -111,8 +117,13 @@ export default function DarkRoomPage() {
 
 DarkRoomPage.getLayout = (page) => page;
 
-function randomQuote() {
-  return QUOTES[Math.floor(Math.random() * QUOTES.length)];
+function toggleFullscreen() {
+  if (typeof document === 'undefined') return;
+  if (!document.fullscreenElement) {
+    document.documentElement.requestFullscreen();
+  } else {
+    document.exitFullscreen();
+  }
 }
 
 function exitFullscreen() {

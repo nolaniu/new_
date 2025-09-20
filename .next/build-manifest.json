@@ -23,20 +23,15 @@
       "static/chunks/main.js",
       "static/chunks/pages/_error.js"
     ],
-    "/tools": [
-      "static/chunks/webpack.js",
-      "static/chunks/main.js",
-      "static/chunks/pages/tools.js"
-    ],
     "/tools/dark-room": [
       "static/chunks/webpack.js",
       "static/chunks/main.js",
       "static/chunks/pages/tools/dark-room.js"
     ],
-    "/tools/meditation": [
+    "/tools/white-noise": [
       "static/chunks/webpack.js",
       "static/chunks/main.js",
-      "static/chunks/pages/tools/meditation.js"
+      "static/chunks/pages/tools/white-noise.js"
     ]
   },
   "ampFirstPages": []

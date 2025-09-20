@@ -1,9 +1,8 @@
 {
-  "/_error": "pages/_error.js",
   "/_app": "pages/_app.js",
+  "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
-  "/tools/dark-room": "pages/tools/dark-room.js",
-  "/": "pages/index.js",
   "/tools": "pages/tools.js",
-  "/tools/meditation": "pages/tools/meditation.js"
+  "/tools/dark-room": "pages/tools/dark-room.js",
+  "/tools/white-noise": "pages/tools/white-noise.js"
 }

@@ -14,7 +14,7 @@ export default function Home({ posts }) {
             记录、练习、冥想、专注 —— 用一个站点承载你的成长旅程。
           </h1>
           <p className="text-base leading-relaxed text-slate-600">
-            结合 Next.js + Tailwind + MDX 搭建的博客结构，配套番茄钟、待办、白噪声与冥想工具。灵感来自开源社区的优秀模板与效率工具，适合个人知识管理与深度专注训练。
+            结合 Next.js + Tailwind + MDX 搭建的博客结构，配套番茄钟、待办、白噪声与冥想工具。灵感来自开源社区的优秀模板与专注空间，适合个人知识管理与深度专注训练。
           </p>
           <div className="flex flex-wrap gap-4">
             <Link
@@ -27,7 +27,7 @@ export default function Home({ posts }) {
               href="/tools"
               className="inline-flex items-center rounded-full border border-brand-200 px-5 py-2.5 text-sm font-semibold text-brand-700 transition hover:border-brand-300 hover:bg-brand-50"
             >
-              打开效率工具箱
+              打开专注空间箱
             </Link>
           </div>
         </div>
@@ -53,7 +53,7 @@ export default function Home({ posts }) {
       <section className="space-y-6">
         <div className="flex items-center justify-between">
           <div>
-            <h2 className="text-2xl font-display font-semibold text-slate-900">效率工具预览</h2>
+            <h2 className="text-2xl font-display font-semibold text-slate-900">专注空间预览</h2>
             <p className="text-sm text-slate-500">白噪音与待办清单可直接在首页快速使用，亦可跳转至完整页面。</p>
           </div>
           <Link href="/tools" className="text-sm font-semibold text-brand-600 hover:text-brand-700">

@@ -26,6 +26,6 @@ export default function WhiteNoisePage() {
 }
 
 WhiteNoisePage.getBreadcrumbItems = () => [
-  { label: '效率工具', href: '/tools' },
+  { label: '专注空间', href: '/tools' },
   { label: '白噪声播放器' },
 ];

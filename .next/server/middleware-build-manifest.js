@@ -20,15 +20,15 @@ globalThis.__BUILD_MANIFEST = {
       "static/chunks/main.js",
       "static/chunks/pages/_error.js"
     ],
-    "/tools/dark-room": [
+    "/tools": [
       "static/chunks/webpack.js",
       "static/chunks/main.js",
-      "static/chunks/pages/tools/dark-room.js"
+      "static/chunks/pages/tools.js"
     ],
-    "/tools/white-noise": [
+    "/tools/meditation": [
       "static/chunks/webpack.js",
       "static/chunks/main.js",
-      "static/chunks/pages/tools/white-noise.js"
+      "static/chunks/pages/tools/meditation.js"
     ]
   },
   "ampFirstPages": []

@@ -1,0 +1,213 @@
+import Link from "next/link";
+import { useEffect, useMemo, useRef, useState } from "react";
+
+import WhiteNoisePlayer from "../../components/tools/WhiteNoisePlayer";
+
+const BREATHING_SEQUENCE = [
+  { label: "吸气", duration: 4, hint: "缓缓吸入，感受空气充盈腹腔。", color: "from-emerald-400 via-teal-400 to-cyan-400" },
+  { label: "停留", duration: 4, hint: "短暂停留，保持轻松与稳定。", color: "from-sky-500 via-sky-400 to-teal-400" },
+  { label: "呼气", duration: 6, hint: "缓慢呼出，释放身体里的紧绷。", color: "from-indigo-500 via-purple-500 to-emerald-400" },
+];
+
+export default function MeditationPage() {
+  const [length, setLength] = useState(10);
+  const [remaining, setRemaining] = useState(length * 60);
+  const [running, setRunning] = useState(false);
+  const [phaseIndex, setPhaseIndex] = useState(0);
+  const [notes, setNotes] = useState("");
+  const breathingTimer = useRef(null);
+
+  useEffect(() => {
+    return () => {
+      if (breathingTimer.current) clearInterval(breathingTimer.current);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!running) {
+      if (breathingTimer.current) clearInterval(breathingTimer.current);
+      return undefined;
+    }
+
+    let phase = phaseIndex;
+    let elapsed = 0;
+
+    function tick() {
+      setRemaining((prev) => {
+        if (prev <= 1) {
+          setRunning(false);
+          setPhaseIndex(0);
+          return 0;
+        }
+        return prev - 1;
+      });
+
+      elapsed += 1;
+      if (elapsed >= BREATHING_SEQUENCE[phase].duration) {
+        elapsed = 0;
+        phase = (phase + 1) % BREATHING_SEQUENCE.length;
+        setPhaseIndex(phase);
+      }
+    }
+
+    breathingTimer.current = setInterval(tick, 1000);
+    return () => clearInterval(breathingTimer.current);
+  }, [running, phaseIndex]);
+
+  useEffect(() => {
+    if (!running) {
+      setRemaining(length * 60);
+    }
+  }, [length, running]);
+
+  function toggleRunning() {
+    setRunning((prev) => {
+      const next = !prev;
+      if (next) {
+        setPhaseIndex(0);
+        setRemaining(length * 60);
+      } else {
+        if (breathingTimer.current) clearInterval(breathingTimer.current);
+        setPhaseIndex(0);
+        setRemaining(length * 60);
+      }
+      return next;
+    });
+  }
+
+  function resetSession() {
+    setRunning(false);
+    if (breathingTimer.current) clearInterval(breathingTimer.current);
+    setPhaseIndex(0);
+    setRemaining(length * 60);
+  }
+
+  const currentPhase = BREATHING_SEQUENCE[phaseIndex];
+  const progress = useMemo(() => 1 - remaining / (length * 60 || 1), [remaining, length]);
+
+  return (
+    <div className="relative min-h-screen overflow-hidden bg-gradient-to-b from-slate-950 via-slate-900/95 to-slate-900 text-slate-100">
+      <div className="pointer-events-none absolute inset-0">
+        <div className="absolute left-[-20%] top-[10%] h-[420px] w-[420px] rounded-full bg-emerald-500/10 blur-3xl" />
+        <div className="absolute right-[-15%] top-[30%] h-[360px] w-[360px] rounded-full bg-sky-500/10 blur-3xl" />
+        <div className="absolute left-1/2 top-0 h-[280px] w-[280px] -translate-x-1/2 rounded-full bg-cyan-500/10 blur-3xl" />
+      </div>
+
+      <div className="absolute left-8 top-8 z-20 text-xs font-medium text-slate-400/80 sm:text-sm">
+        <Link href="/tools" className="text-slate-300/80 transition hover:text-cyan-200">专注空间</Link>
+        <span className="px-1 text-slate-500/60">·</span>
+        <span className="text-slate-400/70">冥想空间</span>
+      </div>
+
+      <div className="relative z-10 mx-auto flex max-w-6xl flex-col gap-14 px-6 pb-20 pt-24">
+        <header className="mx-auto max-w-2xl text-center space-y-4">
+          <span className="inline-flex items-center rounded-full border border-teal-400/30 bg-teal-500/10 px-5 py-1 text-xs font-semibold uppercase tracking-[0.35em] text-teal-100">
+            Calm Rhythm
+          </span>
+          <h1 className="text-4xl font-display font-bold text-slate-100 sm:text-5xl">冥想空间 · 呼吸宁静</h1>
+          <p className="text-sm leading-relaxed text-slate-300">
+            跟随 4-4-6 呼吸节奏，配合细腻的提示语与环境音，为日常冥想与睡前放松营造一处平静角落。
+            让呼吸成为你的节拍器，让宁静慢慢浸润到身体的每一个角落。
+          </p>
+        </header>
+
+        <section className="grid gap-10 lg:grid-cols-[1.7fr,1fr]">
+          <div className="space-y-6 rounded-[30px] border border-white/10 bg-white/5 p-8 shadow-2xl shadow-slate-950/40 backdrop-blur">
+            <div className="flex flex-wrap items-center justify-between gap-6">
+              <div>
+                <p className="text-[11px] uppercase tracking-[0.3em] text-slate-400/80">Session Length</p>
+                <div className="mt-3 flex items-baseline gap-3">
+                  <span className="text-5xl font-display font-semibold text-white">{Math.floor(remaining / 60)}</span>
+                  <span className="text-sm text-slate-400">分钟剩余</span>
+                </div>
+              </div>
+              <div className="flex items-center gap-4 text-sm text-slate-300">
+                <label htmlFor="length" className="text-xs uppercase tracking-[0.2em] text-slate-500">
+                  时长
+                </label>
+                <input
+                  id="length"
+                  type="range"
+                  min="5"
+                  max="45"
+                  step="5"
+                  value={length}
+                  onChange={(event) => setLength(Number(event.target.value))}
+                  className="h-2 w-44 cursor-pointer rounded-full bg-white/10 accent-teal-300"
+                />
+                <span>{length} 分钟</span>
+              </div>
+            </div>
+
+            <div className="relative mt-6 flex h-[360px] items-center justify-center overflow-hidden rounded-[30px] border border-white/10 bg-gradient-to-br from-slate-900/80 via-slate-900/60 to-slate-900/80">
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(56,189,248,0.15),transparent_55%)]" />
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_80%,rgba(94,234,212,0.12),transparent_60%)]" />
+              <div className="relative flex h-56 w-56 items-center justify-center rounded-full bg-white/5 shadow-[0_0_40px_rgba(94,234,212,0.25)]">
+                <div
+                  className={`flex h-44 w-44 items-center justify-center rounded-full bg-gradient-to-br ${currentPhase.color} text-white shadow-[0_0_30px_rgba(56,189,248,0.35)] transition-all duration-700`}
+                >
+                  <span className="text-3xl font-display font-semibold tracking-[0.25em]">{currentPhase.label}</span>
+                </div>
+              </div>
+              <div className="absolute bottom-10 left-1/2 w-[72%] -translate-x-1/2 rounded-full bg-white/5 px-5 py-3 text-center text-xs text-slate-200/80 backdrop-blur">
+                {currentPhase.hint}
+              </div>
+              <div className="absolute bottom-0 left-0 h-1 w-full rounded-full bg-white/10">
+                <div className="h-full rounded-full bg-gradient-to-r from-teal-400 via-sky-400 to-cyan-400 transition-all duration-500" style={{ width: `${Math.min(progress, 1) * 100}%` }} />
+              </div>
+            </div>
+
+            <div className="flex flex-wrap items-center justify-center gap-4">
+              <button
+                type="button"
+                onClick={toggleRunning}
+                className={`rounded-full px-8 py-3 text-sm font-semibold text-slate-950 shadow-soft transition ${
+                  running ? "bg-rose-200 hover:bg-rose-100" : "bg-teal-200 hover:bg-teal-100"
+                }`}
+              >
+                {running ? "暂停呼吸" : "开始呼吸"}
+              </button>
+              <button
+                type="button"
+                onClick={resetSession}
+                className="rounded-full border border-white/20 px-8 py-3 text-sm font-semibold text-slate-200 transition hover:border-teal-200/60 hover:text-teal-100"
+              >
+                重置节奏
+              </button>
+            </div>
+          </div>
+
+          <aside className="space-y-6">
+            <section className="space-y-4 rounded-[30px] border border-white/10 bg-white/5 p-6 shadow-2xl shadow-slate-950/40 backdrop-blur">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-[11px] uppercase tracking-[0.3em] text-slate-400/80">Ambient Mixer</p>
+                  <h2 className="mt-2 text-lg font-display font-semibold text-slate-100">伴随自然声</h2>
+                </div>
+              </div>
+              <WhiteNoisePlayer tone="dark" showStats={false} showControls={false} className="border-0 bg-transparent p-0 shadow-none" />
+            </section>
+
+            <section className="space-y-3 rounded-[30px] border border-white/10 bg-white/5 p-6 shadow-2xl shadow-slate-950/40 backdrop-blur">
+              <h2 className="text-lg font-display font-semibold text-slate-100">冥想随记</h2>
+              <textarea
+                value={notes}
+                onChange={(event) => setNotes(event.target.value)}
+                placeholder="记录冥想前后的感受、身体带来的讯号或灵感。慢慢写下，让心绪沉淀。"
+                className="h-40 w-full rounded-3xl border border-white/10 bg-slate-900/60 px-4 py-3 text-sm text-slate-200 placeholder:text-slate-500 focus:border-teal-200 focus:outline-none focus:ring-2 focus:ring-teal-300/40"
+              />
+              <p className="text-[11px] text-slate-400/80">
+                小提醒：描述一两个当下的感受即可，冥想不是完成任务，而是练习与自己相处。
+              </p>
+            </section>
+          </aside>
+        </section>
+      </div>
+    </div>
+  );
+}
+
+MeditationPage.getBreadcrumbItems = () => [
+  { label: "专注空间", href: "/tools" },
+  { label: "冥想空间" },
+];

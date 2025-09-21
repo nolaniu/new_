@@ -1,195 +1,365 @@
 ﻿import Link from "next/link";
 import { useEffect, useMemo, useRef, useState } from "react";
 
-import WhiteNoisePlayer from "../../components/tools/WhiteNoisePlayer";
-
 const BREATHING_SEQUENCE = [
-  { label: "吸气", duration: 4, hint: "缓慢吸气，感受空气充满肺部", color: "from-brand-500 to-brand-400" },
-  { label: "停留", duration: 4, hint: "保持静止，让身体感受饱满", color: "from-emerald-500 to-emerald-400" },
-  { label: "呼气", duration: 6, hint: "平稳呼气，顺势放松肩颈", color: "from-sky-500 to-sky-400" },
+  {
+    label: "吸气",
+    duration: 4,
+    hint: "从鼻腔缓缓吸入，胸腹像树梢一样舒展。",
+  },
+  {
+    label: "保持",
+    duration: 1,
+    hint: "轻轻保持，感受空气在身体里安稳流动。",
+  },
+  {
+    label: "呼气",
+    duration: 6,
+    hint: "慢慢呼出，像风穿过森林带走紧绷。",
+  },
 ];
 
+const BACKGROUNDS = [
+  {
+    id: "forest",
+    label: "林间晨雾",
+    image: "/images/sunbeams-1547273.jpg",
+    audio: "/audio/林间晨雾.mp3",
+  },
+  {
+    id: "stream",
+    label: "山涧清泉",
+    image: "/images/mountain-stream-7847462_1920.jpg",
+    audio: "/audio/山涧清泉.mp3",
+  },
+  {
+    id: "valley",
+    label: "丘谷薄暮",
+    image: "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=2000&q=80",
+    audio: "/audio/丘谷暮霭.mp3",
+  },
+];
+
+const QUOTES = [
+  "呼吸是连接自我与世界的桥梁。",
+  "让思绪像晨雾散开，只留下清晰的觉察。",
+  "安静坐下，你会听见身体在诉说。",
+  "带着善意对待每一次呼吸，宁静自然到来。",
+  "光与影在林间流动，如同心的节奏。",
+];
+
+const BREATHING_CYCLE_SECONDS = BREATHING_SEQUENCE.reduce((sum, phase) => sum + phase.duration, 0);
+
+
+
 export default function MeditationPage() {
-  const [length, setLength] = useState(10);
-  const [remaining, setRemaining] = useState(length * 60);
+    const SESSION_DURATION_SECONDS = 60;
+    const [remaining, setRemaining] = useState(SESSION_DURATION_SECONDS);
   const [running, setRunning] = useState(false);
+  const [showBreathing, setShowBreathing] = useState(false);
   const [phaseIndex, setPhaseIndex] = useState(0);
-  const [notes, setNotes] = useState("");
-  const breathingTimer = useRef(null);
+  const [backgroundIndex, setBackgroundIndex] = useState(2); // 设置默认为丘谷薄暮（索引2）
+  const [quote, setQuote] = useState(QUOTES[0]);
+  const [animationKey, setAnimationKey] = useState(0);
+  const [isMuted, setIsMuted] = useState(false);
+  const timerRef = useRef(null);
+  const audioRef = useRef(null);
 
   useEffect(() => {
-    return () => {
-      if (breathingTimer.current) clearInterval(breathingTimer.current);
+    setQuote(QUOTES[Math.floor(Math.random() * QUOTES.length)]);
+  }, []);
+
+  useEffect(() => {
+      return () => {
+      if (timerRef.current) clearInterval(timerRef.current);
     };
   }, []);
 
   useEffect(() => {
     if (!running) {
-      if (breathingTimer.current) clearInterval(breathingTimer.current);
+      if (timerRef.current) clearInterval(timerRef.current);
       return undefined;
     }
 
     let phase = phaseIndex;
     let elapsed = 0;
 
-    function tick() {
+    const tick = () => {
       setRemaining((prev) => {
         if (prev <= 1) {
           setRunning(false);
           setPhaseIndex(0);
+          setAnimationKey((seed) => seed + 1);
+      setShowBreathing(true);
           return 0;
         }
         return prev - 1;
       });
+
       elapsed += 1;
       if (elapsed >= BREATHING_SEQUENCE[phase].duration) {
         elapsed = 0;
         phase = (phase + 1) % BREATHING_SEQUENCE.length;
         setPhaseIndex(phase);
       }
-    }
+    };
 
-    breathingTimer.current = setInterval(tick, 1000);
-    return () => clearInterval(breathingTimer.current);
+    timerRef.current = setInterval(tick, 1000);
+    return () => timerRef.current && clearInterval(timerRef.current);
   }, [running, phaseIndex]);
 
   useEffect(() => {
     if (!running) {
-      setRemaining(length * 60);
+      setRemaining(SESSION_DURATION_SECONDS);
     }
-  }, [length, running]);
+  }, [running]);
 
-  function toggleRunning() {
+  const currentPhase = BREATHING_SEQUENCE[phaseIndex];
+    const progress = useMemo(() => 1 - remaining / (SESSION_DURATION_SECONDS || 1), [remaining]);
+  const minutes = Math.floor(remaining / 60);
+  const seconds = remaining % 60;
+  const background = BACKGROUNDS[backgroundIndex];
+
+  useEffect(() => {
+    const audio = audioRef.current;
+    if (!audio) return;
+    audio.pause();
+    audio.currentTime = 0;
+    audio.src = background.audio;
+    audio.load();
+    audio.volume = background.id === 'valley' ? 0.2 : 1;
+    audio.muted = isMuted;
+    if (!isMuted) {
+      const playPromise = audio.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(() => {});
+      }
+    }
+  }, [backgroundIndex, background.audio]);
+
+  useEffect(() => {
+    const audio = audioRef.current;
+    if (!audio) return;
+    audio.muted = isMuted;
+    audio.volume = background.id === 'valley' ? 0.2 : 1;
+    if (isMuted) {
+      audio.pause();
+    } else {
+      const playPromise = audio.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(() => {});
+      }
+    }
+  }, [isMuted]);
+
+
+
+
+
+
+
+
+
+
+  const toggleSession = () => {
     setRunning((prev) => {
       const next = !prev;
+
       if (next) {
         setPhaseIndex(0);
-        setRemaining(length * 60);
+        setRemaining(SESSION_DURATION_SECONDS);
+        setAnimationKey((seed) => seed + 1);
+        setShowBreathing(true);
       } else {
-        if (breathingTimer.current) clearInterval(breathingTimer.current);
         setPhaseIndex(0);
-        setRemaining(length * 60);
+        setAnimationKey((seed) => seed + 1);
+      }
+
+      return next;
+    });
+  };
+  const resetSession = () => {
+    setRunning(false);
+    if (timerRef.current) clearInterval(timerRef.current);
+    setPhaseIndex(0);
+    setRemaining(SESSION_DURATION_SECONDS);
+    setAnimationKey((seed) => seed + 1);
+  };
+  const cycleBackground = () => setBackgroundIndex((prev) => (prev + 1) % BACKGROUNDS.length);
+
+  const toggleBreathingOverlay = () => {
+    setShowBreathing((prev) => {
+      const next = !prev;
+      if (!next) {
+        setRunning(false);
+        setRemaining(SESSION_DURATION_SECONDS);
+        setAnimationKey((seed) => seed + 1);
+        const audio = audioRef.current;
+        if (audio) {
+          audio.pause();
+          audio.currentTime = 0;
+        }
       }
       return next;
     });
-  }
+  };
 
-  function resetSession() {
-    setRunning(false);
-    if (breathingTimer.current) clearInterval(breathingTimer.current);
-    setPhaseIndex(0);
-    setRemaining(length * 60);
-  }
+  const toggleMute = () => {
+    setIsMuted((prev) => !prev);
+  };
 
-  const currentPhase = BREATHING_SEQUENCE[phaseIndex];
-  const progress = useMemo(() => 1 - remaining / (length * 60 || 1), [remaining, length]);
 
-  return (
-    <div className="space-y-12">
-      <header className="space-y-2">
-        <p className="text-sm font-semibold text-brand-600">冥想空间</p>
-        <h1 className="text-3xl font-display font-bold text-slate-900">呼吸、觉察、记录，让冥想成为日常仪式</h1>
-        <p className="max-w-2xl text-sm leading-relaxed text-slate-600">
-          灵感来自 trynoice/web-app-v0，将呼吸节奏、情绪记录与声音陪伴整合在同一页面。跟随 4-4-6 呼吸节奏，缓慢调频，再利用白噪音稳定心率和注意力。
-        </p>
-      </header>
-
-      <section className="grid gap-8 lg:grid-cols-[2fr,1fr]">
-        <div className="space-y-6 rounded-3xl border border-slate-200 bg-white p-8 shadow-sm">
-          <div className="flex flex-wrap items-center justify-between gap-4">
-            <div>
-              <p className="text-xs uppercase tracking-wide text-slate-400">冥想时长</p>
-              <div className="flex items-baseline gap-2">
-                <span className="text-4xl font-display font-bold text-slate-900">{Math.floor(remaining / 60)}</span>
-                <span className="text-sm text-slate-500">分钟剩余</span>
-              </div>
-            </div>
-            <div className="flex items-center gap-3">
-              <label className="text-xs font-semibold uppercase tracking-wide text-slate-400" htmlFor="length">
-                时长
-              </label>
-              <input
-                id="length"
-                type="range"
-                min="5"
-                max="45"
-                step="5"
-                value={length}
-                onChange={(event) => setLength(Number(event.target.value))}
-                className="h-2 w-40 cursor-pointer rounded-full bg-slate-200 accent-brand-600"
-              />
-              <span className="text-sm text-slate-500">{length} 分钟</span>
-            </div>
-          </div>
-
-          <div className="relative flex h-80 items-center justify-center overflow-hidden rounded-3xl bg-gradient-to-br from-brand-50 via-white to-white">
-            <div className="absolute inset-0 bg-gradient-to-br from-white/0 via-white/40 to-white/0" />
-            <div className="relative flex h-48 w-48 items-center justify-center rounded-full bg-gradient-to-br from-brand-200 to-brand-100">
-              <div
-                className={`flex h-40 w-40 items-center justify-center rounded-full bg-gradient-to-br ${currentPhase.color} text-white shadow-2xl transition-all`}
-              >
-                <span className="text-2xl font-display font-semibold">{currentPhase.label}</span>
-              </div>
-            </div>
-            <div className="absolute bottom-6 left-1/2 w-[70%] -translate-x-1/2 rounded-full bg-slate-200/70 p-3 text-center text-xs text-slate-600">
-              {currentPhase.hint}
-            </div>
-            <div className="absolute bottom-0 left-0 h-1 w-full bg-slate-100">
-              <div className="h-full bg-brand-500 transition-all" style={{ width: `${Math.min(progress, 1) * 100}%` }} />
-            </div>
-          </div>
-
-          <div className="flex flex-wrap items-center justify-center gap-4">
-            <button
-              type="button"
-              onClick={toggleRunning}
-              className={`rounded-full px-6 py-3 text-sm font-semibold text-white shadow-soft transition ${
-                running ? "bg-rose-500 hover:bg-rose-600" : "bg-brand-600 hover:bg-brand-700"
-              }`}
-            >
-              {running ? "暂停冥想" : "开始冥想"}
-            </button>
-            <button
-              type="button"
-              onClick={resetSession}
-              className="rounded-full border border-slate-200 px-6 py-3 text-sm font-semibold text-slate-600 transition hover:border-brand-200 hover:text-brand-700"
-            >
-              重置
-            </button>
-          </div>
-        </div>
-
-        <aside className="space-y-6">
-          <section className="space-y-4 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-400">Ambient Mixer</p>
-                <h2 className="mt-2 text-lg font-display font-semibold text-slate-900">白噪音陪伴</h2>
-              </div>            </div>
-            <WhiteNoisePlayer tone="light" showStats={false} showControls={false} className="border-0 p-0 shadow-none" />
-          </section>
-
-          <section className="space-y-3 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
-            <h2 className="text-lg font-display font-semibold text-slate-900">冥想前后记录</h2>
-            <textarea
-              value={notes}
-              onChange={(event) => setNotes(event.target.value)}
-              placeholder="记录此刻的情绪、身体感受或冥想后的变化，逐步构建属于你的冥想档案。"
-              className="h-40 w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-700 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-200"
-            />
-            <p className="text-[11px] text-slate-400">
-              小提示：结束后回顾这段文字，更容易察觉冥想对情绪和注意力的影响。
-            </p>
-          </section>
-        </aside>
-      </section>
+return (
+  <div className="relative flex min-h-screen w-full items-center justify-center overflow-hidden text-slate-100">
+    <audio ref={audioRef} className="hidden" loop preload="auto" />
+    <div className="absolute inset-0">
+      <div
+        className="absolute inset-0 bg-cover bg-center transition-all duration-[1500ms]"
+        style={{ backgroundImage: `url(${background.image})` }}
+      />
+      <div className="absolute inset-0 bg-gradient-to-b from-black/55 via-slate-950/70 to-slate-950" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_25%,rgba(56,189,248,0.18),transparent_60%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_65%,rgba(52,211,153,0.18),transparent_60%)]" />
     </div>
-  );
+
+    <div className="absolute left-8 top-8 z-20 text-xs font-medium text-slate-200/80 sm:text-sm">
+      <Link href="/tools" className="text-slate-100/80 transition hover:text-teal-100">专注空间</Link>
+      <span className="px-1 text-slate-400/70">·</span>
+      <span className="text-slate-100/70">冥想空间</span>
+    </div>
+
+          <div className="absolute left-8 top-1/2 z-20 -translate-y-1/2">
+  <div className="flex flex-col items-start gap-3">
+    <button
+        type="button"
+        className="group flex w-32 items-center gap-2 rounded-full border border-emerald-300/50 bg-emerald-400/20 px-3 py-2 text-xs font-medium text-emerald-100 shadow-lg shadow-emerald-900/40 transition hover:text-teal-100"
+      >
+        <svg 
+          viewBox="0 0 24 24" 
+          className="h-5 w-5" 
+          aria-hidden="true"
+          onClick={toggleMute}
+        >
+          {isMuted ? (
+            <path
+              d="M4 9v6h4l5 4V5l-5 4H4zm11.586-2.414 1.828-1.829 1.414 1.415-1.828 1.828L21 12l-3 3 1.828 1.828-1.414 1.415-1.828-1.829L15 16.999l-1.414-1.414 1.828-1.828-1.828-1.828L15 10.513l1.586-1.927z"
+              fill="currentColor"
+            />
+          ) : (
+            <path
+              d="M4 9v6h4l5 4V5L8 9H4zm11.5-3.5c1.933 1.2 3 3.253 3 5.5s-1.067 4.3-3 5.5l-1-1.732c1.257-.78 2-2.136 2-3.768s-.743-2.988-2-3.768l1-1.732z"
+              fill="currentColor"
+            />
+          )}
+        </svg>
+        <span
+          className="flex-1 text-center cursor-pointer"
+          onClick={cycleBackground}
+        >
+          {background.label}
+        </span>
+      </button>
+    <button
+      type="button"
+      onClick={toggleBreathingOverlay}
+      className="flex w-32 items-center gap-2 rounded-full border border-emerald-300/50 bg-emerald-400/20 px-3 py-2 text-xs font-medium text-emerald-100 shadow-lg shadow-emerald-900/40 transition hover:border-teal-200 hover:text-teal-100"
+      aria-pressed={showBreathing}
+    >
+      <svg viewBox="0 0 24 24" className="h-5 w-5" aria-hidden="true">
+        <circle cx="12" cy="7" r="2" fill="none" stroke="currentColor" strokeWidth="1.5" />
+        <path
+          d="M7 18c0-2.8 2.2-5 5-5s5 2.2 5 5"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+        />
+        <path
+          d="M12 12c-3.3 0-6 1.3-6 3"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+        />
+        <path
+          d="M18 15c0-1.7-2.7-3-6-3"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+        />
+      </svg>
+      <span className="flex-1 text-center">{showBreathing ? '结束冥想' : '一分钟冥想'}</span>
+    </button>
+  </div>
+</div>
+      {showBreathing && (
+  <main className="relative z-10 flex w-full max-w-xl flex-col items-center gap-10 px-4 pt-28 pb-24 text-center">
+    <div className="relative flex h-[360px] w-full max-w-md items-center justify-center overflow-hidden rounded-[32px] border border-emerald-400/30">
+      <div className="absolute inset-0 bg-gradient-to-br from-emerald-400/18 via-teal-500/18 to-sky-400/18" aria-hidden />
+      <div
+        className="absolute inset-0 bg-cover bg-center opacity-15 mix-blend-soft-light transition-all duration-[1500ms]"
+        style={{ backgroundImage: `url(${background.image})` }}
+        aria-hidden
+      />
+      <div className="relative flex h-56 w-56 -translate-y-8 items-center justify-center rounded-full bg-white/10 shadow-[0_0_45px_rgba(34,197,94,0.35)]">
+        <div
+          key={animationKey}
+          className="breathing-circle flex h-44 w-44 items-center justify-center rounded-full text-white shadow-[0_0_35px_rgba(59,130,246,0.35)]"
+          style={{
+            '--breathing-duration': `${BREATHING_CYCLE_SECONDS}s`,
+            animationPlayState: running ? 'running' : 'paused',
+          }}
+        >
+          <span className="text-3xl font-display font-semibold tracking-[0.28em]">{currentPhase.label}</span>
+        </div>
+      </div>
+      <div className="absolute bottom-10 left-1/2 w-[72%] -translate-x-1/2 rounded-full bg-emerald-500/20 px-5 py-3 text-center text-xs text-emerald-50/90 backdrop-blur">
+        {currentPhase.hint}
+      </div>
+      <div className="absolute bottom-0 left-0 h-1 w-full rounded-full bg-emerald-500/20">
+        <div
+          className="h-full rounded-full bg-gradient-to-r from-emerald-300 via-teal-300 to-sky-300 transition-all duration-500"
+          style={{ width: `${Math.min(progress, 1) * 100}%` }}
+        />
+      </div>
+    </div>
+
+    <div className="flex flex-wrap items-center justify-center gap-4">
+      <button
+        type="button"
+        onClick={toggleSession}
+        className={`rounded-full px-8 py-3 text-sm font-semibold text-emerald-900 shadow-soft transition ${
+          running ? "bg-emerald-200/80 hover:bg-emerald-200" : "bg-teal-200/80 hover:bg-teal-200"
+        }`}
+      >
+        {running ? '暂停呼吸' : '开始呼吸'}
+      </button>
+      <button
+        type="button"
+        onClick={resetSession}
+        className="rounded-full border border-emerald-300/50 px-8 py-3 text-sm font-semibold text-emerald-100 transition hover:border-emerald-200 hover:text-emerald-50"
+      >
+        重置节奏
+      </button>
+    </div>
+  </main>
+)}
+
+  </div>
+);
 }
 
-MeditationPage.getBreadcrumbItems = () => [
-  { label: "效率工具", href: "/tools" },
-  { label: "冥想空间" },
-];
+MeditationPage.getLayout = (page) => page;
+
+
+
+
+
+
+
+
+
+
 
 

@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 const NAV_LINKS = [
   { href: '/', label: '首页' },
   { href: '/blog', label: '学习日志' },
-  { href: '/tools', label: '效率工具' },
+  { href: '/tools', label: '专注空间' },
 ];
 
 function Layout({ children, breadcrumbItems = [] }) {
@@ -77,7 +77,7 @@ function Layout({ children, breadcrumbItems = [] }) {
       </main>
       <footer className="border-t border-slate-200 bg-white/70 backdrop-blur">
         <div className="mx-auto flex max-w-6xl flex-col gap-2 px-6 py-6 text-xs text-slate-500 sm:flex-row sm:items-center sm:justify-between">
-          <span>? {new Date().getFullYear()} 学习工作室. 灵感来源于 Next.js、Tailwind、MDX 与开源效率工具。</span>
+          <span>? {new Date().getFullYear()} 学习工作室. 灵感来源于 Next.js、Tailwind、MDX 与开源专注空间。</span>
           <div className="flex items-center gap-4">
             <a href="https://github.com/timlrx/tailwind-nextjs-starter-blog" target="_blank" rel="noopener noreferrer" className="hover:text-brand-600">
               博客模板

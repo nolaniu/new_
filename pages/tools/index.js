@@ -27,7 +27,7 @@ export default function ToolsIndex() {
   return (
     <div className="space-y-12">
       <header className="space-y-4">
-        <p className="text-sm font-semibold text-brand-600">效率工具合集</p>
+        <p className="text-sm font-semibold text-brand-600">专注空间合集</p>
         <h1 className="text-3xl font-display font-bold text-slate-900">围绕专注与冥想打造的一体化练习空间</h1>
         <p className="max-w-2xl text-sm leading-relaxed text-slate-600">
           工具按照使用场景划分为“自习室”和“冥想”两大主体，每个主体内嵌常用组件，单击按钮即可进入体验。

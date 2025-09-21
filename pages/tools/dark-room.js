@@ -1,4 +1,5 @@
-﻿import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+﻿import Link from 'next/link';
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 const QUOTES = [
   "专注是一项可以习得的技能，耐心是最好的导师。",
@@ -249,6 +250,11 @@ export default function DarkRoomPage() {
         />
       </div>
 
+      <div className="absolute left-6 top-6 z-30 text-xs font-medium text-slate-400/70 sm:text-sm">
+        <Link href="/tools" className="text-slate-400/80 transition hover:text-brand-200">专注空间</Link>
+        <span className="px-1 text-slate-500/50">·</span>
+        <span className="text-slate-400/60">小黑屋自习室</span>
+      </div>
       <div className="relative z-10 mx-auto flex max-w-3xl flex-col items-center gap-8 text-center">
         <span className="rounded-full border border-slate-800/80 px-4 py-1 text-xs font-semibold uppercase tracking-[0.3em] text-slate-300/90">
           FOCUS MODE
@@ -259,7 +265,7 @@ export default function DarkRoomPage() {
         </p>
 
         <figure className="max-w-2xl space-y-4 text-center">
-          <blockquote className="text-2xl font-semibold text-slate-100">“{quote}”</blockquote>
+          <blockquote className="text-2xl font-semibold text-slate-100">"{quote}"</blockquote>
           <figcaption className="flex flex-col gap-3 text-xs text-slate-500 sm:flex-row sm:items-center sm:justify-center sm:gap-6">
             <span>提示：ESC 退出全屏｜随时切换下一句</span>
             <button
@@ -421,7 +427,7 @@ export default function DarkRoomPage() {
                         ? "border-brand-400/80 bg-brand-500/20 text-brand-200"
                         : "border-slate-700/70 bg-transparent"
                     }`}
-                    title={`${track.label}${playing[track.id] ? "（播放中）" : ""}`}
+                    title={`${track.label}${playing[track.id] ? "(播放中)" : ""}`}
                   >
                     {track.icon}
                   </button>

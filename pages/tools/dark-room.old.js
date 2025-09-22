@@ -1,7 +1,5 @@
 ﻿import Link from 'next/link';
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import FlipClock from '../../components/tools/FlipClock';
-import PomodoroTimer from '../../components/tools/PomodoroTimer';
 
 const QUOTES = [
   "专注是一项可以习得的技能，耐心是最好的导师。",
@@ -257,13 +255,15 @@ export default function DarkRoomPage() {
         <span className="px-1 text-slate-500/50">·</span>
         <span className="text-slate-400/60">小黑屋自习室</span>
       </div>
-      <div className="relative z-10 mx-auto flex max-w-3xl flex-col items-center gap-12 text-center">
-        <div className="flex flex-col items-center gap-8">
-          <FlipClock />
-          <div className="w-full max-w-sm">
-            <PomodoroTimer />
-          </div>
-        </div>
+      <div className="relative z-10 mx-auto flex max-w-3xl flex-col items-center gap-8 text-center">
+        <span className="rounded-full border border-slate-800/80 px-4 py-1 text-xs font-semibold uppercase tracking-[0.3em] text-slate-300/90">
+          FOCUS MODE
+        </span>
+        <h1 className="text-5xl font-display font-bold text-slate-100 sm:text-6xl">小黑屋专注室</h1>
+        <p className="max-w-xl text-base leading-relaxed text-slate-400">
+          灵感来自 clean-screen，进入页面后只保留励志语与背景音控制。按 ESC 可以退出，点击下方按钮可以开启或关闭全屏模式。
+        </p>
+
         <figure className="max-w-2xl space-y-4 text-center">
           <blockquote className="text-2xl font-semibold text-slate-100">"{quote}"</blockquote>
           <figcaption className="flex flex-col gap-3 text-xs text-slate-500 sm:flex-row sm:items-center sm:justify-center sm:gap-6">

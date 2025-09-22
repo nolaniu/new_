@@ -1,0 +1,895 @@
+﻿import Link from 'next/link';
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+
+// 番茄钟状态
+const TIMER_STATES = {
+  WORK: 'work',
+  SHORT_BREAK: 'short',
+  LONG_BREAK: 'long',
+};
+
+// 番茄钟设置
+const TIMER_SETTINGS = {
+  [TIMER_STATES.WORK]: { minutes: 25, label: '专注' },
+  [TIMER_STATES.SHORT_BREAK]: { minutes: 5, label: '休息' },
+  [TIMER_STATES.LONG_BREAK]: { minutes: 15, label: '长休' }
+};
+
+// 番茄钟状态管理
+const useTimer = () => {
+  // 状态定义
+  const [timeLeft, setTimeLeft] = useState(TIMER_SETTINGS[TIMER_STATES.WORK].minutes * 60);
+  const [isRunning, setIsRunning] = useState(false);
+  const [currentPhase, setCurrentPhase] = useState(TIMER_STATES.WORK);
+  const [focusCount, setFocusCount] = useState(0);
+  const [totalFocusMinutes, setTotalFocusMinutes] = useState(0);
+  const [soundEnabled, setSoundEnabled] = useState(true);
+  const [notificationEnabled, setNotificationEnabled] = useState(true);
+  const timerInterval = useRef(null);
+
+  // 格式化时间
+  const formattedTime = useMemo(() => {
+    const minutes = Math.floor(timeLeft / 60);
+    const seconds = timeLeft % 60;
+    return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+  }, [timeLeft]);
+
+  // 处理阶段完成
+  const handlePhaseComplete = useCallback(() => {
+    clearInterval(timerInterval.current);
+    setIsRunning(false);
+
+    if (soundEnabled) {
+      const audio = new Audio('/audio/timer-complete.mp3');
+      audio.play().catch(console.error);
+    }
+
+    if (notificationEnabled && 'Notification' in window) {
+      if (Notification.permission === 'granted') {
+        new Notification('计时器完成', {
+          body: `${TIMER_SETTINGS[currentPhase].label}阶段已完成`
+        });
+      }
+    }
+
+    if (currentPhase === TIMER_STATES.WORK) {
+      setFocusCount(prev => prev + 1);
+      setTotalFocusMinutes(prev => prev + TIMER_SETTINGS[TIMER_STATES.WORK].minutes);
+      
+      if (focusCount % 4 === 3) {
+        setCurrentPhase(TIMER_STATES.LONG_BREAK);
+        setTimeLeft(TIMER_SETTINGS[TIMER_STATES.LONG_BREAK].minutes * 60);
+      } else {
+        setCurrentPhase(TIMER_STATES.SHORT_BREAK);
+        setTimeLeft(TIMER_SETTINGS[TIMER_STATES.SHORT_BREAK].minutes * 60);
+      }
+    } else {
+      setCurrentPhase(TIMER_STATES.WORK);
+      setTimeLeft(TIMER_SETTINGS[TIMER_STATES.WORK].minutes * 60);
+    }
+  }, [currentPhase, focusCount, soundEnabled, notificationEnabled]);
+
+  // 开始计时器
+  const startTimer = useCallback(() => {
+    if (!isRunning) {
+      setIsRunning(true);
+      timerInterval.current = setInterval(() => {
+        setTimeLeft(prevTime => {
+          if (prevTime <= 1) {
+            handlePhaseComplete();
+            return 0;
+          }
+          return prevTime - 1;
+        });
+      }, 1000);
+    }
+  }, [isRunning, handlePhaseComplete]);
+
+  // 暂停计时器
+  const pauseTimer = useCallback(() => {
+    if (isRunning) {
+      clearInterval(timerInterval.current);
+      setIsRunning(false);
+    }
+  }, [isRunning]);
+
+  // 重置计时器
+  const resetTimer = useCallback(() => {
+    clearInterval(timerInterval.current);
+    setIsRunning(false);
+    setTimeLeft(TIMER_SETTINGS[currentPhase].minutes * 60);
+  }, [currentPhase]);
+
+  // 清理副作用
+  useEffect(() => {
+    return () => {
+      if (timerInterval.current) {
+        clearInterval(timerInterval.current);
+      }
+    };
+  }, []);
+
+  return {
+    timeLeft,
+    isRunning,
+    currentPhase,
+    focusCount,
+    totalFocusMinutes,
+    soundEnabled,
+    notificationEnabled,
+    formattedTime,
+    startTimer,
+    pauseTimer,
+    resetTimer,
+    setSoundEnabled,
+    setNotificationEnabled
+  };
+};
+
+// 主组件
+export default function DarkRoomPage() {
+  // Timer Hook
+  const timer = useTimer();
+  
+  // 系统时钟状态
+  const [currentTime, setCurrentTime] = useState(new Date());
+  
+  // 更新系统时钟
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentTime(new Date());
+    }, 1000);
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <div className="relative min-h-screen bg-gradient-to-b from-slate-900 via-slate-950 to-black">
+      <div className="absolute inset-0">
+        <div className="absolute inset-0 bg-gradient-to-b from-slate-900/80 via-slate-950/90 to-black" />
+        <div
+
+          className="absolute inset-0 opacity-40"    id: "campfire",
+
+          style={{ background: "radial-gradient(circle at 50% 20%, rgba(124,58,237,0.2), transparent 55%)" }}    label: "篝火",
+
+        />    url: "/audio/fireplace-with-crackling-sounds-2-min-rk-178392.mp3",
+
+      </div>    icon: (
+
+      <svg viewBox="0 0 24 24" aria-hidden="true" className="h-6 w-6">
+
+      {/* 导航栏 */}        <path
+
+      <header className="fixed left-6 top-6 z-30">          d="M9 5.5c1.2 1.1 2.2 2.8 2.2 4.1a2.3 2.3 0 0 1-4.6 0c0-1.3.9-3 2.4-4.1Z"
+
+        <nav className="text-sm">          stroke="currentColor"
+
+          <Link href="/tools" className="text-slate-400/80 transition hover:text-brand-200">专注空间</Link>          strokeWidth="1.5"
+
+          <span className="px-1 text-slate-500/50">·</span>          strokeLinecap="round"
+
+          <span className="text-slate-400/60">小黑屋自习室</span>          strokeLinejoin="round"
+
+        </nav>          fill="none"
+
+      </header>        />
+
+        <path
+
+      {/* 主面板 */}          d="M13.8 4.4c1.5 1.3 3.2 3.4 3.2 5.4a3.5 3.5 0 1 1-7 0c0-1.8 1.1-3.7 2.6-5.4Z"
+
+      <main className="flex min-h-screen flex-col items-center justify-center px-4">          stroke="currentColor"
+
+        <div className="flex flex-col items-center gap-16">          strokeWidth="1.5"
+
+          {/* 系统时钟 */}          strokeLinecap="round"
+
+          <div className="flex items-center gap-3">          strokeLinejoin="round"
+
+            <div className="flex h-24 w-20 items-center justify-center rounded-lg bg-slate-800/50 backdrop-blur">          fill="none"
+
+              <span className="text-6xl font-medium text-slate-200">        />
+
+                {currentTime.getHours().toString().padStart(2, '0')[0]}        <path d="M6 19.5 9.5 17m5 0L18 19.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+
+              </span>        <path d="M7.5 21h9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+
+            </div>      </svg>
+
+            <div className="flex h-24 w-20 items-center justify-center rounded-lg bg-slate-800/50 backdrop-blur">    ),
+
+              <span className="text-6xl font-medium text-slate-200">  },
+
+                {currentTime.getHours().toString().padStart(2, '0')[1]}  {
+
+              </span>    id: "waves",
+
+            </div>    label: "海浪",
+
+            <div className="text-4xl font-medium text-slate-400">:</div>    url: "/audio/ocean-waves-250310.mp3",
+
+            <div className="flex h-24 w-20 items-center justify-center rounded-lg bg-slate-800/50 backdrop-blur">    icon: (
+
+              <span className="text-6xl font-medium text-slate-200">      <svg viewBox="0 0 24 24" aria-hidden="true" className="h-6 w-6">
+
+                {currentTime.getMinutes().toString().padStart(2, '0')[0]}        <path
+
+              </span>          d="M4 15c1.2 0 1.8-.8 3-1s1.8.8 3 1 1.8-.8 3-1 1.8.8 3 1 1.8-.8 3-1"
+
+            </div>          stroke="currentColor"
+
+            <div className="flex h-24 w-20 items-center justify-center rounded-lg bg-slate-800/50 backdrop-blur">          strokeWidth="1.5"
+
+              <span className="text-6xl font-medium text-slate-200">          strokeLinecap="round"
+
+                {currentTime.getMinutes().toString().padStart(2, '0')[1]}          fill="none"
+
+              </span>        />
+
+            </div>        <path
+
+          </div>          d="M4 19c1.2 0 1.8-.8 3-1s1.8.8 3 1 1.8-.8 3-1 1.8.8 3 1 1.8-.8 3-1"
+
+          stroke="currentColor"
+
+          {/* 番茄钟 */}          strokeWidth="1.5"
+
+          <div className="mt-8 flex flex-col items-center gap-6">          strokeLinecap="round"
+
+            <div className="relative">          fill="none"
+
+              <div className="text-center p-8">        />
+
+                <div className="text-6xl font-light tracking-wider text-slate-200">      </svg>
+
+                  {timer.formattedTime}    ),
+
+                </div>  },
+
+                <div className="mt-2 text-sm font-medium text-slate-400">  {
+
+                  {TIMER_SETTINGS[timer.currentPhase].label}    id: "focus",
+
+                </div>    label: "脑波",
+
+              </div>    url: "/audio/brainwave-delta.mp3",
+
+            </div>    icon: (
+
+                  <svg viewBox="0 0 24 24" aria-hidden="true" className="h-6 w-6">
+
+            <div className="flex items-center gap-4">        <path
+
+              <button          d="M4 12c2-4 4-6 8-6s6 2 8 6c-2 4-4 6-8 6s-6-2-8-6Z"
+
+                type="button"          stroke="currentColor"
+
+                onClick={timer.isRunning ? timer.pauseTimer : timer.startTimer}          strokeWidth="1.5"
+
+                className={`          strokeLinecap="round"
+
+                  inline-flex items-center gap-2 px-6 py-3 rounded-lg text-sm font-medium           strokeLinejoin="round"
+
+                  transition-all duration-200 transform active:scale-95          fill="none"
+
+                  ${timer.isRunning        />
+
+                    ? 'bg-slate-700/50 text-slate-300 hover:bg-slate-600/50'        <path
+
+                    : 'bg-brand-500 text-white hover:bg-brand-400'          d="M9 12h2l1.5-3L14 15l1.5-3H17"
+
+                  }          stroke="currentColor"
+
+                `}          strokeWidth="1.5"
+
+              >          strokeLinecap="round"
+
+                {timer.isRunning ? '暂停' : '开始'}          strokeLinejoin="round"
+
+              </button>          fill="none"
+
+              <button        />
+
+                type="button"      </svg>
+
+                onClick={timer.resetTimer}    ),
+
+                className="px-6 py-3 rounded-lg text-sm font-medium border border-slate-700 text-slate-400 hover:border-slate-600 hover:text-slate-300 transition"  },
+
+              >];
+
+                重置
+
+              </button>function createTodo(text) {
+
+            </div>  return {
+
+    id: Date.now(),
+
+            <div className="grid grid-cols-2 gap-8">    text,
+
+              <div className="text-center">    done: false,
+
+                <div className="text-2xl font-medium text-slate-200">{timer.focusCount}</div>  };
+
+                <div className="mt-1 text-sm text-slate-400">专注次数</div>}
+
+              </div>
+
+              <div className="text-center">const QUOTES = [
+
+                <div className="text-2xl font-medium text-slate-200">{timer.totalFocusMinutes}</div>  "种一棵树最好的时间是十年前，其次是现在。",
+
+                <div className="mt-1 text-sm text-slate-400">总专注(分钟)</div>  "千里之行，始于足下。",
+
+              </div>  "学而不思则罔，思而不学则殆。",
+
+            </div>  "不积跬步，无以至千里；不积小流，无以成江海。",
+
+  "工欲善其事，必先利其器。",
+
+            <div className="flex items-center gap-6">  "知之者不如好之者，好之者不如乐之者。",
+
+              <label className="group flex items-center gap-2 cursor-pointer">  "学海无涯，唯勤是岸。",
+
+                <input  "纸上得来终觉浅，绝知此事要躬行。",
+
+                  type="checkbox"  "业精于勤，荒于嬉；行成于思，毁于随。",
+
+                  checked={timer.soundEnabled}  "读书破万卷，下笔如有神。",
+
+                  onChange={(e) => timer.setSoundEnabled(e.target.checked)}];
+
+                  className="sr-only peer"
+
+                />export default function DarkRoomPage() {
+
+                <div className="w-10 h-6 rounded-full bg-slate-700 peer-checked:bg-brand-500 transition relative after:content-[''] after:absolute after:left-[2px] after:top-[2px] after:bg-slate-300 after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:after:translate-x-full" />  // 名言状态
+
+                <span className="text-sm text-slate-400 group-hover:text-slate-300 transition">提示音</span>  const [quote, setQuote] = useState(() => QUOTES[Math.floor(Math.random() * QUOTES.length)]);
+
+              </label>  
+
+              <label className="group flex items-center gap-2 cursor-pointer">  // 待办事项状态
+
+                <input  const [showTodos, setShowTodos] = useState(false);
+
+                  type="checkbox"  const [newTodo, setNewTodo] = useState("");
+
+                  checked={timer.notificationEnabled}  const [todos, setTodos] = useState([]);
+
+                  onChange={(e) => timer.setNotificationEnabled(e.target.checked)}  const todoListRef = useRef(null);
+
+                  className="sr-only peer"  
+
+                />  // 音频状态
+
+                <div className="w-10 h-6 rounded-full bg-slate-700 peer-checked:bg-brand-500 transition relative after:content-[''] after:absolute after:left-[2px] after:top-[2px] after:bg-slate-300 after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:after:translate-x-full" />  const audioRefs = useRef({});
+
+                <span className="text-sm text-slate-400 group-hover:text-slate-300 transition">通知</span>  const [playing, setPlaying] = useState(() =>
+
+              </label>    Object.fromEntries(WHITE_NOISE_TRACKS.map((track) => [track.id, false])),
+
+            </div>  );
+
+          </div>
+
+        </div>  // 系统时钟状态
+
+      </main>  const [currentTime, setCurrentTime] = useState(new Date());
+
+    </div>  
+
+  );  // 使用自定义 Timer Hook
+
+}  const timer = useTimer();
+
+  const handleKeydown = useCallback((event) => {
+    if (event.key === "Escape") {
+      exitFullscreen();
+    }
+  }, []);
+
+  useEffect(() => {
+    document.addEventListener("keydown", handleKeydown);
+    return () => document.removeEventListener("keydown", handleKeydown);
+  }, [handleKeydown]);
+
+  // 更新系统时钟
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentTime(new Date());
+    }, 1000);
+    return () => clearInterval(timer);
+  }, []);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    const handleWheel = (event) => {
+      const list = todoListRef.current;
+      if (list && list.contains(event.target)) {
+        const { scrollTop, scrollHeight, clientHeight } = list;
+        const atTop = scrollTop <= 0 && event.deltaY < 0;
+        const atBottom = scrollTop + clientHeight >= scrollHeight && event.deltaY > 0;
+        if (!atTop && !atBottom) {
+          return;
+        }
+      }
+      event.preventDefault();
+    };
+
+    const previousBodyOverflow = document.body.style.overflow;
+    const previousRootOverflow = document.documentElement.style.overflow;
+
+    document.body.style.overflow = "hidden";
+    document.documentElement.style.overflow = "hidden";
+    window.addEventListener("wheel", handleWheel, { passive: false });
+
+    return () => {
+      window.removeEventListener("wheel", handleWheel);
+      document.body.style.overflow = previousBodyOverflow;
+      document.documentElement.style.overflow = previousRootOverflow;
+    };
+  }, []);
+
+  useEffect(() => {
+    WHITE_NOISE_TRACKS.forEach((track) => {
+      const audio = new Audio(track.url);
+      audio.loop = true;
+      audio.volume = 0.55;
+      audioRefs.current[track.id] = audio;
+    });
+
+    return () => {
+      Object.values(audioRefs.current).forEach((audio) => {
+        if (!audio) return;
+        audio.pause();
+        audio.src = "";
+      });
+    };
+  }, []);
+
+  const toggleTrack = (id) => {
+    const audio = audioRefs.current[id];
+    if (!audio) return;
+    setPlaying((prev) => {
+      const isPlaying = !prev[id];
+      if (isPlaying) {
+        audio.play();
+      } else {
+        audio.pause();
+        audio.currentTime = 0;
+      }
+      return { ...prev, [id]: isPlaying };
+    });
+  };
+
+  const addTodo = () => {
+    const value = newTodo.trim();
+    if (!value) return;
+    setTodos((prev) => [...prev, createTodo(value)]);
+    setNewTodo("");
+  };
+
+  const toggleTodo = (id) => {
+    setTodos((prev) => prev.map((item) => (item.id === id ? { ...item, done: !item.done } : item)));
+  };
+
+  const removeTodo = (id) => {
+    setTodos((prev) => prev.filter((item) => item.id !== id));
+  };
+
+  const toggleTodoPanel = () => {
+    setShowTodos((prev) => !prev);
+  };
+
+  const pickRandomQuote = (currentQuote) => {
+    let newQuote;
+    do {
+      newQuote = QUOTES[Math.floor(Math.random() * QUOTES.length)];
+    } while (newQuote === currentQuote);
+    return newQuote;
+  };
+
+  const randomizeQuote = () => {
+    setQuote((current) => pickRandomQuote(current));
+  };
+
+  const backgroundClass = useMemo(
+    () => "bg-gradient-to-b from-slate-950 via-slate-950/96 to-slate-900 text-slate-100",
+    [],
+  );
+
+  const toggleFullscreen = () => {
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen();
+    } else {
+      document.exitFullscreen();
+    }
+  };
+
+  return (
+    <div className="relative min-h-screen bg-gradient-to-b from-slate-900 via-slate-950 to-black">
+      <div className="absolute inset-0">
+        <div className="absolute inset-0 bg-gradient-to-b from-slate-900/80 via-slate-950/90 to-black" />
+        <div
+          className="absolute inset-0 opacity-40"
+          style={{ background: "radial-gradient(circle at 50% 20%, rgba(124,58,237,0.2), transparent 55%)" }}
+        />
+      </div>
+
+      {/* 导航栏 */}
+      <header className="fixed left-6 top-6 z-30">
+        <nav className="text-sm">
+          <Link href="/tools" className="text-slate-400/80 transition hover:text-brand-200">专注空间</Link>
+          <span className="px-1 text-slate-500/50">·</span>
+          <span className="text-slate-400/60">小黑屋自习室</span>
+        </nav>
+      </header>
+
+      {/* 主面板 */}
+      <main className="flex min-h-screen flex-col items-center justify-center px-4">
+        <div className="flex flex-col items-center gap-16">
+          {/* 系统时钟 */}
+          <div className="flex items-center gap-3">
+            <div className="flex h-24 w-20 items-center justify-center rounded-lg bg-slate-800/50 backdrop-blur">
+              <span className="text-6xl font-medium text-slate-200">{currentTime.getHours().toString().padStart(2, '0')[0]}</span>
+            </div>
+            <div className="flex h-24 w-20 items-center justify-center rounded-lg bg-slate-800/50 backdrop-blur">
+              <span className="text-6xl font-medium text-slate-200">{currentTime.getHours().toString().padStart(2, '0')[1]}</span>
+            </div>
+            <div className="text-4xl font-medium text-slate-400">:</div>
+            <div className="flex h-24 w-20 items-center justify-center rounded-lg bg-slate-800/50 backdrop-blur">
+              <span className="text-6xl font-medium text-slate-200">{currentTime.getMinutes().toString().padStart(2, '0')[0]}</span>
+            </div>
+            <div className="flex h-24 w-20 items-center justify-center rounded-lg bg-slate-800/50 backdrop-blur">
+              <span className="text-6xl font-medium text-slate-200">{currentTime.getMinutes().toString().padStart(2, '0')[1]}</span>
+            </div>
+          </div>
+
+          {/* 番茄钟 */}
+          <div className="mt-8 flex flex-col items-center gap-6">
+            <div className="text-center">
+              <div className="text-6xl font-light tracking-wider text-slate-200">
+                {timer.formattedTime}
+              </div>
+              <div className="mt-2 text-sm font-medium text-slate-400">
+                {TIMER_SETTINGS[timer.currentPhase].label}
+              </div>
+            </div>
+            <div className="flex items-center gap-4">
+              <button
+                type="button"
+                onClick={timer.isRunning ? timer.pauseTimer : timer.startTimer}
+                className={`px-6 py-2 rounded-lg text-sm font-medium transition ${
+                  timer.isRunning
+                    ? 'bg-slate-700/50 text-slate-300 hover:bg-slate-600/50'
+                    : 'bg-brand-500 text-white hover:bg-brand-400'
+                }`}
+              >
+                {timer.isRunning ? "暂停" : "开始"}
+              </button>
+              <button
+                type="button"
+                onClick={timer.resetTimer}
+                className="px-6 py-2 rounded-lg text-sm font-medium border border-slate-700 text-slate-400 hover:border-slate-600 hover:text-slate-300 transition"
+              >
+                重置
+              </button>
+            </div>
+            <div className="grid grid-cols-2 gap-8">
+              <div className="text-center">
+                <div className="text-2xl font-medium text-slate-200">{timer.focusCount}</div>
+                <div className="mt-1 text-sm text-slate-400">专注次数</div>
+              </div>
+              <div className="text-center">
+                <div className="text-2xl font-medium text-slate-200">{timer.totalFocusMinutes}</div>
+                <div className="mt-1 text-sm text-slate-400">总专注(分钟)</div>
+              </div>
+            </div>
+            <div className="flex items-center gap-6">
+              <label className="group flex items-center gap-2 cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={timer.soundEnabled}
+                  onChange={(e) => timer.setSoundEnabled(e.target.checked)}
+                  className="sr-only peer"
+                />
+                <div className="w-10 h-6 rounded-full bg-slate-700 peer-checked:bg-brand-500 transition relative after:content-[''] after:absolute after:left-[2px] after:top-[2px] after:bg-slate-300 after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:after:translate-x-full" />
+                <span className="text-sm text-slate-400 group-hover:text-slate-300 transition">提示音</span>
+              </label>
+              <label className="group flex items-center gap-2 cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={timer.notificationEnabled}
+                  onChange={(e) => timer.setNotificationEnabled(e.target.checked)}
+                  className="sr-only peer"
+                />
+                <div className="w-10 h-6 rounded-full bg-slate-700 peer-checked:bg-brand-500 transition relative after:content-[''] after:absolute after:left-[2px] after:top-[2px] after:bg-slate-300 after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:after:translate-x-full" />
+                <span className="text-sm text-slate-400 group-hover:text-slate-300 transition">通知</span>
+              </label>
+            </div>
+          </div>
+                  setIsTimerRunning(false);
+                } else {
+                  timerRef.current = setInterval(() => {
+                    setTimerSeconds((prev) => {
+                      if (prev === 0) {
+                        setTimerMinutes((prevMin) => {
+                          if (prevMin === 0) {
+                            clearInterval(timerRef.current);
+                            setIsTimerRunning(false);
+                            return 25;
+                          }
+                          return prevMin - 1;
+                        });
+                        return 59;
+                      }
+                      return prev - 1;
+                    });
+                  }, 1000);
+                  setIsTimerRunning(true);
+                }
+              }}
+              className={`flex h-10 w-10 items-center justify-center rounded-full border transition ${
+                isTimerRunning
+                  ? 'border-rose-400/60 bg-rose-500/20 text-rose-200 hover:border-rose-400'
+                  : 'border-emerald-400/60 bg-emerald-500/20 text-emerald-200 hover:border-emerald-400'
+              }`}
+            >
+              {isTimerRunning ? (
+                <svg viewBox="0 0 20 20" className="h-5 w-5" aria-hidden="true">
+                  <path d="M7 5h2v10H7zm4 0h2v10h-2z" fill="currentColor" />
+                </svg>
+              ) : (
+                <svg viewBox="0 0 20 20" className="h-5 w-5" aria-hidden="true">
+                  <path d="M7 5v10l8-5z" fill="currentColor" />
+                </svg>
+              )}
+            </button>
+            <button
+              type="button"
+              onClick={() => {
+                clearInterval(timerRef.current);
+                setIsTimerRunning(false);
+                setTimerMinutes(25);
+                setTimerSeconds(0);
+              }}
+              className="flex h-10 w-10 items-center justify-center rounded-full border border-slate-700 text-slate-400 transition hover:border-slate-600 hover:text-slate-300"
+            >
+              <svg viewBox="0 0 20 20" className="h-5 w-5" aria-hidden="true">
+                <path d="M4 5h12v10H4z" fill="currentColor" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </aside>
+
+      {/* 励志名言 */}
+      <aside className="fixed left-1/2 bottom-[15%] z-20 -translate-x-1/2">
+        <figure className="max-w-2xl space-y-4 text-center">
+          <blockquote className="text-2xl font-medium text-slate-200">"{quote}"</blockquote>
+          <figcaption className="flex flex-col gap-3 text-xs text-slate-400 sm:flex-row sm:items-center sm:justify-center">
+            <span>提示: ESC 退出全屏 | 随时切换下一句</span>
+            <button
+              type="button"
+              onClick={randomizeQuote}
+              className="self-center rounded-full border border-slate-700 px-4 py-1 text-[10px] font-semibold uppercase tracking-[0.4em] text-slate-300 hover:border-brand-400/80 hover:text-brand-200"
+            >
+              换一句
+            </button>
+          </figcaption>
+        </figure>
+      </aside>
+
+      {/* 励志名言 */}
+      <aside className="fixed left-1/2 bottom-[15%] z-20 -translate-x-1/2">
+        <figure className="max-w-2xl space-y-4 text-center">
+          <blockquote className="text-2xl font-medium text-slate-200">"{quote}"</blockquote>
+          <figcaption className="flex flex-col gap-3 text-xs text-slate-400 sm:flex-row sm:items-center sm:justify-center">
+            <span>提示: ESC 退出全屏 | 随时切换下一句</span>
+            <button
+              type="button"
+              onClick={randomizeQuote}
+              className="self-center rounded-full border border-slate-700 px-4 py-1 text-[10px] font-semibold uppercase tracking-[0.4em] text-slate-300 hover:border-brand-400/80 hover:text-brand-200"
+            >
+              换一句
+            </button>
+          </figcaption>
+        </figure>
+      </aside>
+
+      <aside className="fixed left-8 top-1/2 z-20 flex -translate-y-1/2 flex-col items-start gap-4 text-slate-300">
+        <div className="relative">
+          <button
+            type="button"
+            onClick={toggleTodoPanel}
+            className={`flex h-12 w-12 items-center justify-center rounded-full border transition ${
+              showTodos
+                ? "border-brand-400/80 bg-brand-500/20 text-brand-200"
+                : "border-slate-800/80 bg-slate-900/80 hover:border-brand-400/60 hover:text-brand-200"
+            }`}
+            aria-expanded={showTodos}
+            aria-controls="dark-room-todo-panel"
+          >
+            <svg viewBox="0 0 24 24" aria-hidden="true" className="h-6 w-6">
+              <path
+                d="M6 4h12a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4Z"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                strokeLinejoin="round"
+              />
+              <path d="M8 4v2a1 1 0 0 1-1 1H6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+              <path d="M9 10h6m-6 4h4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+            </svg>
+          </button>
+
+          <div
+            id="dark-room-todo-panel"
+            className={`absolute left-16 top-1/2 w-72 -translate-y-1/2 rounded-3xl border border-slate-800/80 bg-slate-900/70 p-5 shadow-2xl shadow-slate-900/60 transition-all duration-200 ${
+              showTodos ? "pointer-events-auto opacity-100 translate-x-0" : "pointer-events-none opacity-0 -translate-x-4"
+            }`}
+          >
+            <header className="flex items-start justify-between">
+              <h2 className="text-sm font-semibold text-slate-200">待办清单</h2>
+              <p className="text-[10px] text-slate-500">把灵感拆成小步骤</p>
+            </header>
+            <div className="mt-4 rounded-3xl border border-slate-800/70 bg-slate-900/70 px-5 py-4">
+              <input
+                type="text"
+                value={newTodo}
+                onChange={(event) => setNewTodo(event.target.value)}
+                onKeyDown={(event) => {
+                  if (event.key === "Enter") {
+                    event.preventDefault();
+                    addTodo();
+                  }
+                }}
+                placeholder="记录今天要推进的事项"
+                className="w-full rounded-2xl bg-slate-900/50 px-4 py-2 text-sm text-slate-200 placeholder:text-slate-600 focus:outline-none focus:ring-2 focus:ring-brand-400/40"
+              />
+
+            </div>
+            <ul
+              ref={todoListRef}
+              className="scrollbar-soft mt-4 max-h-48 space-y-3 overflow-y-auto pr-1"
+            >
+              {todos.map((item, index) => (
+                <li
+                  key={item.id}
+                  className="flex items-start justify-between gap-4 rounded-2xl border border-slate-800/70 bg-slate-900/70 px-4 py-3 text-left"
+                >
+                  <div className="flex flex-1 min-w-0 items-start gap-3 text-left text-sm text-slate-200 leading-relaxed">
+                    <span className="mt-0.5 text-xs text-slate-500">{index + 1}.</span>
+                    <button
+                      type="button"
+                      onClick={() => toggleTodo(item.id)}
+                      className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-full border transition mt-0.5 ${
+                        item.done
+                          ? "border-brand-400 bg-brand-500/30 text-brand-200"
+                          : "border-slate-700 text-transparent"
+                      }`}
+                      aria-pressed={item.done}
+                    >
+                      {item.done ? (
+                        <svg viewBox="0 0 20 20" className="h-3 w-3" aria-hidden="true">
+                          <path d="M5 10.5 8.5 14l6-8" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+                        </svg>
+                      ) : null}
+                    </button>
+                    <span className={`flex-1 break-words break-all leading-relaxed ${item.done ? "text-slate-500 line-through" : "text-slate-200"}`}>{item.text}</span>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => removeTodo(item.id)}
+                    className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-transparent text-slate-500 transition hover:border-rose-400/50 hover:text-rose-200"
+                    aria-label="delete"
+                  >
+                    <svg viewBox="0 0 20 20" className="h-3.5 w-3.5" aria-hidden="true">
+                      <path d="M5 5l10 10M15 5L5 15" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+                    </svg>
+                  </button>
+                </li>
+              ))}
+              {todos.length === 0 ? (
+                <li className="rounded-2xl border border-dashed border-slate-700/80 bg-slate-900/50 px-4 py-6 text-sm text-slate-600">
+                  还没有事项，给自己定一个小目标吧。
+                </li>
+              ) : null}
+            </ul>
+          </div>
+        </div>
+      </aside>
+
+      <aside className="fixed right-8 top-1/2 z-20 flex -translate-y-1/2 flex-col items-end text-slate-300">
+        <div className="relative">
+          <div className="group inline-flex items-center">
+            <button
+              type="button"
+              className={`flex h-12 w-12 items-center justify-center rounded-full border border-slate-800/80 bg-slate-900/80 transition hover:border-brand-400/60 hover:text-brand-200 ${
+                Object.values(playing).some(Boolean) ? "border-brand-400/80 text-brand-200" : ""
+              }`}
+              aria-haspopup="true"
+            >
+              <svg viewBox="0 0 24 24" className="h-6 w-6" aria-hidden="true">
+                <path
+                  d="M5 15V9h3l4-4v14l-4-4H5Z"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+                <path d="M17 9.5a3.5 3.5 0 0 1 0 5" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+                <path d="M19.5 8a6 6 0 0 1 0 8" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+              </svg>
+            </button>
+            <div className="absolute right-full top-1/2 -translate-y-1/2 pl-4">
+              <div className="pointer-events-none flex flex-col items-center gap-3 rounded-3xl border border-slate-800/80 bg-slate-900/70 px-4 py-4 opacity-0 shadow-lg shadow-slate-900/40 transition-all duration-200 translate-x-3 group-hover:pointer-events-auto group-hover:opacity-100 group-hover:translate-x-0">
+                {WHITE_NOISE_TRACKS.map((track) => (
+                  <button
+                    key={track.id}
+                    type="button"
+                    onClick={() => toggleTrack(track.id)}
+                    className={`flex h-12 w-12 items-center justify-center rounded-full border text-slate-300 transition hover:border-brand-400 hover:text-brand-200 ${
+                      playing[track.id]
+                        ? "border-brand-400/80 bg-brand-500/20 text-brand-200"
+                        : "border-slate-700/70 bg-transparent"
+                    }`}
+                    title={`${track.label}${playing[track.id] ? "(播放中)" : ""}`}
+                  >
+                    {track.icon}
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </div>
+  );
+}
+
+DarkRoomPage.getLayout = (page) => page;
+
+function toggleFullscreen() {
+  if (typeof document === "undefined") return;
+  if (!document.fullscreenElement) {
+    document.documentElement.requestFullscreen();
+  } else {
+    document.exitFullscreen();
+  }
+}
+
+function exitFullscreen() {
+  if (typeof document === "undefined") return;
+  if (document.fullscreenElement) {
+    document.exitFullscreen();
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

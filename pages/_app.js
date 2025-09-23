@@ -1,5 +1,6 @@
 ﻿import Layout from '../components/Layout';
 import '../styles/globals.css';
+import '@leenguyen/react-flip-clock-countdown/dist/index.css';
 
 function MyApp({ Component, pageProps }) {
   const breadcrumbItemsSource =
@@ -20,3 +21,4 @@ function MyApp({ Component, pageProps }) {
 }
 
 export default MyApp;
+

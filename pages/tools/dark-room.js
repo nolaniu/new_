@@ -1,20 +1,20 @@
 ﻿import Link from 'next/link';
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import FlipClock from '../../components/tools/FlipClock';
+import DarkRoomClock from '../../components/tools/DarkRoomClock';
 import PomodoroTimer from '../../components/tools/PomodoroTimer';
 
 const QUOTES = [
-  "专注是一项可以习得的技能，耐心是最好的导师。",
-  "所有的创造都始于宁静，先让心慢下来。",
-  "记录想法的瞬间，就已经在和拖延保持距离。",
-  "保持对当下的觉察，你会发现时间过得更扎实。",
-  "当你真正投入，世界就会为你让路。",
+  "\u4e13\u6ce8\u662f\u4e00\u9879\u53ef\u4ee5\u4e60\u5f97\u7684\u6280\u80fd\uff0c\u8010\u5fc3\u662f\u6700\u597d\u7684\u5bfc\u5e08\u3002",
+  "\u6240\u6709\u7684\u521b\u9020\u90fd\u59cb\u4e8e\u5b81\u9759\uff0c\u5148\u8ba9\u5fc3\u6162\u4e0b\u6765\u3002",
+  "\u8bb0\u5f55\u60f3\u6cd5\u7684\u77ac\u95f4\uff0c\u5c31\u5df2\u7ecf\u5728\u548c\u62d6\u5ef6\u4fdd\u6301\u8ddd\u79bb\u3002",
+  "\u4fdd\u6301\u5bf9\u5f53\u4e0b\u7684\u89c9\u5bdf\uff0c\u4f60\u4f1a\u53d1\u73b0\u65f6\u95f4\u8fc7\u5f97\u66f4\u624e\u5b9e\u3002",
+  "\u5f53\u4f60\u771f\u6b63\u6295\u5165\uff0c\u4e16\u754c\u5c31\u4f1a\u4e3a\u4f60\u8ba9\u8def\u3002",
 ];
 
 const WHITE_NOISE_TRACKS = [
   {
     id: "rain",
-    label: "细雨",
+    label: "缁嗛洦",
     url: "/audio/rain-sound-272604.mp3",
     icon: (
       <svg viewBox="0 0 24 24" aria-hidden="true" className="h-6 w-6">
@@ -32,7 +32,7 @@ const WHITE_NOISE_TRACKS = [
   },
   {
     id: "campfire",
-    label: "篝火",
+    label: "绡濈伀",
     url: "/audio/fireplace-with-crackling-sounds-2-min-rk-178392.mp3",
     icon: (
       <svg viewBox="0 0 24 24" aria-hidden="true" className="h-6 w-6">
@@ -59,7 +59,7 @@ const WHITE_NOISE_TRACKS = [
   },
   {
     id: "waves",
-    label: "海浪",
+    label: "娴锋氮",
     url: "/audio/ocean-waves-250310.mp3",
     icon: (
       <svg viewBox="0 0 24 24" aria-hidden="true" className="h-6 w-6">
@@ -82,7 +82,7 @@ const WHITE_NOISE_TRACKS = [
   },
   {
     id: "focus",
-    label: "脑波",
+    label: "鑴戞尝",
     url: "/audio/brainwave-delta.mp3",
     icon: (
       <svg viewBox="0 0 24 24" aria-hidden="true" className="h-6 w-6">
@@ -128,7 +128,7 @@ const pickRandomQuote = (current) => {
 
 export default function DarkRoomPage() {
   const [quote, setQuote] = useState(QUOTES[0]);
-  const [todos, setTodos] = useState(() => [createTodo("在这里记录今天最重要的两件事")]);
+  const [todos, setTodos] = useState(() => [createTodo("鍦ㄨ繖閲岃褰曚粖澶╂渶閲嶈鐨勪袱浠朵簨")]);
   const [newTodo, setNewTodo] = useState("");
   const [showTodos, setShowTodos] = useState(false);
   const audioRefs = useRef({});
@@ -253,27 +253,27 @@ export default function DarkRoomPage() {
       </div>
 
       <div className="absolute left-6 top-6 z-30 text-xs font-medium text-slate-400/70 sm:text-sm">
-        <Link href="/tools" className="text-slate-400/80 transition hover:text-brand-200">专注空间</Link>
-        <span className="px-1 text-slate-500/50">·</span>
-        <span className="text-slate-400/60">小黑屋自习室</span>
+        <Link href="/tools" className="text-slate-400/80 transition hover:text-brand-200">涓撴敞绌洪棿</Link>
+        <span className="px-1 text-slate-500/50">路</span>
+        <span className="text-slate-400/60">灏忛粦灞嬭嚜涔犲</span>
       </div>
       <div className="relative z-10 mx-auto flex max-w-3xl flex-col items-center gap-12 text-center">
-        <div className="flex flex-col items-center gap-8">
-          <FlipClock />
-          <div className="w-full max-w-sm">
+        <div className="flex flex-col items-center gap-10">
+          <DarkRoomClock className="max-w-full scale-95 sm:scale-100 lg:scale-105" />
+          <div className="w-full max-w-md">
             <PomodoroTimer />
           </div>
         </div>
         <figure className="max-w-2xl space-y-4 text-center">
           <blockquote className="text-2xl font-semibold text-slate-100">"{quote}"</blockquote>
           <figcaption className="flex flex-col gap-3 text-xs text-slate-500 sm:flex-row sm:items-center sm:justify-center sm:gap-6">
-            <span>提示：ESC 退出全屏｜随时切换下一句</span>
+            <span>{'\u63d0\u793a\uff1aESC \u9000\u51fa\u5168\u5c4f\uff5c\u968f\u65f6\u5207\u6362\u4e0b\u4e00\u6761'}</span>
             <button
               type="button"
               onClick={randomizeQuote}
               className="self-center rounded-full border border-slate-700 px-4 py-1 text-[10px] font-semibold uppercase tracking-[0.4em] text-slate-300 hover:border-brand-400/80 hover:text-brand-200"
             >
-              换一句
+              {'\u6362\u4e00\u53e5'}
             </button>
           </figcaption>
         </figure>
@@ -284,7 +284,7 @@ export default function DarkRoomPage() {
             onClick={toggleFullscreen}
             className="rounded-full border border-slate-700 px-4 py-2 hover:border-brand-500 hover:text-brand-300"
           >
-            切换全屏
+            鍒囨崲鍏ㄥ睆
           </button>
         </div>
       </div>
@@ -322,8 +322,8 @@ export default function DarkRoomPage() {
             }`}
           >
             <header className="flex items-start justify-between">
-              <h2 className="text-sm font-semibold text-slate-200">待办清单</h2>
-              <p className="text-[10px] text-slate-500">把灵感拆成小步骤</p>
+              <h2 className="text-sm font-semibold text-slate-200">寰呭姙娓呭崟</h2>
+              <p className="text-[10px] text-slate-500">鎶婄伒鎰熸媶鎴愬皬姝ラ</p>
             </header>
             <div className="mt-4 rounded-3xl border border-slate-800/70 bg-slate-900/70 px-5 py-4">
               <input
@@ -336,7 +336,7 @@ export default function DarkRoomPage() {
                     addTodo();
                   }
                 }}
-                placeholder="记录今天要推进的事项"
+                placeholder="璁板綍浠婂ぉ瑕佹帹杩涚殑浜嬮」"
                 className="w-full rounded-2xl bg-slate-900/50 px-4 py-2 text-sm text-slate-200 placeholder:text-slate-600 focus:outline-none focus:ring-2 focus:ring-brand-400/40"
               />
 
@@ -384,7 +384,7 @@ export default function DarkRoomPage() {
               ))}
               {todos.length === 0 ? (
                 <li className="rounded-2xl border border-dashed border-slate-700/80 bg-slate-900/50 px-4 py-6 text-sm text-slate-600">
-                  还没有事项，给自己定一个小目标吧。
+                  {'\u8fd8\u6ca1\u6709\u4e8b\u9879\uff0c\u7ed9\u81ea\u5df1\u5b9a\u4e00\u4e2a\u5c0f\u76ee\u6807\u5427\u3002'}
                 </li>
               ) : null}
             </ul>
@@ -427,7 +427,7 @@ export default function DarkRoomPage() {
                         ? "border-brand-400/80 bg-brand-500/20 text-brand-200"
                         : "border-slate-700/70 bg-transparent"
                     }`}
-                    title={`${track.label}${playing[track.id] ? "(播放中)" : ""}`}
+                    title={`${track.label}${playing[track.id] ? "\uff08\u64ad\u653e\u4e2d\uff09" : ""}`}
                   >
                     {track.icon}
                   </button>
@@ -458,6 +458,25 @@ function exitFullscreen() {
     document.exitFullscreen();
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

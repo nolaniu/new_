@@ -41,12 +41,6 @@ function Layout({ children, breadcrumbItems = [] }) {
                 );
               })}
             </nav>
-            <Link
-              href="/tools"
-              className="hidden rounded-full border border-transparent bg-brand-600 px-4 py-2 text-sm font-semibold text-white shadow-soft transition hover:bg-brand-700 sm:inline-flex"
-            >
-              打开工具箱
-            </Link>
           </div>
           {hasBreadcrumbs ? (
             <nav
@@ -56,7 +50,7 @@ function Layout({ children, breadcrumbItems = [] }) {
               <ol className="flex flex-wrap items-center gap-1 sm:gap-1.5">
                 {breadcrumbItems.map((item, index) => (
                   <li key={`${item.label}-${index}`} className="flex items-center">
-                    {index > 0 && <span className="mx-1 text-slate-300">›</span>}
+                    {index > 0 && <span className="mx-1 text-slate-300">/</span>}
                     {item.href ? (
                       <Link href={item.href} className="transition hover:text-brand-600">
                         {item.label}
@@ -76,18 +70,8 @@ function Layout({ children, breadcrumbItems = [] }) {
       </main>
       <footer className="border-t border-slate-200 bg-white/70 backdrop-blur">
         <div className="mx-auto flex max-w-6xl flex-col gap-2 px-6 py-6 text-xs text-slate-500 sm:flex-row sm:items-center sm:justify-between">
-          <span>? {new Date().getFullYear()} 学习工作室. 灵感来源于 Next.js、Tailwind、MDX 与开源专注空间。</span>
-          <div className="flex items-center gap-4">
-            <a href="https://github.com/timlrx/tailwind-nextjs-starter-blog" target="_blank" rel="noopener noreferrer" className="hover:text-brand-600">
-              博客模板
-            </a>
-            <a href="https://github.com/astroud/pomodoro-react-app" target="_blank" rel="noopener noreferrer" className="hover:text-brand-600">
-              番茄钟
-            </a>
-            <a href="https://github.com/taniarascia/todo" target="_blank" rel="noopener noreferrer" className="hover:text-brand-600">
-              待办清单
-            </a>
-          </div>
+          <span>? {new Date().getFullYear()} 学习工作室</span>
+          <span>保持好奇·持续记录与练习</span>
         </div>
       </footer>
     </div>

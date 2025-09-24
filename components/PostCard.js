@@ -1,14 +1,13 @@
-﻿import Link from "next/link";
-import { useRouter } from "next/router";
+﻿import Link from 'next/link';
 
-const formatter = new Intl.DateTimeFormat("zh-CN", {
-  year: "numeric",
-  month: "long",
-  day: "numeric",
+const formatter = new Intl.DateTimeFormat('zh-CN', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
 });
 
 const formatDate = (date) => {
-  if (!date) return "未注明";
+  if (!date) return '???';
   try {
     return formatter.format(new Date(date));
   } catch {
@@ -17,20 +16,12 @@ const formatDate = (date) => {
 };
 
 export default function PostCard({ post, isViewportCard = false }) {
-  const router = useRouter();
-
   const containerClasses = [
-    "group block h-full rounded-2xl border border-slate-200 bg-white/90 p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-xl",
-    isViewportCard ? "min-h-screen w-full md:col-span-3" : "",
+    'group block h-full rounded-2xl border border-slate-200 bg-white/90 p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-xl',
+    isViewportCard ? 'min-h-screen w-full md:col-span-3' : '',
   ]
     .filter(Boolean)
-    .join(" ");
-
-  const handleTagClick = (event, tag) => {
-    event.preventDefault();
-    event.stopPropagation();
-    router.push(`/blog/search?tag=${encodeURIComponent(tag)}`);
-  };
+    .join(' ');
 
   return (
     <Link href={`/blog/${post.slug}`} className={containerClasses}>
@@ -42,20 +33,6 @@ export default function PostCard({ post, isViewportCard = false }) {
           </h3>
           <p className="mt-3 text-sm leading-relaxed text-slate-600">{post.summary}</p>
         </div>
-        {post.tags?.length ? (
-          <div className="mt-6 flex flex-wrap gap-2 text-xs">
-            {post.tags.map((tag) => (
-              <button
-                key={tag}
-                type="button"
-                onClick={(event) => handleTagClick(event, tag)}
-                className="rounded-full bg-brand-50 px-3 py-1 font-medium text-brand-700 transition hover:bg-brand-100 hover:text-brand-800"
-              >
-                #{tag}
-              </button>
-            ))}
-          </div>
-        ) : null}
       </article>
     </Link>
   );

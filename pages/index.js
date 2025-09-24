@@ -6,11 +6,11 @@ const FOCUS_SPACES = [
   {
     tag: 'Deep Focus',
     title: '小黑屋自习室',
-    description: '为深度专注打造的沉浸式环境，暗色界面与可控白噪声帮助你快速切换到投入状态。',
+    description: '极简暗色界面搭配番茄钟、白噪声和笔记区，让干扰降到最低。',
     highlights: [
-      '极简暗色背景，支持一键全屏/退出',
-      '集成番茄钟、待办与灵感记录区',
-      '适合写作、编程、阅读等长时间学习',
+      '沉浸式暗色背景，一键切换全屏或退出',
+      '番茄钟、待办与随手记合一，随时收束注意力',
+      '适合长时间写作、编程、备考等深度学习场景',
     ],
     href: '/tools/dark-room',
     cta: '进入自习室',
@@ -18,11 +18,11 @@ const FOCUS_SPACES = [
   {
     tag: 'Calm Routine',
     title: '冥想空间',
-    description: '基于 4-4-6 呼吸节奏设计的冥想练习，引导你放慢节奏，重拾心绪平衡。',
+    description: '基于 4-4-6 呼吸节奏的冥想练习，搭配自然声场迅速复位情绪。',
     highlights: [
       '动态呼吸引导，可暂停、静音或切换节奏',
-      '自动记录每次冥想时长与轮次',
-      '适合晨间唤醒、午休恢复或睡前放松',
+      '自动记录每一次冥想的时长与轮次',
+      '适合晨晚唤醒、午后恢复或睡前放松',
     ],
     href: '/tools/meditation',
     cta: '开始冥想',
@@ -36,10 +36,10 @@ export default function Home({ posts }) {
         <div className="max-w-3xl space-y-6">
           <p className="text-sm font-semibold uppercase tracking-wider text-brand-600">一站式学习工作室</p>
           <h1 className="text-4xl font-display font-bold text-slate-900 sm:text-5xl">
-            记录、练习、冥想、专注 —— 用一个站点承载你的成长旅程。
+            记录、练习、冥想、专注 —— 一个站点承载你的成长旅程。
           </h1>
           <p className="text-base leading-relaxed text-slate-600">
-            结合 Next.js + Tailwind + MDX 搭建的博客结构，配套番茄钟、待办、白噪声与冥想工具。灵感来自开源社区的优秀模板与专注空间，适合个人知识管理与深度专注训练。
+            将学习笔记、计划清单与沉浸工具放在同一张桌面，从知识复盘到情绪复位都能在这里完成。
           </p>
           <div className="flex flex-wrap gap-4">
             <Link
@@ -49,10 +49,10 @@ export default function Home({ posts }) {
               开始阅读
             </Link>
             <Link
-              href="/tools"
+              href="#focus-spaces"
               className="inline-flex items-center rounded-full border border-brand-200 px-5 py-2.5 text-sm font-semibold text-brand-700 transition hover:border-brand-300 hover:bg-brand-50"
             >
-              打开专注空间箱
+              体验沉浸空间
             </Link>
           </div>
         </div>
@@ -62,7 +62,7 @@ export default function Home({ posts }) {
         <div className="flex items-center justify-between">
           <div>
             <h2 className="text-2xl font-display font-semibold text-slate-900">最新学习笔记</h2>
-            <p className="text-sm text-slate-500">博客内容由 MDX 驱动，聚焦学习记录与实践心得。</p>
+            <p className="text-sm text-slate-500">从近期的学习和实践中挑选三篇，快速了解重点思路。</p>
           </div>
           <Link href="/blog" className="text-sm font-semibold text-brand-600 hover:text-brand-700">
             查看全部 →
@@ -75,11 +75,11 @@ export default function Home({ posts }) {
         </div>
       </section>
 
-      <section className="space-y-6">
-        <div className="flex items-center justify-between">
-          <div>
+      <section id="focus-spaces" className="space-y-6">
+        <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+          <div className="space-y-2">
             <h2 className="text-2xl font-display font-semibold text-slate-900">沉浸空间体验</h2>
-            <p className="text-sm text-slate-500">两个沉浸式练习入口随时可用，不必再跳转“专注空间”页。</p>
+            <p className="text-sm text-slate-500">当番茄钟结束或脑力告急时，直接从这里切换到自习室或冥想空间，保持连贯的节奏。</p>
           </div>
           <Link href="/tools" className="text-sm font-semibold text-brand-600 hover:text-brand-700">
             查看全部工具 →
@@ -119,7 +119,6 @@ export default function Home({ posts }) {
     </div>
   );
 }
-
 
 export async function getStaticProps() {
   const posts = getAllPosts().slice(0, 3);

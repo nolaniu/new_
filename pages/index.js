@@ -1,8 +1,33 @@
 ﻿import Link from 'next/link';
 import PostCard from '../components/PostCard';
-import TodoWidget from '../components/tools/TodoWidget';
-import WhiteNoisePlayer from '../components/tools/WhiteNoisePlayer';
 import { getAllPosts } from '../lib/mdx';
+
+const FOCUS_SPACES = [
+  {
+    tag: 'Deep Focus',
+    title: '小黑屋自习室',
+    description: '为深度专注打造的沉浸式环境，暗色界面与可控白噪声帮助你快速切换到投入状态。',
+    highlights: [
+      '极简暗色背景，支持一键全屏/退出',
+      '集成番茄钟、待办与灵感记录区',
+      '适合写作、编程、阅读等长时间学习',
+    ],
+    href: '/tools/dark-room',
+    cta: '进入自习室',
+  },
+  {
+    tag: 'Calm Routine',
+    title: '冥想空间',
+    description: '基于 4-4-6 呼吸节奏设计的冥想练习，引导你放慢节奏，重拾心绪平衡。',
+    highlights: [
+      '动态呼吸引导，可暂停、静音或切换节奏',
+      '自动记录每次冥想时长与轮次',
+      '适合晨间唤醒、午休恢复或睡前放松',
+    ],
+    href: '/tools/meditation',
+    cta: '开始冥想',
+  },
+];
 
 export default function Home({ posts }) {
   return (
@@ -53,45 +78,42 @@ export default function Home({ posts }) {
       <section className="space-y-6">
         <div className="flex items-center justify-between">
           <div>
-            <h2 className="text-2xl font-display font-semibold text-slate-900">专注空间预览</h2>
-            <p className="text-sm text-slate-500">白噪音与待办清单可直接在首页快速使用，亦可跳转至完整页面。</p>
+            <h2 className="text-2xl font-display font-semibold text-slate-900">沉浸空间体验</h2>
+            <p className="text-sm text-slate-500">两个沉浸式练习入口随时可用，不必再跳转“专注空间”页。</p>
           </div>
           <Link href="/tools" className="text-sm font-semibold text-brand-600 hover:text-brand-700">
-            前往工具页 →
+            查看全部工具 →
           </Link>
         </div>
         <div className="grid gap-6 lg:grid-cols-2">
-          <div className="space-y-4 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-400">Ambient Mixer</p>
-                <h3 className="mt-2 text-lg font-display font-semibold text-slate-900">白噪音陪伴</h3>
+          {FOCUS_SPACES.map((space) => (
+            <div
+              key={space.title}
+              className="flex flex-col gap-6 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:border-brand-200 hover:shadow-xl"
+            >
+              <div className="space-y-2">
+                <p className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-400">{space.tag}</p>
+                <h3 className="text-xl font-display font-semibold text-slate-900">{space.title}</h3>
+                <p className="text-sm leading-relaxed text-slate-600">{space.description}</p>
               </div>
-              <Link
-                href="/tools/white-noise"
-                className="inline-flex items-center rounded-full border border-slate-200 px-3 py-1 text-xs font-semibold text-slate-500 transition hover:border-brand-200 hover:text-brand-700"
-              >
-                打开完整设置
-              </Link>
-            </div>
-            <WhiteNoisePlayer tone="light" showStats={false} showControls={false} className="border-0 p-0 shadow-none" />
-          </div>
-
-          <div className="space-y-4 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
-            <div className="flex items-center justify-between">
+              <ul className="space-y-2 text-sm text-slate-500">
+                {space.highlights.map((item) => (
+                  <li key={item} className="flex items-start gap-2">
+                    <span className="mt-1 inline-flex h-2 w-2 flex-shrink-0 rounded-full bg-brand-300" />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
               <div>
-                <p className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-400">Quick Planner</p>
-                <h3 className="mt-2 text-lg font-display font-semibold text-slate-900">待办速记</h3>
+                <Link
+                  href={space.href}
+                  className="inline-flex items-center rounded-full border border-brand-200 px-4 py-2 text-xs font-semibold text-brand-700 transition hover:border-brand-300 hover:bg-brand-50"
+                >
+                  {space.cta}
+                </Link>
               </div>
-              <Link
-                href="/tools/todo"
-                className="inline-flex items-center rounded-full border border-slate-200 px-3 py-1 text-xs font-semibold text-slate-500 transition hover:border-brand-200 hover:text-brand-700"
-              >
-                打开完整设置
-              </Link>
             </div>
-            <TodoWidget tone="light" className="border-0 p-0 shadow-none" />
-          </div>
+          ))}
         </div>
       </section>
     </div>

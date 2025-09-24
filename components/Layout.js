@@ -4,7 +4,6 @@ import { useRouter } from 'next/router';
 const NAV_LINKS = [
   { href: '/', label: '首页' },
   { href: '/blog', label: '学习日志' },
-  { href: '/tools', label: '专注空间' },
 ];
 
 function Layout({ children, breadcrumbItems = [] }) {

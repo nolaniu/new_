@@ -2,23 +2,23 @@
   {
     title: '小黑屋自习室',
     description:
-      '以沉浸式专注为核心，内置白噪音混音与待办速记，便于快速进入工作状态。',
+      '为深度专注打造的沉浸式环境，暗色界面与可控白噪声帮助你快速切换到投入状态。',
     action: { label: '进入自习室', href: '/tools/dark-room' },
     highlights: [
-      '深色氛围背景可一键切换全屏 / 亮度',
-      '白噪音播放器与速记待办保持视觉一致',
-      '适合番茄钟、冲刺写作、晚间自习等场景',
+      '极简暗色背景，支持一键全屏/退出',
+      '集成番茄钟、待办与灵感记录区',
+      '适合写作、编程、阅读等长时间学习',
     ],
   },
   {
     title: '冥想空间',
     description:
-      '跟随 4-4-6 呼吸节奏进行静心练习，辅以轻量白噪音陪伴，帮助调整状态。',
-    action: { label: '开启冥想', href: '/tools/meditation' },
+      '基于 4-4-6 呼吸节奏设计的冥想练习，引导你放慢节奏，重拾心绪平衡。',
+    action: { label: '开始冥想', href: '/tools/meditation' },
     highlights: [
-      '动态图形呈现吸气 / 停留 / 呼气节奏',
-      '自带冥想笔记区，记录情绪与体感变化',
-      '白噪音快速入口，保持冥想与日常联动',
+      '动态呼吸引导，可暂停、静音或切换节奏',
+      '自动记录每次冥想时长与轮次',
+      '适合晨间唤醒、午休恢复或睡前放松',
     ],
   },
 ];
@@ -27,10 +27,10 @@ export default function ToolsIndex() {
   return (
     <div className="space-y-12">
       <header className="space-y-4">
-        <p className="text-sm font-semibold text-brand-600">专注空间合集</p>
-        <h1 className="text-3xl font-display font-bold text-slate-900">围绕专注与冥想打造的一体化练习空间</h1>
+        <p className="text-sm font-semibold text-brand-600">专注空间精选</p>
+        <h1 className="text-3xl font-display font-bold text-slate-900">围绕专注与冥想打造的一体化练习室</h1>
         <p className="max-w-2xl text-sm leading-relaxed text-slate-600">
-          工具按照使用场景划分为“自习室”和“冥想”两大主体，每个主体内嵌常用组件，单击按钮即可进入体验。
+          这里收录了帮助你进入“深度工作”与“静心冥想”的工具，每个页面都可独立使用，也能串联成专注方案。
         </p>
       </header>
 

@@ -17,10 +17,8 @@ function Layout({ children, breadcrumbItems = [] }) {
         <div className="mx-auto max-w-6xl px-6 py-5">
           <div className="flex items-center justify-between">
             <Link href="/" className="flex items-center gap-2 text-xl font-display font-bold">
-              <span className="inline-flex h-10 w-10 items-center justify-center rounded-2xl bg-brand-100 text-brand-700 shadow-soft">
-                ??
-              </span>
-              <span>学习工作室</span>
+               <img src="/images/icon.png" alt="Logo" width={24} height={24} priority className="h-6 w-6" />
+               <span className="text-lg font-bold text-brand-600">学习工作室</span>
             </Link>
             <nav className="hidden items-center gap-8 text-sm font-medium text-slate-600 sm:flex">
               {NAV_LINKS.map((item) => {

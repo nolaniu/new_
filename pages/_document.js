@@ -12,7 +12,7 @@ export default function Document() {
         />
         <meta name="theme-color" content="#8b5cf6" />
       </Head>
-      <body className="bg-slate-50 text-slate-900">
+       <body className="bg-gradient-to-br from-slate-50 via-white to-slate-100 text-slate-900">
         <Main />
         <NextScript />
       </body>

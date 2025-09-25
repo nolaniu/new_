@@ -81,9 +81,9 @@ export default function Home({ posts }) {
             <h2 className="text-2xl font-display font-semibold text-slate-900">沉浸空间体验</h2>
             <p className="text-sm text-slate-500">当番茄钟结束或脑力告急时，直接从这里切换到自习室或冥想空间，保持连贯的节奏。</p>
           </div>
-          <Link href="/tools" className="text-sm font-semibold text-brand-600 hover:text-brand-700">
+          {/* <Link href="/tools" className="text-sm font-semibold text-brand-600 hover:text-brand-700">
             查看全部工具 →
-          </Link>
+          </Link> */}
         </div>
         <div className="grid gap-6 lg:grid-cols-2">
           {FOCUS_SPACES.map((space) => (

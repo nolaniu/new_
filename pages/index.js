@@ -75,7 +75,7 @@ export default function Home({ posts }) {
         </div>
       </section>
 
-      <section id="focus-spaces" className="space-y-6">
+      <section id="focus-spaces" className="scroll-mt-24 space-y-6">
         <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
           <div className="space-y-2">
             <h2 className="text-2xl font-display font-semibold text-slate-900">沉浸空间体验</h2>

@@ -1,9 +1,10 @@
 {
   "/_app": "pages/_app.js",
-  "/_document": "pages/_document.js",
   "/_error": "pages/_error.js",
+  "/_document": "pages/_document.js",
+  "/": "pages/index.js",
   "/admin": "pages/admin.js",
-  "/tools/meditation": "pages/tools/meditation.js",
-  "/blog": "pages/blog.js",
-  "/": "pages/index.js"
+  "/tools/dark-room": "pages/tools/dark-room.js",
+  "/api/admin/list": "pages/api/admin/list.js",
+  "/api/admin/publish": "pages/api/admin/publish.js"
 }

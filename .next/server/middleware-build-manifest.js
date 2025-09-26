@@ -30,10 +30,10 @@ globalThis.__BUILD_MANIFEST = {
       "static/chunks/main.js",
       "static/chunks/pages/admin.js"
     ],
-    "/blog": [
+    "/tools/dark-room": [
       "static/chunks/webpack.js",
       "static/chunks/main.js",
-      "static/chunks/pages/blog.js"
+      "static/chunks/pages/tools/dark-room.js"
     ]
   },
   "ampFirstPages": []

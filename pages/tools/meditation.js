@@ -223,7 +223,7 @@ return (
     </div>
 
     <div className="absolute left-8 top-8 z-20 text-xs font-medium text-slate-200/80 sm:text-sm">
-      <Link href="/tools" className="text-slate-100/80 transition hover:text-teal-100">专注空间</Link>
+      <Link href="/#focus-spaces" className="text-slate-100/80 transition hover:text-teal-100">专注空间</Link>
       <span className="px-1 text-slate-400/70">·</span>
       <span className="text-slate-100/70">冥想空间</span>
     </div>

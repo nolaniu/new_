@@ -172,48 +172,47 @@ export default function AdminEditor() {
 
             <p className="text-sm text-gray-500">将生成文件：<code>data/blog/{slug}.mdx</code></p>
 
-{/* 粘底操作栏（始终可见） */}
-<div className="sticky bottom-0 -mx-6 mt-4 border-t bg-white/85 p-4 backdrop-blur">
-  <div className="flex flex-wrap items-center gap-3">
-    {/* 用 aria-disabled 替代 disabled，避免系统默认的不可控样式 */}
-    <button
-      type="submit"
-      aria-disabled={busy}
-      onClick={(e) => {
-        if (busy) e.preventDefault() // 忙时阻止提交
-      }}
-      className={`rounded px-5 py-2 font-semibold shadow-sm border
-        ${busy
-          ? 'bg-gray-300 text-gray-700 cursor-not-allowed pointer-events-none border-gray-300'
-          : 'bg-violet-600 text-white hover:bg-violet-700 border-violet-600'}
-      `}
-      // 保险起见，强制文字颜色（防止外部样式把文字设为透明/白色）
-      style={{ WebkitTextFillColor: busy ? '#374151' : '#ffffff' }}
-    >
-      {busy ? '发布中…' : '发布'}
-    </button>
+            {/* 粘底操作栏（始终可见） */}
+            <div className="sticky bottom-0 -mx-6 mt-4 border-t bg-white/85 p-4 backdrop-blur">
+              <div className="flex flex-wrap items-center gap-3">
+                {/* 用 aria-disabled 替代 disabled，避免系统默认的不可控样式 */}
+                <button
+                  type="submit"
+                  aria-disabled={busy}
+                  onClick={(e) => {
+                    if (busy) e.preventDefault() // 忙时阻止提交
+                  }}
+                  className={`rounded px-5 py-2 font-semibold shadow-sm border
+                    ${busy
+                      ? 'bg-gray-300 text-gray-700 cursor-not-allowed pointer-events-none border-gray-300'
+                      : 'bg-violet-600 text-white hover:bg-violet-700 border-violet-600'}
+                  `}
+                  // 保险起见，强制文字颜色（防止外部样式把文字设为透明/白色）
+                  style={{ WebkitTextFillColor: busy ? '#374151' : '#ffffff' }}
+                >
+                  {busy ? '发布中…' : '发布'}
+                </button>
 
-    <button
-      type="button"
-      onClick={() => {
-        setTitle('')
-        setSummary('')
-        setTags('学习,日志')
-        setDraft(false)
-        setContent('')
-        setSlugOverride('')
-        setDate(new Date())
-        setMsg('已重置表单')
-      }}
-      className="rounded border px-4 py-2 text-sm hover:bg-gray-50"
-    >
-      重置
-    </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setTitle('')
+                    setSummary('')
+                    setTags('学习,日志')
+                    setDraft(false)
+                    setContent('')
+                    setSlugOverride('')
+                    setDate(new Date())
+                    setMsg('已重置表单')
+                  }}
+                  className="rounded border px-4 py-2 text-sm hover:bg-gray-50"
+                >
+                  重置
+                </button>
 
-    {msg && <span className="text-sm text-gray-700">{msg}</span>}
-  </div>
-</div>
-
+                {msg && <span className="text-sm text-gray-700">{msg}</span>}
+              </div>
+            </div>
           </form>
         </div>
 

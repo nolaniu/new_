@@ -253,7 +253,14 @@ export default function DarkRoomPage() {
       </div>
 
       <div className="absolute left-6 top-6 z-30 text-xs font-medium text-slate-400/70 sm:text-sm">
-        <Link href="/tools" className="text-slate-400/80 transition hover:text-brand-200">专注空间</Link>
+        <Link href="/#focus-spaces" className="text-slate-400/80 transition hover:text-brand-200"
+              onClick={() => {
+          // 释放滚动锁，避免阻塞首页的 hash 定位
+          try {
+            document.body.style.overflow = "";
+            document.documentElement.style.overflow = "";
+          } catch {}
+        }}>专注空间</Link>
         <span className="px-1 text-slate-500/50">·</span>
         <span className="text-slate-400/60">小黑屋自习室</span>
       </div>

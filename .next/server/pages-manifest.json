@@ -2,9 +2,9 @@
   "/_app": "pages/_app.js",
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
+  "/disclaimer": "pages/disclaimer.js",
   "/": "pages/index.js",
-  "/admin": "pages/admin.js",
-  "/tools/dark-room": "pages/tools/dark-room.js",
-  "/api/admin/list": "pages/api/admin/list.js",
-  "/api/admin/publish": "pages/api/admin/publish.js"
+  "/about": "pages/about.js",
+  "/privacy": "pages/privacy.js",
+  "/blog/[slug]": "pages/blog/[slug].js"
 }

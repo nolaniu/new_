@@ -1,11 +1,1 @@
-{
-  "version": 4,
-  "routes": {},
-  "dynamicRoutes": {},
-  "notFoundRoutes": [],
-  "preview": {
-    "previewModeId": "dfd88023f1a5f264247b13fb52543f73",
-    "previewModeSigningKey": "90797e0e60149fb5810d0a81afa07895e1e8ee258d5292233d53dfff34c97413",
-    "previewModeEncryptionKey": "fcdc939a550e1af6c3a0634d2e4d4369ce3adff910f0f100ed52b0df0b2e7261"
-  }
-}
+{"version":4,"routes":{"/blog/01-getting-started":{},"/blog/02-pomodoro-playbook":{},"/blog/03-meditation-notes":{}},"dynamicRoutes":{"/blog/[slug]":{"dataRoute":null,"dataRouteRegex":null,"fallback":false,"fallbackRevalidate":false,"fallbackSourceRoute":"/blog/[slug]","routeRegex":"^\\/blog\\/([^/]+?)(?:\\/)?$","allowHeader":[]}},"notFoundRoutes":[],"preview":{"previewModeId":"536776fa54d333ec585a7a10bed365be","previewModeSigningKey":"7325837870d4ba18008365a10e2e9bec49098d445afae12700dd43e1a9509e08","previewModeEncryptionKey":"4ea41cef6524b00d99fb8713089ec9bee10c3697bb2e51de569030aaf4bd62f1"}}

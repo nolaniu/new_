@@ -1,10 +1,4 @@
 {
-  "components\\tools\\DarkRoomClock.js -> @leenguyen/react-flip-clock-countdown": {
-    "id": "components\\tools\\DarkRoomClock.js -> @leenguyen/react-flip-clock-countdown",
-    "files": [
-      "static/chunks/_pages-dir-browser_node_modules_leenguyen_react-flip-clock-countdown_dist_index_modern_js.js"
-    ]
-  },
   "node_modules\\next\\dist\\client\\index.js -> ../pages/_app": {
     "id": "node_modules\\next\\dist\\client\\index.js -> ../pages/_app",
     "files": [

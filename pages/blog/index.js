@@ -27,10 +27,10 @@ export default function BlogIndex({ posts }) {
   return (
     <div className="space-y-10">
       <header className="space-y-4">
-        <p className="text-sm font-semibold text-brand-600">学习日志</p>
-        <h1 className="text-3xl font-display font-bold text-slate-900">记录每一次学习与实验</h1>
+        <p className="text-sm font-semibold text-brand-600">Blog</p>
+        <h1 className="text-3xl font-display font-bold text-slate-900">Keep a record of every study and focus session</h1>
         <p className="max-w-3xl text-sm leading-relaxed text-slate-600">
-          博客内容存放在
+          Blog posts are stored here
         </p>
 
         {/* 🔍 搜索框 */}
@@ -39,14 +39,14 @@ export default function BlogIndex({ posts }) {
             type="text"
             value={searchValue}
             onChange={(e) => setSearchValue(e.target.value)}
-            placeholder="例如：#前端 或 React"
+            placeholder="e.g. #Meditation or #Focus"
             className="flex-1 rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-800 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-200"
           />
           <button
             type="submit"
             className="rounded-2xl bg-brand-600 px-4 py-2 text-sm font-semibold text-white shadow-soft transition hover:bg-brand-700"
           >
-            搜索
+            Search
           </button>
         </form>
       </header>

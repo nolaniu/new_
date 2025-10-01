@@ -18,20 +18,20 @@ export default function BlogPost({ frontMatter, mdxSource }) {
   return (
     <article className="prose prose-slate max-w-none">
       <Link href="/blog" className="text-sm font-semibold text-brand-600 no-underline hover:text-brand-700">
-        ← 返回列表
+        ← Back to List
       </Link>
       <h1 className="mt-6 font-display text-4xl font-bold text-slate-900">{frontMatter.title}</h1>
-      <p className="text-sm text-slate-500">
-        {frontMatter.date ? formatter.format(new Date(frontMatter.date)) : '未注明日期'} · {frontMatter.readingTime || '5 分钟阅读'}
-      </p>
+      {/* <p className="text-sm text-slate-500">
+        {frontMatter.date ? formatter.format(new Date(frontMatter.date)) : '未注明日期'} · {frontMatter.readingTime || '5 minutes read'}
+      </p> */}
       <MDXRemote {...mdxSource} components={MDX_COMPONENTS} />
     </article>
   );
 }
 
 BlogPost.getBreadcrumbItems = (props) => [
-  { label: '学习日志', href: '/blog' },
-  { label: props?.frontMatter?.title || '文章详情' },
+  { label: 'Blog', href: '/blog' },
+  { label: props?.frontMatter?.title || 'Article Details' },
 ];
 
 const MDX_COMPONENTS = {

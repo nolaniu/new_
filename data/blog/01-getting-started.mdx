@@ -1,7 +1,7 @@
 ﻿---
-title: "构建学习工作室的第一天"
+title: "Why I Built This Website"
 date: "2025-09-18"
-summary: "梳理一站式个人工作室的目标，并搭建 Next.js + Tailwind + MDX 基础框架。"
+summary: "My story about building a website that helps students stay focused while also finding moments of rest and mindfulness."
 tags:
   - Next.js
   - TailwindCSS
@@ -11,27 +11,48 @@ readingTime: "6 分钟阅读"
 
 import Callout from '../../components/Callout.mdx';
 
-欢迎来到学习工作室！
+# Why I Built This Website
 
-本项目参考 [timlrx/tailwind-nextjs-starter-blog](https://github.com/timlrx/tailwind-nextjs-starter-blog) 的结构，保留 `pages` 路由与 MDX 驱动的内容体系，同时根据需求加入效率工具页。
+Sometimes, I think back to those late nights in college. The dorm lights would stay on until 2 or 3 a.m., with roommates either gaming loudly or chatting as if the night had no end. I’d sit in the corner, headphones on, looping the same piece of calm background music, trying desperately to focus on my notes. But I eventually realized that real quietness doesn’t come from putting on headphones—it comes from finding a mental space where you can truly settle down.
 
-### 目标拆解
+So I started going to the library. At first, it felt like a solution. But during exam season, the library wasn’t the sanctuary I imagined. Seats were as hard to get as concert tickets, and even when I found a corner, the sound of books flipping, keyboards clacking, and the occasional cough reminded me that I wasn’t really alone. I kept thinking: why can’t there be a personal “study space” I can enter anytime, one that’s calm, pure, and designed solely for learning?
 
-1. **博客体系**：使用 MDX 写作，存放在 `data/blog/*.mdx`。借助前言区块（frontmatter）维护标题、摘要、标签与阅读时长。
-2. **站点结构**：`/` 为总览，`/blog` 展示所有学习记录，`/tools` 集中效率工具。
-3. **视觉形象**：Tailwind CSS 的品牌色设定为紫色梯度，保持轻量与未来感。
+That thought eventually grew into action. And that’s why I built this website.
 
-### 配置 Tailwind 与 MDX
+---
 
-- Tailwind 在 `tailwind.config.js` 中声明扫描路径，并扩展字体与阴影。
-- 通过 `next-mdx-remote` 在构建阶段序列化 MDX，搭配 `remark-gfm` 和 `rehype-autolink-headings` 获得更好的 Markdown 体验。
+## A Place to Study
 
-<Callout>
-记得将常用组件（如 Callout、Tip、Note）收纳到 `components/` 中，MDX 可以直接引入 React 组件。
-</Callout>
+My hope is simple: when you open this site, it should feel like entering a new environment, one that instantly nudges your brain into study mode. No push notifications, no endless social feeds—just you and the tasks you want to finish.
 
-### 下一步
+I know I’m not alone in this struggle. A friend once confessed that every time he tried to study in the dorm, he would think, *“Let me just watch one quick video on YouTube.”* One video turned into ten, and suddenly an hour was gone. Another friend told me she would go to the library with the best intentions, only to spend the entire afternoon scrolling through Instagram. For our generation, living in constant streams of information, the ability to focus has ironically become rare.
 
-- 完成效率工具页的 React 逻辑。
-- 规划白噪声素材与呼吸训练节奏。
-- 将冥想心得同步回博客形成长期档案。
+That’s why I see this site as more than a tool—it’s a signal. The moment you step into it, you’re telling your mind, *“Now it’s time to focus.”* Just like walking into a classroom or closing the door of your study room, the environment itself becomes a cue that shapes your behavior.
+
+---
+
+## A Place to Rest
+
+But focusing is only one side of the story. The other side is rest.
+
+I still remember one semester when I had back-to-back exams. I pushed myself for three straight days, cramming late into the night. By the third evening, I was staring at my textbook, eyes moving across the lines, but nothing made sense anymore. My brain had hit a wall.
+
+So I stepped out of the library, sat on the campus lawn, and closed my eyes. I took a few deep breaths. The cool breeze brushed against my face, and slowly, the noise inside me quieted down. It struck me then: effective studying isn’t just about hours of work—it’s about knowing when to pause, breathe, and reset.
+
+That’s why I decided this website shouldn’t just be a “study space.” It also needed to be a “rest space.” You’ll find simple meditation guides here—not complicated or mystical, just short breathing exercises and gentle prompts. They’re small reminders that rest doesn’t require a vacation or a long weekend. Sometimes, just two minutes of calm can restore your energy.
+
+---
+
+## For Students Like You
+
+If you’ve ever tried to study at your dorm desk at midnight, only to be interrupted by noise around you…  
+If you’ve ever sat in a crowded library, determined to be productive, but ended up wasting the afternoon scrolling on your phone…  
+If you’ve ever studied so long in front of a glowing screen that your head started to ache, but you didn’t know how to recharge…
+
+Then this website is for you.
+
+It’s not a magic cure, but I like to think of it as a door. Open it, and you can step into a quiet space to focus. Or, when you need it, you can step into a softer corner to rest.
+
+One day, you might realize that after spending time here, you no longer need the website to trigger that state of mind. You’ll carry it with you—to the library, to the dorm, even into everyday life. Focus and relaxation will no longer feel like opposites, but like rhythms that sustain one another.
+
+That’s the reason I built this site: to give students like you a companion, a reminder, and a space you can always come back to.

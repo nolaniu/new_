@@ -1,32 +1,73 @@
 ﻿---
-title: "冥想仪式：用 4-4-6 呼吸重启大脑"
-date: "2025-09-19"
-summary: "记录新版冥想空间的设计思路，以及如何在日常中建立可持续的身心恢复仪式。"
-tags:
-  - 冥想
-  - 呼吸训练
-  - 白噪声
-readingTime: "5 分钟阅读"
+title: "Meditation Notes"
+date: "2025-09-20"
+summary: "Learn how to use the Meditation Space to rest, breathe, and reset with immersive scenes, ambient sounds, and a guided 60-second breathing cycle."
 ---
 
-打造冥想空间的初衷，是希望在繁忙的任务间隙快速「关机 - 重启」。本页的设计灵感来自 trynoice/web-app-v0，让环境音、呼吸节奏与记录工具一体化呈现。
+# Meditation Space
 
-### 设计亮点
+When study fatigue sets in and you need a moment to reset, the **Meditation Space** is here for you.  
+You can find the entrance at **Focus Space → Meditation Space**.  
+By default, the scene **“Twilight over the Hills”** will load automatically, along with matching ambient audio that loops in the background.  
+You can switch tracks anytime to create the atmosphere you need.
 
-- **4-4-6 呼吸节奏**：在 4 秒吸气、4 秒停留、6 秒呼气的节奏中，从容地感知身体。
-- **多音轨混合**：可勾选风声、颂钵、溪流三种音色，搭配音量控制。
-- **冥想笔记**：在结束后记录身体与情绪的变化，帮助发现触发因素。
+---
 
-> 冥想不仅是放松，更是对注意力的训练。不断观察自己的念头是如何出现、飘走的过程，久而久之也能在工作中更快进入心流。
+## Backgrounds and Ambient Audio
 
-### 使用建议
+On the left side, you’ll see the first **rounded control button**. It has two parts:
 
-1. 在使用前关闭消息通知，或切换到「小黑屋专注室」。
-2. 设置 10-15 分钟开始，逐步延长时长。
-3. 冥想结束后及时写下三句话，记录情绪和灵感。
+- **Speaker Icon** → click to mute or restore audio.  
+- **Label Text** → click to cycle through three backgrounds:  
+  - 🌲 Forest Morning Mist  
+  - 💧 Mountain Stream  
+  - 🌅 Twilight over the Hills  
 
-<Callout>
-冥想是高强度学习与工作的缓冲区。善用它，就像随身携带一个「能量补给站」，随时帮助自己回到平静与清晰。
-</Callout>
+When you switch, both the background image and audio update together to match the chosen scene.
 
-下一步计划：结合浏览器 `Notification` API，实现在冥想结束时弹出温柔的提醒，同时引导记录心得。
+---
+
+## Meditation Overlay
+
+Next, you’ll notice the **Fast Meditation / Finish** button.  
+This controls the **meditation overlay**:
+
+- **Open** → shows the overlay with breathing guidance.  
+- **Close** → hides the overlay, stops the session timer, and resets the breathing animation.  
+
+---
+
+## Breathing Cycle
+
+When the overlay is open, a **central breathing circle** expands and contracts according to an **11-second cycle**:
+
+- Inhale → 4 seconds  
+- Hold → 1 second  
+- Exhale → 6 seconds  
+
+Use the control buttons below:
+
+- **Start** → begin a 60-second session  
+- **Pause** → stop the cycle mid-session  
+- **Reset** → return to the initial state and restart the animation  
+
+---
+
+## Visual Cues
+
+Beneath the breathing circle:
+
+- A **capsule text** displays real-time breathing instructions (e.g. *Inhale, Hold, Exhale*).  
+- A **gradient progress bar** tracks the overall 60-second session.  
+
+At the end of the session, the cycle automatically returns to the **inhale phase** and pauses.  
+You can then choose **Reset** to start over, or **Finish** to close the overlay.
+
+---
+
+### In Summary
+
+The Meditation Space is designed to give you a quick reset whenever you need it.  
+With calming visuals, looping ambient sounds, and a gentle breathing rhythm, you can step away from mental fatigue—even for just one minute.  
+
+Use it between Pomodoro sessions, at the end of a study block, or anytime you want to restore clarity and focus.

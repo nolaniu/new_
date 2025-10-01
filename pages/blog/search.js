@@ -72,17 +72,17 @@ export default function BlogSearchPage({ posts }) {
       {/* 面包屑导航：学习日志使用 replace */}
       <nav className="text-sm text-slate-600">
         <Link href="/blog" replace className="hover:underline">
-          学习日志
+          Blog
         </Link>
         <span className="mx-2">/</span>
-        <span>检索</span>
+        <span>Search</span>
       </nav>
 
       <header className="space-y-3">
-        <p className="text-sm font-semibold text-brand-600">检索</p>
-        <h1 className="text-3xl font-display font-bold text-slate-900">按标签或标题查找文章</h1>
+        <p className="text-sm font-semibold text-brand-600">Search</p>
+        <h1 className="text-3xl font-display font-bold text-slate-900">Find articles by tag or title</h1>
         <p className="max-w-2xl text-sm leading-relaxed text-slate-600">
-          用 <code>#标签</code> 搜标签，比如 <code>#前端</code>；直接输入文字则按标题（并兼顾标签模糊匹配）搜索。
+          用 <code>#tag</code> Search tags, e.g. <code>#Focus</code>；Enter text to search by title, with fuzzy tag matching.
         </p>
 
         <form onSubmit={handleSubmit} className="mt-4 flex max-w-lg items-center gap-3">
@@ -90,14 +90,14 @@ export default function BlogSearchPage({ posts }) {
             type="text"
             value={searchValue}
             onChange={(e) => setSearchValue(e.target.value)}
-            placeholder="例如：#前端 或 React"
+            placeholder="E.g. #Meditation or #Focus"
             className="flex-1 rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-800 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-200"
           />
           <button
             type="submit"
             className="rounded-2xl bg-brand-600 px-4 py-2 text-sm font-semibold text-white shadow-soft transition hover:bg-brand-700"
           >
-            搜索
+            Search
           </button>
         </form>
       </header>
@@ -106,21 +106,21 @@ export default function BlogSearchPage({ posts }) {
         {keyword ? (
           isTagMode ? (
             <h2 className="text-sm font-medium text-slate-500">
-              当前标签：
+              Current Tag:
               <span className="ml-2 inline-flex items-center rounded-full bg-brand-50 px-3 py-1 text-sm font-semibold text-brand-700">
                 #{keyword}
               </span>
             </h2>
           ) : (
             <h2 className="text-sm font-medium text-slate-500">
-              搜索关键词：
+              Search Term:
               <span className="ml-2 inline-flex items-center rounded-full bg-slate-100 px-3 py-1 text-sm font-semibold text-slate-700">
                 {keyword}
               </span>
             </h2>
           )
         ) : (
-          <h2 className="text-sm font-medium text-slate-500">未输入关键字，显示全部文章。</h2>
+          <h2 className="text-sm font-medium text-slate-500">Showing all articles (no keyword entered)</h2>
         )}
 
         {filteredPosts.length ? (
@@ -131,7 +131,7 @@ export default function BlogSearchPage({ posts }) {
           </div>
         ) : (
           <div className="rounded-3xl border border-dashed border-slate-200 bg-white p-10 text-center text-sm text-slate-500">
-            暂无匹配结果，换一个关键字试试吧。
+            No results found — try a different keyword.
           </div>
         )}
       </section>

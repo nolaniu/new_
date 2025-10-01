@@ -318,7 +318,7 @@ data\blog\zh\01-getting-started.mdx	2	title: "构建学习工作室的第一天"
 data\blog\zh\01-getting-started.mdx	4	summary: "梳理一站式个人工作室的目标，并搭建 Next.js + Tailwind + MDX 基础框架。"
 data\blog\zh\01-getting-started.mdx	9	readingTime: "6 分钟阅读"
 data\blog\zh\01-getting-started.mdx	14	欢迎来到学习工作室！
-data\blog\zh\01-getting-started.mdx	16	本项目参考 [timlrx/tailwind-nextjs-starter-blog](https://github.com/timlrx/tailwind-nextjs-starter-blog) 的结构，保留 `pages` 路由与 MDX 驱动的内容体系，同时根据需求加入效率工具页。
+data\blog\zh\01-getting-started.mdx	16	本项目参考 [timlrx/tailwind-nextjs-starter-blog](https://git.me/timlrx/tailwind-nextjs-starter-blog) 的结构，保留 `pages` 路由与 MDX 驱动的内容体系，同时根据需求加入效率工具页。
 data\blog\zh\01-getting-started.mdx	18	### 目标拆解
 data\blog\zh\01-getting-started.mdx	20	1. **博客体系**：使用 MDX 写作，存放在 `data/blog/*.mdx`。借助前言区块（frontmatter）维护标题、摘要、标签与阅读时长。
 data\blog\zh\01-getting-started.mdx	21	2. **站点结构**：`/` 为总览，`/blog` 展示所有学习记录，`/tools` 集中效率工具。

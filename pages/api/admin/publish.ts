@@ -34,7 +34,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     let existingSha: string | undefined
     {
       const r = await fetch(
-        `https://api.github.com/repos/${owner}/${repoName}/contents/${encodeURIComponent(path)}?ref=${encodeURIComponent(branch)}`,
+        `https://api.git.me/repos/${owner}/${repoName}/contents/${encodeURIComponent(path)}?ref=${encodeURIComponent(branch)}`,
         { headers: { Authorization: `Bearer ${token}`, Accept: 'application/vnd.github+json' } }
       )
       if (r.ok) {
@@ -45,7 +45,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     // 创建或更新
     const put = await fetch(
-      `https://api.github.com/repos/${owner}/${repoName}/contents/${encodeURIComponent(path)}`,
+      `https://api.git.me/repos/${owner}/${repoName}/contents/${encodeURIComponent(path)}`,
       {
         method: 'PUT',
         headers: { Authorization: `Bearer ${token}`, Accept: 'application/vnd.github+json' },

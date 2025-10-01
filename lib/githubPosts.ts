@@ -45,7 +45,7 @@ async function gh<T = any>(url: string): Promise<T> {
 }
 
 export async function listPostSlugs(): Promise<string[]> {
-  const url = `https://api.github.com/repos/${OWNER}/${REPO_NAME}/contents/data/blog?ref=${encodeURIComponent(
+  const url = `https://api.git.me/repos/${OWNER}/${REPO_NAME}/contents/data/blog?ref=${encodeURIComponent(
     BRANCH
   )}`
   const items = await gh<RemoteFile[]>(url)
@@ -55,7 +55,7 @@ export async function listPostSlugs(): Promise<string[]> {
 }
 
 export async function getPost(slug: string): Promise<Post> {
-  const url = `https://api.github.com/repos/${OWNER}/${REPO_NAME}/contents/data/blog/${encodeURIComponent(
+  const url = `https://api.git.me/repos/${OWNER}/${REPO_NAME}/contents/data/blog/${encodeURIComponent(
     slug
   )}.mdx?ref=${encodeURIComponent(BRANCH)}`
   const file = await gh<RemoteFile>(url)

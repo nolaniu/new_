@@ -1,0 +1,33 @@
+﻿{
+  "site": {
+    "name": "学习工作室"
+  },
+  "header": {
+    "logoAlt": "学习工作室 Logo"
+  },
+  "nav": {
+    "home": "首页",
+    "blog": "学习日志",
+    "about": "关于我们",
+    "privacy": "隐私政策",
+    "disclaimer": "免责声明"
+  },
+  "breadcrumb": {
+    "aria": "面包屑导航"
+  },
+  "footer": {
+    "rights": "All Rights Reserved"
+  },
+  "share": {
+    "x": "分享到 X",
+    "facebook": "分享到 Facebook",
+    "linkedin": "分享到 LinkedIn",
+    "email": "邮件分享",
+    "open": "分享"
+  },
+  "sidebar": {
+    "error": "加载失败",
+    "loading": "加载中…",
+    "count": "当前收录 {{count}} 篇文章"
+  }
+}

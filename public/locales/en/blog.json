@@ -1,0 +1,25 @@
+﻿{
+  "header": {
+    "badge": "Blog",
+    "title": "All posts",
+    "desc": "Notes on learning, methods, and practice"
+  },
+  "search": {
+    "breadcrumbRoot": "Learning Journal",
+    "breadcrumbCurrent": "Search",
+    "badge": "Search",
+    "title": "Search results",
+    "description": "Type any phrase to search titles (tags are fuzzy-matched too). Prefix <code>#tag</code> for a direct tag query.",
+    "placeholder": "Keyword or #tag",
+    "action": "Search",
+    "tagResult": "Results for tag",
+    "keywordResult": "Results for keyword",
+    "noKeyword": "No keyword provided—showing everything.",
+    "empty": "No matches yet. Try a different keyword."
+  },
+  "post": {
+    "back": "Back",
+    "noDate": "No date",
+    "readingTime": "Approx. 3 min read"
+  }
+}

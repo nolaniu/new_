@@ -1,0 +1,30 @@
+﻿{
+  "hero": {
+    "badge": "Learning in Practice",
+    "title": "Learning Studio",
+    "subtitle": "Curating lessons, tools, and methods so you can stay focused and keep moving forward.",
+    "cta": {
+      "read": "Browse the blog",
+      "focus": "Explore focus spaces"
+    }
+  },
+  "latest": {
+    "title": "Latest posts",
+    "desc": "Freshly published ideas and notes",
+    "viewAll": "View all"
+  },
+  "focus": {
+    "title": "Focus spaces",
+    "desc": "Lightweight companions for deep work and meditation",
+    "darkroom": {
+      "title": "Darkroom focus",
+      "desc": "Shut out distractions and drop into flow",
+      "cta": "Enter now"
+    },
+    "meditation": {
+      "title": "Guided meditation",
+      "desc": "Reset with breathing and rhythm",
+      "cta": "Begin meditation"
+    }
+  }
+}

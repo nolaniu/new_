@@ -1,0 +1,87 @@
+﻿{
+  "about": {
+    "metaTitle": "About | Learning Studio",
+    "metaDescription": "Learning Studio is a one-stop space for journaling, practice, meditation, and focus.",
+    "heading": "About",
+    "intro": "<strong>Learning Studio</strong> is an independent project led by long-term learners, offering trustworthy notes, focus tools, and meditation guides.",
+    "missionTitle": "What we believe",
+    "missionList": [
+      "Make practice more effective: treat tools as a workspace and minimise context switching.",
+      "Help knowledge stick: rely on thoughtful journaling and regular reviews.",
+      "Keep body and mind steady: weave meditation, breathing, and rhythm into everyday focus."
+    ],
+    "contactTitle": "Contact",
+    "contact": "Questions or collaboration ideas? Email <a>contact@example.com</a>.",
+    "legalLinks": "We take safety and data use seriously—see our <privacy>Privacy Policy</privacy> and <disclaimer>Disclaimer</disclaimer> for details.",
+    "back": "Back to home"
+  },
+  "privacy": {
+    "metaTitle": "Privacy Policy | Learning Studio",
+    "metaDescription": "Learning Studio privacy policy covering data collection, usage, cookies, advertising, and third-party services.",
+    "heading": "Privacy Policy",
+    "lastUpdated": "Last updated: {{date}}",
+    "dataCollected": {
+      "title": "What we collect",
+      "items": [
+        "Essential data that keeps the site working (such as anonymised visit analytics).",
+        "Information you voluntarily submit in forms (for example, email or feedback).",
+        "Browser storage used to remember your preferences."
+      ]
+    },
+    "dataUsage": {
+      "title": "How we use it",
+      "items": [
+        "Maintain, improve, and troubleshoot site functionality.",
+        "Compile aggregate analytics to understand usage and plan new features.",
+        "Respond to your requests for support or inquiries."
+      ]
+    },
+    "cookies": {
+      "title": "Cookies and local storage",
+      "description": "We use cookies and local storage to improve your experience (for example, remembering preferences). You can clear or disable them in your browser, but some features may stop working."
+    },
+    "advertising": {
+      "title": "Advertising and third parties",
+      "description": "We may work with carefully selected partners to serve ads. Those providers can use <strong>cookies</strong> or similar tech to deliver content aligned with your interests.",
+      "items": [
+        "Third-party vendors (including Google) use cookies to serve ads when you visit this or other sites.",
+        "These cookies allow them to display personalised ads based on your visits.",
+        "You can manage personalisation via the <em>Google Ads Settings</em> page."
+      ],
+      "note": "You may also use industry opt-out portals to reduce third-party advertising."
+    },
+    "retention": {
+      "title": "Data retention",
+      "description": "Unless the law requires otherwise, we retain data only for as long as necessary for the purposes above. You can clear local storage any time to remove on-device preferences."
+    },
+    "rights": {
+      "title": "Your rights",
+      "description": "You may contact us to access, update, or delete your information, and withdraw consent where applicable. We respond within a reasonable timeframe."
+    },
+    "contact": {
+      "title": "Contact",
+      "description": "If you have questions about this policy or want to exercise your rights, email <a>contact@example.com</a>."
+    },
+    "updates": {
+      "title": "Policy updates",
+      "description": "If we make significant changes, we will update this page and refresh the effective date."
+    },
+    "back": "Back to home"
+  },
+  "disclaimer": {
+    "metaTitle": "Disclaimer | Learning Studio",
+    "metaDescription": "Learning Studio disclaimer: information is for reference only and not professional advice.",
+    "heading": "Disclaimer",
+    "intro": "The materials on this site—including posts, tools, examples, and links—are for learning and reference only. They do not constitute professional advice (legal, medical, investment, or any certified field).",
+    "accuracyTitle": "Accuracy and availability",
+    "accuracyList": [
+      "We strive to keep content accurate and timely, but offer no guarantee on completeness or suitability.",
+      "Tools and services may become temporarily unavailable due to maintenance or third-party issues. We are not liable for resulting direct or indirect losses."
+    ],
+    "linksTitle": "External links",
+    "linksDescription": "This site may link to third-party websites. We are not responsible for their content, privacy practices, or policies. Access them at your own discretion.",
+    "riskTitle": "Use at your own risk",
+    "riskDescription": "Assess whether the materials and tools meet your needs, and consult qualified professionals when you require certified advice.",
+    "back": "← Back to home"
+  }
+}

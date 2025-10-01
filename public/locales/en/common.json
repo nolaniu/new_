@@ -1,0 +1,33 @@
+﻿{
+  "site": {
+    "name": "Learning Studio"
+  },
+  "header": {
+    "logoAlt": "Learning Studio logo"
+  },
+  "nav": {
+    "home": "Home",
+    "blog": "Learning Journal",
+    "about": "About",
+    "privacy": "Privacy Policy",
+    "disclaimer": "Disclaimer"
+  },
+  "breadcrumb": {
+    "aria": "Breadcrumb navigation"
+  },
+  "footer": {
+    "rights": "All rights reserved."
+  },
+  "share": {
+    "x": "Share on X",
+    "facebook": "Share on Facebook",
+    "linkedin": "Share on LinkedIn",
+    "email": "Share via email",
+    "open": "Share"
+  },
+  "sidebar": {
+    "error": "Failed to load",
+    "loading": "Loading…",
+    "count": "Curating {{count}} posts"
+  }
+}

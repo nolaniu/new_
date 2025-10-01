@@ -1,0 +1,406 @@
+middleware.ts	17	// 只保护 /admin（含子路由）
+middleware.ts	20	// ✅ 强制重新弹窗（登出）
+middleware.ts	21	// 访问 /admin?reauth=1 时，立刻返回 401，且更换 realm 以清掉浏览器缓存的凭证
+middleware.ts	23	// 改个 realm 名称，浏览器会认为是“新区域”，丢弃旧的 Authorization 缓存
+middleware.ts	35	// 第一次访问或缓存被清，触发弹窗
+middleware.ts	40	// Edge 运行时可用 atob
+middleware.ts	49	// 帐密不对 -> 再次弹窗
+middleware.ts	56	// ✅ 注意这里：明确包含 '/admin' 和其子路径，避免只匹配子路径而漏掉根路径
+tailwind.config.js	6	"./app/**/*.{js,jsx,ts,tsx,md,mdx}",   // 如果使用 app router
+tailwind.config.js	7	"./src/**/*.{js,jsx,ts,tsx,md,mdx}",   // 如果代码都在 src 下
+components\Footer.js	7	{/* 左侧 LOGO */}
+components\Footer.js	9	<img src="/images/icon.png" alt="学习工作室 Logo" className="h-6 w-6" />
+components\Footer.js	10	<span className="font-bold text-white">学习工作室</span>
+components\Footer.js	13	{/* 中间链接 */}
+components\Footer.js	15	<Link href="/about" className="hover:text-white transition">关于我们</Link>
+components\Footer.js	16	<Link href="/privacy" className="hover:text-white transition">隐私政策</Link>
+components\Footer.js	17	<Link href="/disclaimer" className="hover:text-white transition">免责声明</Link>
+components\Footer.js	20	{/* 右侧版权信息 */}
+components\Footer.js	22	© {new Date().getFullYear()} 学习工作室 All Rights Reserved
+components\Layout.js	6	// 官方品牌图标
+components\Layout.js	10	// 页首导航：只保留 首页 / 学习日志
+components\Layout.js	12	{ href: '/', label: '首页' },
+components\Layout.js	13	{ href: '/blog', label: '学习日志' },
+components\Layout.js	16	// 页尾右侧链接：学习日志 + 三大合规页
+components\Layout.js	18	{ href: '/about', label: '关于我们' },
+components\Layout.js	19	{ href: '/privacy', label: '隐私政策' },
+components\Layout.js	20	{ href: '/disclaimer', label: '免责声明' },
+components\Layout.js	23	// 弹出小窗口函数（用于分享）
+components\Layout.js	41	// 构造分享链接
+components\Layout.js	52	// Tooltip 包装器（悬停显示平台名）
+components\Layout.js	71	function Layout({ children, breadcrumbItems = [], shareTitle = '学习工作室' }) {
+components\Layout.js	84	{/* Header：只显示 首页 / 学习日志 */}
+components\Layout.js	89	<span className="text-lg font-bold text-brand-600">学习工作室</span>
+components\Layout.js	136	{/* Footer：中间分享 + 右侧 学习日志 / 合规页 */}
+components\Layout.js	139	{/* 左侧版权 */}
+components\Layout.js	141	© {new Date().getFullYear()} 学习工作室. All rights reserved.
+components\Layout.js	144	{/* 中间分享图标（小窗打开） */}
+components\Layout.js	146	<TooltipButton label="分享到 X" onClick={() => openSharePopup(links.x, 'x-share')}>
+components\Layout.js	149	<TooltipButton label="分享到 Facebook" onClick={() => openSharePopup(links.facebook, 'fb-share')}>
+components\Layout.js	152	<TooltipButton label="分享到 LinkedIn" onClick={() => openSharePopup(links.linkedin, 'li-share')}>
+components\Layout.js	155	<TooltipButton label="邮件分享" onClick={() => (window.location.href = links.email)}>
+components\Layout.js	160	{/* 右侧：学习日志 + 合规页 */}
+components\SharePopup.js	19	{/* 触发按钮 */}
+components\SharePopup.js	24	分享
+components\SharePopup.js	27	{/* 弹窗 */}
+components\Sidebar.js	7	refreshInterval: 15000,   // 每 15s 拉一次（可调或去掉）
+components\Sidebar.js	8	dedupingInterval: 8000,   // 防抖合并
+components\Sidebar.js	9	fallbackData: { posts: initialPosts }, // 首屏用 SSR/ISR 传进来的
+components\Sidebar.js	13	if (error) return <div className="text-sm text-red-600">加载失败</div>
+components\Sidebar.js	14	if (isLoading && posts.length === 0) return <div className="text-sm opacity-60">加载中…</div>
+components\Sidebar.js	18	<div className="mb-3 text-sm font-semibold">全部文章（{posts.length}）</div>
+lib\githubPosts.ts	5	const REPO = (process.env.GITHUB_REPO || '').trim() // 形如 "owner/repo"
+lib\githubPosts.ts	38	// 由页面/路由的 ISR 控制缓存；此处保持默认
+lib\githubPosts.ts	63	// 优先用 API 返回的 base64，若无则走 raw 下载
+lib\githubPosts.ts	90	return db.localeCompare(da) // 日期倒序
+lib\mdx.js	7	// —— 可选插件（未安装也能工作） ——
+lib\mdx.js	12	// 给标题加锚点，可点击
+lib\mdx.js	15	// 忽略未安装，功能降级
+lib\mdx.js	18	// —— 基础常量 ——
+lib\mdx.js	24	// —— 小工具 ——
+lib\mdx.js	42	// 粗略估算：英文 200 wpm；中文 500 字/分钟
+lib\mdx.js	48	return isEn ? `${mins} min read` : `预计阅读 ${mins} 分钟`;
+lib\mdx.js	51	// —— 导出函数 ——
+lib\mdx.js	53	// 1) 无语言后缀的所有 slug（中英文并集）
+lib\mdx.js	60	// 2) 按 locale 列出文章元数据（缺失时回退中文），性能友好：不序列化 MDX
+lib\mdx.js	84	locale: fs.existsSync(prefer) ? loc : FALLBACK_LOCALE, // 实际内容来源语言
+lib\mdx.js	88	// 日期倒序（无日期排后）
+lib\mdx.js	99	// 3) 读取单篇并序列化 MDX（详情页用），按 locale 优先，缺失回退中文
+pages\about.js	8	<title>关于我们 | 学习工作室</title>
+pages\about.js	9	<meta name="description" content="学习工作室：记录、练习、冥想、专注的一站式成长平台。" />
+pages\about.js	12	<h1>关于我们</h1>
+pages\about.js	13	<p><strong>学习工作室</strong> 是一个把学习笔记、计划清单与沉浸工具整合在一起的个人/团队项目。我们希望通过更好的内容与工具，帮助你在长期主义的道路上稳步前行。</p>
+pages\about.js	15	<h2>我们的愿景</h2>
+pages\about.js	17	<li>让知识沉淀更轻松：高质量的记录与复盘。</li>
+pages\about.js	18	<li>让练习更高效：工具即工作台，尽量减少上下文切换。</li>
+pages\about.js	19	<li>让身心更稳定：通过冥想/专注工具维持长期专注力。</li>
+pages\about.js	22	<h2>联系我们</h2>
+pages\about.js	23	<p>如有建议或合作意向，请邮件联系：<a href="mailto:contact@example.com">contact@example.com</a></p>
+pages\about.js	26	了解我们的<a href="/privacy">隐私政策</a>与<a href="/disclaimer">免责声明</a>。
+pages\about.js	28	<p><Link href="/" className="no-underline">← 返回首页</Link></p>
+pages\disclaimer.js	8	<title>免责声明 | 学习工作室</title>
+pages\disclaimer.js	9	<meta name="description" content="学习工作室免责声明：内容仅作参考，不构成专业建议或保证。" />
+pages\disclaimer.js	12	<h1>免责声明</h1>
+pages\disclaimer.js	13	<p>本网站所载内容（包括但不限于文章、工具、示例与链接）仅用于学习与参考，不构成任何形式的专业建议（例如法律、医疗、投资或其他需要执业资格的建议）。</p>
+pages\disclaimer.js	15	<h2>内容准确性与可用性</h2>
+pages\disclaimer.js	17	<li>我们努力确保内容准确、及时，但不对其完整性或适用性作出保证。</li>
+pages\disclaimer.js	18	<li>工具与服务可能因维护或第三方因素暂时不可用，我们不对由此造成的直接或间接损失负责。</li>
+pages\disclaimer.js	21	<h2>外部链接</h2>
+pages\disclaimer.js	22	<p>本网站可能包含指向第三方网站的链接。我们不对第三方网站的内容、隐私政策或实践负责。访问外部网站请自行判断并承担风险。</p>
+pages\disclaimer.js	24	<h2>风险自负</h2>
+pages\disclaimer.js	25	<p>你应结合自身情况独立评估并承担使用本网站内容与工具的风险。如需专业意见，请咨询具备相应资质的专业人士。</p>
+pages\disclaimer.js	27	<p><Link href="/" className="no-underline">← 返回首页</Link></p>
+pages\index.js	16	{t('home:hero.badge', '学习与实践')}
+pages\index.js	19	{t('home:hero.title', '学习工作室')}
+pages\index.js	22	{t('home:hero.subtitle', '记录学习、工具与方法，帮助你更专注地进步')}
+pages\index.js	29	{t('home:hero.cta.read', '去看看博客')}
+pages\index.js	35	{t('home:hero.cta.focus', '查看专注空间')}
+pages\index.js	41	{/* 最新文章 */}
+pages\index.js	46	{t('home:latest.title', '最新文章')}
+pages\index.js	49	{t('home:latest.desc', '最近发布的内容')}
+pages\index.js	53	{t('home:latest.viewAll', '查看全部')} →
+pages\index.js	64	{/* 专注空间示例 */}
+pages\index.js	68	{t('home:focus.title', '专注空间')}
+pages\index.js	71	{t('home:focus.desc', '为深度工作与冥想准备的轻工具')}
+pages\index.js	79	title: t('home:focus.darkroom.title', '暗室专注'),
+pages\index.js	80	desc: t('home:focus.darkroom.desc', '屏蔽干扰，沉浸式专注'),
+pages\index.js	82	cta: t('home:focus.darkroom.cta', '进入暗室')
+pages\index.js	86	title: t('home:focus.meditation.title', '冥想引导'),
+pages\index.js	87	desc: t('home:focus.meditation.desc', '用呼吸与节奏放松身心'),
+pages\index.js	89	cta: t('home:focus.meditation.cta', '开始冥想')
+pages\index.js	118	// 如果你的 MDX 已拆分语言，这里可改为 getAllPosts(locale)
+pages\privacy.js	8	<title>隐私政策 | 学习工作室</title>
+pages\privacy.js	9	<meta name="description" content="学习工作室隐私政策：数据收集、使用、Cookie、广告与第三方服务说明。" />
+pages\privacy.js	12	<h1>隐私政策</h1>
+pages\privacy.js	13	<p>最近更新：{new Date().toISOString().slice(0, 10)}</p>
+pages\privacy.js	15	<h2>我们收集哪些数据</h2>
+pages\privacy.js	17	<li><strong>必要数据</strong>：为提供基础功能所需的数据（如页面访问记录的匿名统计）。</li>
+pages\privacy.js	18	<li><strong>可选数据</strong>：你在表单中自愿提交的信息（如邮箱、反馈内容）。</li>
+pages\privacy.js	21	<h2>我们如何使用数据</h2>
+pages\privacy.js	23	<li>改进产品与内容质量（如统计受欢迎的页面/话题）。</li>
+pages\privacy.js	24	<li>回应你的咨询与支持请求。</li>
+pages\privacy.js	27	<h2>Cookie 与类似技术</h2>
+pages\privacy.js	28	<p>本网站使用 Cookie 和本地存储以改进体验（例如记住你的偏好设置）。你可以在浏览器中清除或禁用 Cookie，但这可能影响部分功能。</p>
+pages\privacy.js	30	<h2>广告与第三方服务（Google AdSense）</h2>
+pages\privacy.js	31	<p>我们使用 Google 及其合作伙伴提供的广告服务（如 Google AdSense）。这些服务可能使用 Cookie（包括 <strong>DART</strong> Cookie）根据用户此前对本网站或其他网站的访问情况来展示广告。</p>
+pages\privacy.js	33	<li>第三方供应商（包括 Google）会使用 Cookie 在你访问本网站或互联网上其他网站时投放广告。</li>
+pages\privacy.js	34	<li>Google 使用的广告 Cookie 使其及其合作伙伴能够基于你的访问记录向你展示个性化广告。</li>
+pages\privacy.js	35	<li>你可以访问 Google 的广告设置页面以选择退出个性化广告；或在 <em>aboutads.info</em> 选择退出部分第三方供应商的个性化广告。</li>
+pages\privacy.js	37	<p>我们不会将可识别个人身份的信息与广告 Cookie 关联用于个性化广告定位。</p>
+pages\privacy.js	39	<h2>数据保留与安全</h2>
+pages\privacy.js	40	<p>我们仅在达成上述目的所必需的期限内保留数据，并采取合理的安全措施以保护数据免遭未经授权的访问或披露。</p>
+pages\privacy.js	42	<h2>你的权利</h2>
+pages\privacy.js	43	<p>你可以联系我们以访问/更正/删除你提交的个人信息（在适用法律允许的范围内）。</p>
+pages\privacy.js	45	<h2>联系我们</h2>
+pages\privacy.js	46	<p>邮箱：<a href="mailto:contact@example.com">contact@example.com</a></p>
+pages\privacy.js	48	<h2>政策更新</h2>
+pages\privacy.js	49	<p>我们可能不时更新本政策。重大变更将通过站内显著位置提示。</p>
+pages\privacy.js	51	<p><Link href="/" className="no-underline">← 返回首页</Link></p>
+pages\admin\index.tsx	13	const [tags, setTags] = useState('学习,日志')
+pages\admin\index.tsx	25	// 自适应正文高度
+pages\admin\index.tsx	43	setError(e?.message || '加载失败')
+pages\admin\index.tsx	74	setMsg(`已发布：/blog/${slug}`)
+pages\admin\index.tsx	77	setMsg(`发布失败：${err.message}`)
+pages\admin\index.tsx	97	setMsg(`已载入：${j.slug}`)
+pages\admin\index.tsx	99	setMsg(`载入失败：${e?.message || 'Unknown error'}`)
+pages\admin\index.tsx	117	{/* 左：编辑器 */}
+pages\admin\index.tsx	119	<h1 className="text-2xl font-bold">博客后台发布（仅管理员）</h1>
+pages\admin\index.tsx	123	<label className="block text-sm font-medium">标题</label>
+pages\admin\index.tsx	129	<label className="block text-sm font-medium">日期</label>
+pages\admin\index.tsx	135	placeholderText="选择日期"
+pages\admin\index.tsx	140	<label className="block text-sm font-medium">自定义 Slug（可选）</label>
+pages\admin\index.tsx	146	<label className="block text-sm font-medium">摘要</label>
+pages\admin\index.tsx	151	<label className="block text-sm font-medium">标签（逗号分隔）</label>
+pages\admin\index.tsx	157	<label htmlFor="draft">草稿（不在列表显示）</label>
+pages\admin\index.tsx	161	<label className="block text-sm font-medium">正文（MDX）</label>
+pages\admin\index.tsx	169	placeholder={'## 小节\n这里写正文...'}
+pages\admin\index.tsx	173	<p className="text-sm text-gray-500">将生成文件：<code>data/blog/{slug}.mdx</code></p>
+pages\admin\index.tsx	175	{/* 粘底操作栏（始终可见） */}
+pages\admin\index.tsx	178	{/* 用 aria-disabled 替代 disabled，避免系统默认的不可控样式 */}
+pages\admin\index.tsx	183	if (busy) e.preventDefault() // 忙时阻止提交
+pages\admin\index.tsx	190	// 保险起见，强制文字颜色（防止外部样式把文字设为透明/白色）
+pages\admin\index.tsx	193	{busy ? '发布中…' : '发布'}
+pages\admin\index.tsx	201	setTags('学习,日志')
+pages\admin\index.tsx	206	setMsg('已重置表单')
+pages\admin\index.tsx	210	重置
+pages\admin\index.tsx	219	{/* 右：折叠菜单 */}
+pages\admin\index.tsx	222	<summary className="cursor-pointer select-none text-sm font-semibold">搜索</summary>
+pages\admin\index.tsx	225	placeholder="按标题 / slug 搜索…"
+pages\admin\index.tsx	233	全部文章 {loading ? '' : `（${filtered.length}）`}
+pages\admin\index.tsx	236	{loading && <p className="text-xs text-gray-500">加载中…</p>}
+pages\admin\index.tsx	237	{error && !loading && <p className="text-xs text-red-600">加载失败：{error}</p>}
+pages\admin\index.tsx	238	{!loading && !error && filtered.length === 0 && <p className="text-xs text-gray-500">暂无文章</p>}
+pages\admin\index.tsx	247	{p.date?.slice(0, 10)} {p.draft ? '· 草稿' : ''}
+pages\admin\index.tsx	256	载入编辑器
+pages\admin\index.tsx	263	打开
+pages\api\posts.js	2	import { getAllPosts } from '../../lib/githubPosts' // 这文件可以是 .js 或 .ts
+pages\api\posts.js	7	// CDN 缓存 30s，过期前可用旧数据 60s
+pages\blog\index.js	32	{t('blog:header.badge', '博客')}
+pages\blog\index.js	35	{t('blog:header.title', '全部文章')}
+pages\blog\index.js	38	{t('blog:header.desc', '记录学习、方法与实践')}
+pages\blog\index.js	41	{/* 🔍 搜索框 */}
+pages\blog\index.js	47	placeholder={t('blog:search.placeholder', '输入关键词，#标签可直达')}
+pages\blog\index.js	54	{t('blog:search.action', '搜索')}
+pages\blog\index.js	59	{/* 博客文章列表 */}
+pages\blog\search.js	16	// 统一解析路由：优先使用 q（通用关键字），其次兼容 tag（标签）
+pages\blog\search.js	30	// 根据当前模式回填输入框
+pages\blog\search.js	36	// 提交：以 # 开头 → tag；否则 → q
+pages\blog\search.js	52	// 过滤规则
+pages\blog\search.js	72	{/* 面包屑导航：学习日志使用 replace */}
+pages\blog\search.js	75	学习日志
+pages\blog\search.js	78	<span>检索</span>
+pages\blog\search.js	82	<p className="text-sm font-semibold text-brand-600">检索</p>
+pages\blog\search.js	83	<h1 className="text-3xl font-display font-bold text-slate-900">按标签或标题查找文章</h1>
+pages\blog\search.js	85	用 <code>#标签</code> 搜标签，比如 <code>#前端</code>；直接输入文字则按标题（并兼顾标签模糊匹配）搜索。
+pages\blog\search.js	93	placeholder="例如：#前端 或 React"
+pages\blog\search.js	100	搜索
+pages\blog\search.js	109	当前标签：
+pages\blog\search.js	116	搜索关键词：
+pages\blog\search.js	123	<h2 className="text-sm font-medium text-slate-500">未输入关键字，显示全部文章。</h2>
+pages\blog\search.js	134	暂无匹配结果，换一个关键字试试吧。
+pages\blog\[slug].js	46	← {t('blog:post.back', '返回')}
+pages\blog\[slug].js	53	{frontMatter.date ? fmt.format(new Date(frontMatter.date)) : t('blog:post.noDate', '无日期')}
+pages\blog\[slug].js	55	{frontMatter.readingTime || t('blog:post.readingTime', '预计阅读 3 分钟')}
+pages\blog\[slug].js	64	const slugs = await getPostSlugs(); // 无语言后缀的 slug 列表
+pages\tools\dark-room.js	7	"专注是一项可以习得的技能，耐心是最好的导师。",
+pages\tools\dark-room.js	8	"所有的创造都始于宁静，先让心慢下来。",
+pages\tools\dark-room.js	9	"记录想法的瞬间，就已经在和拖延保持距离。",
+pages\tools\dark-room.js	10	"保持对当下的觉察，你会发现时间过得更扎实。",
+pages\tools\dark-room.js	11	"当你真正投入，世界就会为你让路。",
+pages\tools\dark-room.js	17	label: "细雨",
+pages\tools\dark-room.js	35	label: "篝火",
+pages\tools\dark-room.js	62	label: "海浪",
+pages\tools\dark-room.js	85	label: "脑波",
+pages\tools\dark-room.js	131	const [todos, setTodos] = useState(() => [createTodo("在这里记录今天最重要的两件事")]);
+pages\tools\dark-room.js	258	// 释放滚动锁，避免阻塞首页的 hash 定位
+pages\tools\dark-room.js	263	}}>专注空间</Link>
+pages\tools\dark-room.js	265	<span className="text-slate-400/60">小黑屋自习室</span>
+pages\tools\dark-room.js	277	<span>{'提示：ESC 退出全屏｜随时切换下一条'}</span>
+pages\tools\dark-room.js	283	{'换一句'}
+pages\tools\dark-room.js	294	切换全屏
+pages\tools\dark-room.js	332	<h2 className="text-sm font-semibold text-slate-200">待办清单</h2>
+pages\tools\dark-room.js	333	<p className="text-[10px] text-slate-500">把灵感拆成小步骤</p>
+pages\tools\dark-room.js	346	placeholder="记录今天要推进的事项"
+pages\tools\dark-room.js	394	{'还没有事项，给自己定一个小目标吧。'}
+pages\tools\dark-room.js	437	title={`${track.label}${playing[track.id] ? "（播放中）" : ""}`}
+pages\tools\index.js	3	//     title: '小黑屋自习室',
+pages\tools\index.js	5	//       '为深度专注打造的沉浸式环境，暗色界面与可控白噪声帮助你快速切换到投入状态。',
+pages\tools\index.js	6	//     action: { label: '进入自习室', href: '/tools/dark-room' },
+pages\tools\index.js	8	//       '极简暗色背景，支持一键全屏/退出',
+pages\tools\index.js	9	//       '集成番茄钟、待办与灵感记录区',
+pages\tools\index.js	10	//       '适合写作、编程、阅读等长时间学习',
+pages\tools\index.js	14	//     title: '冥想空间',
+pages\tools\index.js	16	//       '基于 4-4-6 呼吸节奏设计的冥想练习，引导你放慢节奏，重拾心绪平衡。',
+pages\tools\index.js	17	//     action: { label: '开始冥想', href: '/tools/meditation' },
+pages\tools\index.js	19	//       '动态呼吸引导，可暂停、静音或切换节奏',
+pages\tools\index.js	20	//       '自动记录每次冥想时长与轮次',
+pages\tools\index.js	21	//       '适合晨间唤醒、午休恢复或睡前放松',
+pages\tools\index.js	30	//         <p className="text-sm font-semibold text-brand-600">专注空间精选</p>
+pages\tools\index.js	31	//         <h1 className="text-3xl font-display font-bold text-slate-900">围绕专注与冥想打造的一体化练习室</h1>
+pages\tools\index.js	33	//           这里收录了帮助你进入“深度工作”与“静心冥想”的工具，每个页面都可独立使用，也能串联成专注方案。
+pages\tools\meditation.js	6	label: "吸气",
+pages\tools\meditation.js	8	hint: "从鼻腔缓缓吸入，胸腹像树梢一样舒展。",
+pages\tools\meditation.js	11	label: "保持",
+pages\tools\meditation.js	13	hint: "轻轻保持，感受空气在身体里安稳流动。",
+pages\tools\meditation.js	16	label: "呼气",
+pages\tools\meditation.js	18	hint: "慢慢呼出，像风穿过森林带走紧绷。",
+pages\tools\meditation.js	25	label: "林间晨雾",
+pages\tools\meditation.js	27	audio: "/audio/林间晨雾.mp3",
+pages\tools\meditation.js	31	label: "山涧清泉",
+pages\tools\meditation.js	33	audio: "/audio/山涧清泉.mp3",
+pages\tools\meditation.js	37	label: "丘谷薄暮",
+pages\tools\meditation.js	39	audio: "/audio/丘谷暮霭.mp3",
+pages\tools\meditation.js	44	"呼吸是连接自我与世界的桥梁。",
+pages\tools\meditation.js	45	"让思绪像晨雾散开，只留下清晰的觉察。",
+pages\tools\meditation.js	46	"安静坐下，你会听见身体在诉说。",
+pages\tools\meditation.js	47	"带着善意对待每一次呼吸，宁静自然到来。",
+pages\tools\meditation.js	48	"光与影在林间流动，如同心的节奏。",
+pages\tools\meditation.js	61	const [backgroundIndex, setBackgroundIndex] = useState(2); // 设置默认为丘谷薄暮（索引2）
+pages\tools\meditation.js	226	<Link href="/#focus-spaces" className="text-slate-100/80 transition hover:text-teal-100">专注空间</Link>
+pages\tools\meditation.js	228	<span className="text-slate-100/70">冥想空间</span>
+pages\tools\meditation.js	292	<span className="flex-1 text-center">{showBreathing ? '结束冥想' : '一分钟冥想'}</span>
+pages\tools\meditation.js	336	{running ? '暂停呼吸' : '开始呼吸'}
+pages\tools\meditation.js	343	重置节奏
+pages\tools\pomodoro.js	89	<p className="text-sm font-semibold text-brand-600">番茄钟 | Pomodoro</p>
+pages\tools\pomodoro.js	90	<h1 className="text-3xl font-display font-bold text-slate-900">专注 25 分钟，休息 5 分钟，保持高效节奏</h1>
+pages\tools\pomodoro.js	92	参考 astroud/pomodoro-react-app 改造而来。支持自定义时长、轮次统计、结束提示音与一键跳过，适合深度工作或学习冲刺。
+pages\tools\pomodoro.js	101	{ key: 'focus', label: '专注阶段' },
+pages\tools\pomodoro.js	102	{ key: 'short', label: '短休息' },
+pages\tools\pomodoro.js	103	{ key: 'long', label: '长休息' },
+pages\tools\pomodoro.js	120	<span className="text-xs uppercase tracking-wide text-slate-400">第 {Math.floor(completedRounds / ROUNDS_BEFORE_LONG_BREAK) + 1} 轮</span>
+pages\tools\pomodoro.js	153	{isRunning ? '暂停' : '开始'}
+pages\tools\pomodoro.js	160	跳过阶段
+pages\tools\pomodoro.js	167	重置
+pages\tools\pomodoro.js	174	<h2 className="text-lg font-display font-semibold text-slate-900">阶段时长设置（分钟）</h2>
+pages\tools\pomodoro.js	177	{ key: 'focus', label: '专注时长', hint: '建议 25 分钟，可按需调整。' },
+pages\tools\pomodoro.js	178	{ key: 'short', label: '短休息', hint: '建议 5 分钟，帮助缓解疲劳。' },
+pages\tools\pomodoro.js	179	{ key: 'long', label: '长休息', hint: '建议 15 分钟，每完成 4 轮触发。' },
+pages\tools\pomodoro.js	200	<p className="font-semibold">使用指南</p>
+pages\tools\pomodoro.js	202	<li>完成一个专注阶段后，会自动切换到短休息。</li>
+pages\tools\pomodoro.js	203	<li>每完成 {ROUNDS_BEFORE_LONG_BREAK} 轮专注阶段后进入长休息，帮助恢复精力。</li>
+pages\tools\pomodoro.js	204	<li>结束时播放提示音，建议配合耳机或提示灯使用。</li>
+pages\tools\pomodoro.js	247	{ label: '专注空间', href: '/tools' },
+pages\tools\pomodoro.js	248	{ label: '番茄钟' },
+pages\tools\todo.js	7	<p className="text-sm font-semibold text-brand-600">待办清单</p>
+pages\tools\todo.js	8	<h1 className="text-3xl font-display font-bold text-slate-900">轻量但好用的 ToDo 列表，支持优先级与状态管理</h1>
+pages\tools\todo.js	10	向 taniarascia/todo 学习的 React 清单实现。所有数据保存在浏览器本地存储，可离线使用，支持优先级标记和完成状态过滤。
+pages\tools\todo.js	17	<h2 className="text-lg font-display font-semibold text-slate-900">使用提示</h2>
+pages\tools\todo.js	19	<li>任务会自动保存到浏览器本地存储，可随时刷新页面继续。</li>
+pages\tools\todo.js	20	<li>优先级支持“高优先 / 普通 / 宽松”，适合番茄钟或日计划搭配使用。</li>
+pages\tools\todo.js	21	<li>切换过滤器对进行中、已完成任务进行聚焦，保持列表精炼。</li>
+pages\tools\todo.js	29	{ label: '专注空间', href: '/tools' },
+pages\tools\todo.js	30	{ label: '待办清单' },
+pages\tools\white-noise.js	7	<p className="text-sm font-semibold text-brand-600">白噪音播放器</p>
+pages\tools\white-noise.js	8	<h1 className="text-3xl font-display font-bold text-slate-900">叠加多种环境音，塑造沉浸专注氛围</h1>
+pages\tools\white-noise.js	10	灵感来自 SoundDrown，使用浏览器原生 Audio API，可同时播放多个音轨并单独调节音量，适合写作、阅读、冥想或睡前放松使用。
+pages\tools\white-noise.js	17	<h2 className="text-lg font-display font-semibold text-slate-900">使用提示</h2>
+pages\tools\white-noise.js	19	<li>同一时间建议开启 2-3 条音轨，通过音量配比营造层次。</li>
+pages\tools\white-noise.js	20	<li>点击“停止全部”后会立即复位时间轴，方便切换场景。</li>
+pages\tools\white-noise.js	21	<li>默认音量为 60%，可点击“恢复默认音量”快速回到初始状态。</li>
+pages\tools\white-noise.js	29	{ label: '专注空间', href: '/tools' },
+pages\tools\white-noise.js	30	{ label: '白噪声播放器' },
+pages\tools\components\PomodoroTimer.js	11	label: '专注',
+pages\tools\components\PomodoroTimer.js	17	label: '休息',
+pages\tools\components\PomodoroTimer.js	23	label: '长休息',
+pages\tools\components\PomodoroTimer.js	59	// 每完成4个工作周期，进入长休息
+pages\tools\components\PomodoroTimer.js	120	{isRunning ? '暂停' : '开始'}
+pages\tools\components\PomodoroTimer.js	126	重置
+pages\tools\components\PomodoroTimer.js	131	已完成 {rounds} / 4 轮
+pages\api\admin\get.ts	24	// 只允许中英文字母、数字、-、_，防止路径穿越
+pages\api\admin\list.ts	16	// 本地没有目录时直接返回空数组
+pages\api\admin\list.ts	39	// 某个文件解析失败，不要让整个接口 500，记录并跳过该文件
+pages\api\admin\list.ts	41	items.push({ slug, title: slug }) // 至少把 slug 返回出来
+pages\api\admin\list.ts	45	// 按日期倒序
+pages\api\admin\list.ts	51	// 本地开发时返回更可读的错误
+pages\api\admin\publish.ts	33	// 先查是否存在，拿 sha（更新时需要）
+pages\api\admin\publish.ts	46	// 创建或更新
+data\blog\zh\01-getting-started.mdx	2	title: "构建学习工作室的第一天"
+data\blog\zh\01-getting-started.mdx	4	summary: "梳理一站式个人工作室的目标，并搭建 Next.js + Tailwind + MDX 基础框架。"
+data\blog\zh\01-getting-started.mdx	9	readingTime: "6 分钟阅读"
+data\blog\zh\01-getting-started.mdx	14	欢迎来到学习工作室！
+data\blog\zh\01-getting-started.mdx	16	本项目参考 [timlrx/tailwind-nextjs-starter-blog](https://github.com/timlrx/tailwind-nextjs-starter-blog) 的结构，保留 `pages` 路由与 MDX 驱动的内容体系，同时根据需求加入效率工具页。
+data\blog\zh\01-getting-started.mdx	18	### 目标拆解
+data\blog\zh\01-getting-started.mdx	20	1. **博客体系**：使用 MDX 写作，存放在 `data/blog/*.mdx`。借助前言区块（frontmatter）维护标题、摘要、标签与阅读时长。
+data\blog\zh\01-getting-started.mdx	21	2. **站点结构**：`/` 为总览，`/blog` 展示所有学习记录，`/tools` 集中效率工具。
+data\blog\zh\01-getting-started.mdx	22	3. **视觉形象**：Tailwind CSS 的品牌色设定为紫色梯度，保持轻量与未来感。
+data\blog\zh\01-getting-started.mdx	24	### 配置 Tailwind 与 MDX
+data\blog\zh\01-getting-started.mdx	26	- Tailwind 在 `tailwind.config.js` 中声明扫描路径，并扩展字体与阴影。
+data\blog\zh\01-getting-started.mdx	27	- 通过 `next-mdx-remote` 在构建阶段序列化 MDX，搭配 `remark-gfm` 和 `rehype-autolink-headings` 获得更好的 Markdown 体验。
+data\blog\zh\01-getting-started.mdx	30	记得将常用组件（如 Callout、Tip、Note）收纳到 `components/` 中，MDX 可以直接引入 React 组件。
+data\blog\zh\01-getting-started.mdx	33	### 下一步
+data\blog\zh\01-getting-started.mdx	35	- 完成效率工具页的 React 逻辑。
+data\blog\zh\01-getting-started.mdx	36	- 规划白噪声素材与呼吸训练节奏。
+data\blog\zh\01-getting-started.mdx	37	- 将冥想心得同步回博客形成长期档案。
+data\blog\zh\02-pomodoro-playbook.mdx	2	title: "番茄钟操作手册：25 分钟的深度投入"
+data\blog\zh\02-pomodoro-playbook.mdx	4	summary: "如何利用自定义番茄钟节奏、声音提醒与轮次统计，在学习与工作中保持高能状态。"
+data\blog\zh\02-pomodoro-playbook.mdx	6	- 番茄钟
+data\blog\zh\02-pomodoro-playbook.mdx	7	- 专注力
+data\blog\zh\02-pomodoro-playbook.mdx	8	- 效率工具
+data\blog\zh\02-pomodoro-playbook.mdx	9	readingTime: "4 分钟阅读"
+data\blog\zh\02-pomodoro-playbook.mdx	12	番茄工作法的核心是 **限制时长 + 主动休息**。新版番茄钟保留了 astroud/pomodoro-react-app 的清晰逻辑，并加入以下增强：
+data\blog\zh\02-pomodoro-playbook.mdx	14	- 支持自定义专注、短休与长休时长，适配不同阶段的体力状况；
+data\blog\zh\02-pomodoro-playbook.mdx	15	- 使用 SVG 圆环显示进度，强化视觉反馈；
+data\blog\zh\02-pomodoro-playbook.mdx	16	- 每完成四轮自动触发长休息，且可以手动跳过阶段；
+data\blog\zh\02-pomodoro-playbook.mdx	17	- 借助 `AudioContext` 生成提示音，无需额外音频文件。
+data\blog\zh\02-pomodoro-playbook.mdx	19	在实际使用中可以搭配以下策略：
+data\blog\zh\02-pomodoro-playbook.mdx	21	1. **任务拆分**：每个番茄只做一件事，准备一个 `TODO` 列表配合执行；
+data\blog\zh\02-pomodoro-playbook.mdx	22	2. **回顾日志**：每天结束后记录完成了多少轮番茄钟，与精力曲线进行对照；
+data\blog\zh\02-pomodoro-playbook.mdx	23	3. **配套工具**：同时开启白噪声播放器或小黑屋页面，构建沉浸式环境。
+data\blog\zh\02-pomodoro-playbook.mdx	26	完成一次番茄钟后，记得在待办列表里标记状态，也可以在博客写一段反思。培养「输入 - 内化 - 输出」的闭环，帮助知识真正沉淀。
+data\blog\zh\02-pomodoro-playbook.mdx	29	继续优化方向：考虑将番茄数据写入 `localStorage`，或导出到 Markdown 日志，便于长周期复盘。
+data\blog\zh\03-meditation-notes.mdx	2	title: "冥想仪式：用 4-4-6 呼吸重启大脑"
+data\blog\zh\03-meditation-notes.mdx	4	summary: "记录新版冥想空间的设计思路，以及如何在日常中建立可持续的身心恢复仪式。"
+data\blog\zh\03-meditation-notes.mdx	6	- 冥想
+data\blog\zh\03-meditation-notes.mdx	7	- 呼吸训练
+data\blog\zh\03-meditation-notes.mdx	8	- 白噪声
+data\blog\zh\03-meditation-notes.mdx	9	readingTime: "5 分钟阅读"
+data\blog\zh\03-meditation-notes.mdx	12	打造冥想空间的初衷，是希望在繁忙的任务间隙快速「关机 - 重启」。本页的设计灵感来自 trynoice/web-app-v0，让环境音、呼吸节奏与记录工具一体化呈现。
+data\blog\zh\03-meditation-notes.mdx	14	### 设计亮点
+data\blog\zh\03-meditation-notes.mdx	16	- **4-4-6 呼吸节奏**：在 4 秒吸气、4 秒停留、6 秒呼气的节奏中，从容地感知身体。
+data\blog\zh\03-meditation-notes.mdx	17	- **多音轨混合**：可勾选风声、颂钵、溪流三种音色，搭配音量控制。
+data\blog\zh\03-meditation-notes.mdx	18	- **冥想笔记**：在结束后记录身体与情绪的变化，帮助发现触发因素。
+data\blog\zh\03-meditation-notes.mdx	20	> 冥想不仅是放松，更是对注意力的训练。不断观察自己的念头是如何出现、飘走的过程，久而久之也能在工作中更快进入心流。
+data\blog\zh\03-meditation-notes.mdx	22	### 使用建议
+data\blog\zh\03-meditation-notes.mdx	24	1. 在使用前关闭消息通知，或切换到「小黑屋专注室」。
+data\blog\zh\03-meditation-notes.mdx	25	2. 设置 10-15 分钟开始，逐步延长时长。
+data\blog\zh\03-meditation-notes.mdx	26	3. 冥想结束后及时写下三句话，记录情绪和灵感。
+data\blog\zh\03-meditation-notes.mdx	29	冥想是高强度学习与工作的缓冲区。善用它，就像随身携带一个「能量补给站」，随时帮助自己回到平静与清晰。
+data\blog\zh\03-meditation-notes.mdx	32	下一步计划：结合浏览器 `Notification` API，实现在冥想结束时弹出温柔的提醒，同时引导记录心得。
+components\tools\PomodoroTimer.js	11	label: "专注",
+components\tools\PomodoroTimer.js	18	label: "休息",
+components\tools\PomodoroTimer.js	25	label: "长休息",
+components\tools\PomodoroTimer.js	62	// 每完成四个专注周期后进入长休息
+components\tools\PomodoroTimer.js	138	{isRunning ? "暂停" : "开始"}
+components\tools\PomodoroTimer.js	144	重置
+components\tools\PomodoroTimer.js	149	已完成 {rounds} / 4 轮
+components\tools\TodoWidget.js	4	{ value: 'high', label: '高优先' },
+components\tools\TodoWidget.js	5	{ value: 'medium', label: '普通' },
+components\tools\TodoWidget.js	6	{ value: 'low', label: '宽松' },
+components\tools\TodoWidget.js	93	headerTitle = '待办清单',
+components\tools\TodoWidget.js	94	headerDescription = '轻量但好用的 ToDo 列表，支持优先级与状态管理',
+components\tools\TodoWidget.js	168	新建任务
+components\tools\TodoWidget.js	174	placeholder="例如：25 分钟阅读《深度工作》第一章"
+components\tools\TodoWidget.js	180	优先级
+components\tools\TodoWidget.js	196	添加任务
+components\tools\TodoWidget.js	203	{ value: 'all', label: '全部' },
+components\tools\TodoWidget.js	204	{ value: 'active', label: '进行中' },
+components\tools\TodoWidget.js	205	{ value: 'completed', label: '已完成' },
+components\tools\TodoWidget.js	220	清除已完成
+components\tools\TodoWidget.js	225	{filteredTasks.length === 0 ? <li className={theme.listEmpty}>目前还没有任务，先写下一个小目标吧。</li> : null}
+components\tools\TodoWidget.js	247	{PRIORITIES.find((item) => item.value === task.priority)?.label || '普通'}
+components\tools\TodoWidget.js	250	创建于 {new Date(task.createdAt).toLocaleString('zh-CN', { hour12: false })}
+components\tools\TodoWidget.js	255	删除
+components\tools\WhiteNoisePlayer.js	6	title: "海浪拍岸",
+components\tools\WhiteNoisePlayer.js	7	description: "海潮往复的节奏伴随低频浪花，适合冥想或舒缓情绪。",
+components\tools\WhiteNoisePlayer.js	13	title: "细雨入夜",
+components\tools\WhiteNoisePlayer.js	14	description: "雨滴轻敲窗沿与树叶，营造温柔的环绕声场。",
+components\tools\WhiteNoisePlayer.js	20	title: "篝火暖夜",
+components\tools\WhiteNoisePlayer.js	21	description: "篝火噼啪作响，伴随微风与木柴的轻微燃烧声。",
+components\tools\WhiteNoisePlayer.js	27	title: "专注脑波",
+components\tools\WhiteNoisePlayer.js	28	description: "细腻的双声拍律动，引导进入深度专注状态。",
+components\tools\WhiteNoisePlayer.js	156	<p className={`text-sm font-semibold ${theme.statsTitle}`}>当前播放</p>
+components\tools\WhiteNoisePlayer.js	158	正在播放 {activeCount} / {tracks.length} 条音轨
+components\tools\WhiteNoisePlayer.js	168	恢复默认音量
+components\tools\WhiteNoisePlayer.js	171	停止全部
+components\tools\WhiteNoisePlayer.js	196	{playing[track.id] ? "暂停" : "播放"}
+components\tools\WhiteNoisePlayer.js	201	音量 {Math.round(volumes[track.id] * 100)}%

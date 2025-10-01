@@ -1,0 +1,234 @@
+{
+  "breadcrumbs": {
+    "focusSpaces": "Focus Spaces",
+    "darkRoom": "Darkroom Workspace",
+    "pomodoro": "Pomodoro Timer",
+    "todo": "Todo List",
+    "whiteNoise": "White Noise Player",
+    "meditation": "Meditation Space"
+  },
+  "darkRoom": {
+    "quotes": [
+      "Focus is a skill you can train—patience is the best mentor.",
+      "Every act of creation begins in stillness; slow your mind first.",
+      "Capture ideas the moment they appear and procrastination loses ground.",
+      "Stay aware of the present and time will feel more substantial.",
+      "When you commit wholeheartedly, the world makes room for you."
+    ],
+    "tracks": {
+      "rain": "Rain",
+      "campfire": "Campfire",
+      "waves": "Waves",
+      "focus": "Brainwave"
+    },
+    "defaultTodo": "Log the two most important tasks for today here.",
+    "todoPlaceholder": "What will you move forward today?",
+    "tip": "Tip: press ESC to exit fullscreen · switch quotes anytime.",
+    "nextQuote": "Next line",
+    "toggleFullscreen": "Toggle fullscreen",
+    "todoTitle": "Task list",
+    "todoSubtitle": "Break ideas into small steps",
+    "empty": "Nothing here yet—set a small goal to get started.",
+    "playingSuffix": " (playing)",
+    "breadcrumbs": {
+      "root": "Focus Spaces"
+    },
+    "description": "Drop into an immersive focus mode with fullscreen, ambient sound, and a pomodoro timer.",
+    "card": {
+      "tag": "Focus prompt",
+      "subtitle": "Shut out distractions and move in sync with time."
+    },
+    "sound": {
+      "title": "Soundscapes",
+      "summary": "Playing {{active}} of {{total}} tracks"
+    },
+    "clearTodos": "Clear tasks",
+    "addTodo": "Add"
+  },
+  "widgets": {
+    "pomodoro": {
+      "modes": {
+        "focus": "Focus",
+        "short": "Break",
+        "long": "Long break"
+      },
+      "controls": {
+        "start": "Start",
+        "pause": "Pause",
+        "reset": "Reset"
+      },
+      "rounds": "Completed {{count}} / 4 rounds"
+    },
+    "whiteNoise": {
+      "tracks": {
+        "waves": {
+          "title": "Ocean tide",
+          "description": "Rolling waves with low-frequency swells—ideal for meditation or unwinding."
+        },
+        "rain": {
+          "title": "Night rain",
+          "description": "Raindrops on windows and leaves for a gentle surround."
+        },
+        "campfire": {
+          "title": "Campfire glow",
+          "description": "Crackling wood with a light breeze murmuring in the back."
+        },
+        "focus": {
+          "title": "Focus pulses",
+          "description": "Layered binaural beats that ease you into deep focus."
+        }
+      },
+      "stats": {
+        "title": "Now playing",
+        "summary": "Playing {{active}} of {{total}} tracks"
+      },
+      "actions": {
+        "resetVolume": "Reset volume",
+        "stopAll": "Stop all"
+      },
+      "controls": {
+        "pause": "Pause",
+        "play": "Play",
+        "volume": "Volume {{value}}%"
+      }
+    },
+    "todo": {
+      "priorities": {
+        "high": "High priority",
+        "medium": "Normal",
+        "low": "Relaxed"
+      },
+      "headerTitle": "Todo list",
+      "headerDescription": "A lightweight todo list with priorities and status control.",
+      "form": {
+        "newTask": "New task",
+        "placeholder": "e.g., 25-minute deep-work session on chapter 1",
+        "priority": "Priority",
+        "submit": "Add task"
+      },
+      "filters": {
+        "all": "All",
+        "active": "Active",
+        "completed": "Completed",
+        "clearCompleted": "Clear completed"
+      },
+      "empty": "No tasks yet—set a small goal to get moving.",
+      "item": {
+        "createdAt": "Created {{date}}",
+        "defaultPriority": "Normal",
+        "delete": "Delete"
+      }
+    }
+  },
+  "pomodoro": {
+    "badge": "Pomodoro Timer",
+    "title": "Focus for 25 minutes, rest for 5, keep your rhythm sharp",
+    "description": "Adapted from astroud/pomodoro-react-app with custom durations, round tracking, chimes, and quick skip—perfect for deep-work sprints.",
+    "tabs": {
+      "focus": "Focus session",
+      "short": "Short break",
+      "long": "Long break"
+    },
+    "roundLabel": "Cycle {{round}}",
+    "modeBadge": {
+      "focus": "FOCUS",
+      "short": "BREAK",
+      "long": "LONG BREAK"
+    },
+    "controls": {
+      "start": "Start",
+      "pause": "Pause",
+      "skip": "Skip phase",
+      "reset": "Reset"
+    },
+    "durationTitle": "Session durations (minutes)",
+    "durations": {
+      "focus": {
+        "label": "Focus duration",
+        "hint": "Default 25 minutes—adjust as needed."
+      },
+      "short": {
+        "label": "Short break",
+        "hint": "Default 5 minutes to release tension."
+      },
+      "long": {
+        "label": "Long break",
+        "hint": "Default 15 minutes after every four cycles."
+      }
+    },
+    "guideTitle": "How to use",
+    "guideItems": [
+      "After each focus block the timer switches to a short break automatically.",
+      "Every four focus blocks trigger a long break to recharge.",
+      "A soft chime plays at the end—headphones or a cue light work great."
+    ]
+  },
+  "todo": {
+    "badge": "Todo list",
+    "title": "A lightweight todo list with priorities and status filters",
+    "description": "Inspired by taniarascia/todo. Everything stores locally, works offline, and helps you triage effort levels.",
+    "tipsTitle": "Tips",
+    "tips": [
+      "Tasks save to local storage automatically, so you can refresh without worry.",
+      "Use High / Normal / Relaxed priorities to complement your pomodoro or daily plan.",
+      "Filters keep the board tidy by separating active and completed work."
+    ]
+  },
+  "whiteNoise": {
+    "badge": "White noise player",
+    "title": "Layer ambient sounds to build an immersive focus zone",
+    "description": "Inspired by SoundDrown. Uses the browser Audio API so you can mix tracks independently—great for writing, reading, meditation, or winding down.",
+    "tipsTitle": "Tips",
+    "tips": [
+      "Blend two or three tracks and balance their volume for depth.",
+      "Use “Stop all” to reset timelines instantly when switching scenes.",
+      "Default volume is 60%; tap “Reset volume” to snap back anytime."
+    ]
+  },
+  "meditation": {
+    "breadcrumbs": {
+      "left": "Focus Spaces",
+      "current": "Meditation Space"
+    },
+    "sequence": {
+      "inhale": {
+        "label": "Inhale",
+        "hint": "Draw in slowly through the nose; let chest and belly rise like treetops."
+      },
+      "hold": {
+        "label": "Hold",
+        "hint": "Hold gently and feel the breath settle inside."
+      },
+      "exhale": {
+        "label": "Exhale",
+        "hint": "Release like wind through a forest, carrying tension away."
+      }
+    },
+    "backgrounds": {
+      "forest": "Forest haze",
+      "stream": "Mountain stream",
+      "valley": "Valley dusk"
+    },
+    "quotes": [
+      "Breath is the bridge between yourself and the world.",
+      "Let thoughts disperse like morning mist, leaving clear awareness.",
+      "Sit quietly and listen—your body is always speaking.",
+      "Treat every breath with kindness and calm arrives naturally.",
+      "Light and shadow drift through the woods like the rhythm of your heart."
+    ],
+    "buttons": {
+      "toggleBreathing": {
+        "start": "One-minute meditation",
+        "stop": "End meditation"
+      },
+      "session": {
+        "start": "Start breathing",
+        "pause": "Pause breathing",
+        "reset": "Reset rhythm"
+      },
+      "cycleBackground": "Cycle background",
+      "shuffleQuote": "Shuffle quote"
+    },
+    "remaining": "Time left {{minutes}}′{{seconds}}″"
+  }
+}

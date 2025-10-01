@@ -1,0 +1,25 @@
+﻿{
+  "header": {
+    "badge": "博客",
+    "title": "全部文章",
+    "desc": "记录学习、方法与实践"
+  },
+  "search": {
+    "breadcrumbRoot": "学习日志",
+    "breadcrumbCurrent": "搜索",
+    "badge": "搜索",
+    "title": "搜索结果",
+    "description": "直接输入文字则按标题（并兼顾标签模糊匹配）搜索，以 <code>#标签</code> 开头可按标签精确匹配。",
+    "placeholder": "输入关键词，#标签可直达",
+    "action": "搜索",
+    "tagResult": "匹配的标签",
+    "keywordResult": "匹配的关键词",
+    "noKeyword": "未输入关键字，显示全部文章。",
+    "empty": "暂无匹配结果，换一个关键字试试吧。"
+  },
+  "post": {
+    "back": "返回",
+    "noDate": "无日期",
+    "readingTime": "预计阅读 3 分钟"
+  }
+}

@@ -8,21 +8,21 @@ const TIMER_STATES = {
 
 const TIMER_CONFIGS = {
   [TIMER_STATES.WORK]: {
-    label: "专注",
+    label: "Focus",
     duration: 25 * 60,
     color: "text-sky-200",
     bgColor: "bg-sky-400/25",
     progressColor: "bg-sky-300",
   },
   [TIMER_STATES.SHORT_BREAK]: {
-    label: "休息",
+    label: "Break",
     duration: 5 * 60,
     color: "text-emerald-300",
     bgColor: "bg-emerald-400/20",
     progressColor: "bg-emerald-300",
   },
   [TIMER_STATES.LONG_BREAK]: {
-    label: "长休息",
+    label: "Long Break",
     duration: 15 * 60,
     color: "text-indigo-200",
     bgColor: "bg-indigo-400/20",
@@ -135,18 +135,18 @@ const PomodoroTimer = () => {
           onClick={toggleTimer}
           className={`px-6 py-2 rounded-lg font-medium transition-colors ${config.bgColor} ${config.color}`}
         >
-          {isRunning ? "暂停" : "开始"}
+          {isRunning ? "Pause" : "Start"}
         </button>
         <button
           onClick={resetTimer}
           className="px-6 py-2 rounded-lg font-medium text-slate-400 hover:text-slate-300 hover:bg-slate-700/50 transition-colors"
         >
-          重置
+          Reset
         </button>
       </div>
 
       <div className="text-sm text-slate-400">
-        已完成 {rounds} / 4 轮
+         {rounds} / 4 sessions done
       </div>
     </div>
   );

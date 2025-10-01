@@ -9,15 +9,15 @@ import { FiMail } from "react-icons/fi";
 
 // 页首导航：只保留 首页 / 学习日志
 const NAV_LINKS_HEADER = [
-  { href: '/', label: '首页' },
-  { href: '/blog', label: '学习日志' },
+  { href: '/', label: 'Home' },
+  { href: '/blog', label: 'Blog' },
 ];
 
 // 页尾右侧链接：学习日志 + 三大合规页
 const NAV_LINKS_FOOTER = [
-  { href: '/about', label: '关于我们' },
-  { href: '/privacy', label: '隐私政策' },
-  { href: '/disclaimer', label: '免责声明' },
+  { href: '/about', label: 'About' },
+  { href: '/privacy', label: 'Privacy Policy' },
+  { href: '/disclaimer', label: 'Disclaimer' },
 ];
 
 // 弹出小窗口函数（用于分享）
@@ -68,7 +68,7 @@ function TooltipButton({ label, onClick, children }) {
   );
 }
 
-function Layout({ children, breadcrumbItems = [], shareTitle = '学习工作室' }) {
+function Layout({ children, breadcrumbItems = [], shareTitle = 'Do StudyHub' }) {
   const router = useRouter();
   const hasBreadcrumbs = breadcrumbItems.length > 0;
 
@@ -86,7 +86,7 @@ function Layout({ children, breadcrumbItems = [], shareTitle = '学习工作室'
         <div className="mx-auto max-w-6xl px-6 py-5 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2 text-xl font-display font-bold">
             <img src="/images/icon.png" alt="Logo" className="h-6 w-6" />
-            <span className="text-lg font-bold text-brand-600">学习工作室</span>
+            <span className="text-lg font-bold text-brand-600">Do StudyHub</span>
           </Link>
           <nav className="hidden sm:flex gap-8 text-sm font-medium text-slate-600">
             {NAV_LINKS_HEADER.map((item) => {
@@ -138,21 +138,21 @@ function Layout({ children, breadcrumbItems = [], shareTitle = '学习工作室'
         <div className="mx-auto max-w-6xl px-6 py-6 flex flex-col items-center gap-4 md:flex-row md:justify-between">
           {/* 左侧版权 */}
           <div className="text-sm text-slate-500">
-            © {new Date().getFullYear()} 学习工作室. All rights reserved.
+            © {new Date().getFullYear()} Do StudyHub. All rights reserved.
           </div>
 
           {/* 中间分享图标（小窗打开） */}
           <div className="flex gap-4">
-            <TooltipButton label="分享到 X" onClick={() => openSharePopup(links.x, 'x-share')}>
+            <TooltipButton label="Share on X" onClick={() => openSharePopup(links.x, 'x-share')}>
               <SiX />
             </TooltipButton>
-            <TooltipButton label="分享到 Facebook" onClick={() => openSharePopup(links.facebook, 'fb-share')}>
+            <TooltipButton label="Share on Facebook" onClick={() => openSharePopup(links.facebook, 'fb-share')}>
               <SiFacebook />
             </TooltipButton>
-            <TooltipButton label="分享到 LinkedIn" onClick={() => openSharePopup(links.linkedin, 'li-share')}>
+            <TooltipButton label="Share on LinkedIn" onClick={() => openSharePopup(links.linkedin, 'li-share')}>
               <SiLinkedin />
             </TooltipButton>
-            <TooltipButton label="邮件分享" onClick={() => (window.location.href = links.email)}>
+            <TooltipButton label="Share via email" onClick={() => (window.location.href = links.email)}>
               <FiMail />
             </TooltipButton>
           </div>

@@ -4,17 +4,17 @@ import DarkRoomClock from '../../components/tools/DarkRoomClock';
 import PomodoroTimer from '../../components/tools/PomodoroTimer';
 
 const QUOTES = [
-  "专注是一项可以习得的技能，耐心是最好的导师。",
-  "所有的创造都始于宁静，先让心慢下来。",
-  "记录想法的瞬间，就已经在和拖延保持距离。",
-  "保持对当下的觉察，你会发现时间过得更扎实。",
-  "当你真正投入，世界就会为你让路。",
+      "Focus is a skill you can train—patience is the best mentor.",
+      "Every act of creation begins in stillness; slow your mind first.",
+      "Capture ideas the moment they appear and procrastination loses ground.",
+      "Stay aware of the present and time will feel more substantial.",
+      "When you commit wholeheartedly, the world makes room for you."
 ];
 
 const WHITE_NOISE_TRACKS = [
   {
     id: "rain",
-    label: "细雨",
+    label: "Rain",
     url: "/audio/rain-sound-272604.mp3",
     icon: (
       <svg viewBox="0 0 24 24" aria-hidden="true" className="h-6 w-6">
@@ -32,7 +32,7 @@ const WHITE_NOISE_TRACKS = [
   },
   {
     id: "campfire",
-    label: "篝火",
+    label: "Campfire",
     url: "/audio/fireplace-with-crackling-sounds-2-min-rk-178392.mp3",
     icon: (
       <svg viewBox="0 0 24 24" aria-hidden="true" className="h-6 w-6">
@@ -59,7 +59,7 @@ const WHITE_NOISE_TRACKS = [
   },
   {
     id: "waves",
-    label: "海浪",
+    label: "Waves",
     url: "/audio/ocean-waves-250310.mp3",
     icon: (
       <svg viewBox="0 0 24 24" aria-hidden="true" className="h-6 w-6">
@@ -82,7 +82,7 @@ const WHITE_NOISE_TRACKS = [
   },
   {
     id: "focus",
-    label: "脑波",
+    label: "Brainwave",
     url: "/audio/brainwave-delta.mp3",
     icon: (
       <svg viewBox="0 0 24 24" aria-hidden="true" className="h-6 w-6">
@@ -128,7 +128,7 @@ const pickRandomQuote = (current) => {
 
 export default function DarkRoomPage() {
   const [quote, setQuote] = useState(QUOTES[0]);
-  const [todos, setTodos] = useState(() => [createTodo("在这里记录今天最重要的两件事")]);
+  const [todos, setTodos] = useState(() => [createTodo("Today’s top 2 tasks")]);
   const [newTodo, setNewTodo] = useState("");
   const [showTodos, setShowTodos] = useState(false);
   const audioRefs = useRef({});
@@ -260,9 +260,9 @@ export default function DarkRoomPage() {
             document.body.style.overflow = "";
             document.documentElement.style.overflow = "";
           } catch {}
-        }}>专注空间</Link>
+        }}>Foucs Space</Link>
         <span className="px-1 text-slate-500/50">·</span>
-        <span className="text-slate-400/60">小黑屋自习室</span>
+        <span className="text-slate-400/60">Quiet Study Room</span>
       </div>
       <div className="relative z-10 mx-auto flex max-w-3xl flex-col items-center gap-12 text-center">
         <div className="flex flex-col items-center gap-10">
@@ -274,13 +274,13 @@ export default function DarkRoomPage() {
         <figure className="max-w-2xl space-y-4 text-center">
           <blockquote className="text-2xl font-semibold text-slate-100">"{quote}"</blockquote>
           <figcaption className="flex flex-col gap-3 text-xs text-slate-500 sm:flex-row sm:items-center sm:justify-center sm:gap-6">
-            <span>{'提示：ESC 退出全屏｜随时切换下一条'}</span>
+            <span>{'Tip: Press ESC to exit full screen'}</span>
             <button
               type="button"
               onClick={randomizeQuote}
               className="self-center rounded-full border border-slate-700 px-4 py-1 text-[10px] font-semibold uppercase tracking-[0.4em] text-slate-300 hover:border-brand-400/80 hover:text-brand-200"
             >
-              {'换一句'}
+              {'Next'}
             </button>
           </figcaption>
         </figure>
@@ -291,7 +291,7 @@ export default function DarkRoomPage() {
             onClick={toggleFullscreen}
             className="rounded-full border border-slate-700 px-4 py-2 hover:border-brand-500 hover:text-brand-300"
           >
-            切换全屏
+            Full Screen
           </button>
         </div>
       </div>
@@ -329,8 +329,8 @@ export default function DarkRoomPage() {
             }`}
           >
             <header className="flex items-start justify-between">
-              <h2 className="text-sm font-semibold text-slate-200">待办清单</h2>
-              <p className="text-[10px] text-slate-500">把灵感拆成小步骤</p>
+              <h2 className="text-sm font-semibold text-slate-200">To-Do List</h2>
+              <p className="text-[10px] text-slate-500">Break down your ideas into steps</p>
             </header>
             <div className="mt-4 rounded-3xl border border-slate-800/70 bg-slate-900/70 px-5 py-4">
               <input
@@ -343,7 +343,7 @@ export default function DarkRoomPage() {
                     addTodo();
                   }
                 }}
-                placeholder="记录今天要推进的事项"
+                placeholder="Log today’s tasks"
                 className="w-full rounded-2xl bg-slate-900/50 px-4 py-2 text-sm text-slate-200 placeholder:text-slate-600 focus:outline-none focus:ring-2 focus:ring-brand-400/40"
               />
 
@@ -391,7 +391,7 @@ export default function DarkRoomPage() {
               ))}
               {todos.length === 0 ? (
                 <li className="rounded-2xl border border-dashed border-slate-700/80 bg-slate-900/50 px-4 py-6 text-sm text-slate-600">
-                  {'还没有事项，给自己定一个小目标吧。'}
+                  {'No tasks yet — set yourself a small goal!'}
                 </li>
               ) : null}
             </ul>

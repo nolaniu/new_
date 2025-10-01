@@ -3,38 +3,38 @@ import { useEffect, useMemo, useRef, useState } from "react";
 
 const BREATHING_SEQUENCE = [
   {
-    label: "吸气",
+    label: "Inhale",
     duration: 4,
-    hint: "从鼻腔缓缓吸入，胸腹像树梢一样舒展。",
+    hint: "Gently inhale through your nose, letting your chest and belly expand like treetops reaching for the sky",
   },
   {
-    label: "保持",
+    label: "Hold",
     duration: 1,
-    hint: "轻轻保持，感受空气在身体里安稳流动。",
+    hint: "Hold softly, feel the air flowing steadily inside your body",
   },
   {
-    label: "呼气",
+    label: "Exhale",
     duration: 6,
-    hint: "慢慢呼出，像风穿过森林带走紧绷。",
+    hint: "Slowly exhale, like a breeze through the forest, carrying away your tension",
   },
 ];
 
 const BACKGROUNDS = [
   {
     id: "forest",
-    label: "林间晨雾",
+    label: "Morning Mist in the Woods",
     image: "/images/sunbeams-1547273.jpg",
     audio: "/audio/林间晨雾.mp3",
   },
   {
     id: "stream",
-    label: "山涧清泉",
+    label: "Mountain Stream",
     image: "/images/mountain-stream-7847462_1920.jpg",
     audio: "/audio/山涧清泉.mp3",
   },
   {
     id: "valley",
-    label: "丘谷薄暮",
+    label: "Twilight over the Hills",
     image: "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=2000&q=80",
     audio: "/audio/丘谷暮霭.mp3",
   },
@@ -223,9 +223,9 @@ return (
     </div>
 
     <div className="absolute left-8 top-8 z-20 text-xs font-medium text-slate-200/80 sm:text-sm">
-      <Link href="/#focus-spaces" className="text-slate-100/80 transition hover:text-teal-100">专注空间</Link>
+      <Link href="/#focus-spaces" className="text-slate-100/80 transition hover:text-teal-100">Focus Space</Link>
       <span className="px-1 text-slate-400/70">·</span>
-      <span className="text-slate-100/70">冥想空间</span>
+      <span className="text-slate-100/70">Meditation Space</span>
     </div>
 
           <div className="absolute left-8 top-1/2 z-20 -translate-y-1/2">
@@ -289,7 +289,7 @@ return (
           strokeLinecap="round"
         />
       </svg>
-      <span className="flex-1 text-center">{showBreathing ? '结束冥想' : '一分钟冥想'}</span>
+      <span className="flex-1 text-center">{showBreathing ? 'Finish' : 'Fast Meditation'}</span>
     </button>
   </div>
 </div>
@@ -333,14 +333,14 @@ return (
           running ? "bg-emerald-200/80 hover:bg-emerald-200" : "bg-teal-200/80 hover:bg-teal-200"
         }`}
       >
-        {running ? '暂停呼吸' : '开始呼吸'}
+        {running ? 'Pause' : 'Start'}
       </button>
       <button
         type="button"
         onClick={resetSession}
         className="rounded-full border border-emerald-300/50 px-8 py-3 text-sm font-semibold text-emerald-100 transition hover:border-emerald-200 hover:text-emerald-50"
       >
-        重置节奏
+        Reset
       </button>
     </div>
   </main>

@@ -11,8 +11,13 @@ export default function Document() {
           rel="stylesheet"
         />
         <meta name="theme-color" content="#8b5cf6" />
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9562574307655830"
+          crossOrigin="anonymous"
+        ></script>
       </Head>
-       <body className="bg-gradient-to-br from-slate-50 via-white to-slate-100 text-slate-900">
+      <body className="bg-gradient-to-br from-slate-50 via-white to-slate-100 text-slate-900">
         <Main />
         <NextScript />
       </body>

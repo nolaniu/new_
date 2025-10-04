@@ -2,7 +2,7 @@
 
 export default function Document() {
   return (
-    <Html lang="zh-CN">
+    <Html lang="en-US">
       <Head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
@@ -11,6 +11,7 @@ export default function Document() {
           rel="stylesheet"
         />
         <link rel="icon" href="/images/icon.png" type="image/png" sizes="32x32" />
+        <link rel="shortcut icon" href="/images/icon.png" type="image/png" />
         <meta name="theme-color" content="#8b5cf6" />
         <script
           async

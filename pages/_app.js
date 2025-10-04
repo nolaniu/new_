@@ -1,4 +1,4 @@
-﻿import Head from 'next/head';
+import Head from 'next/head';
 import { useRouter } from 'next/router';
 import Layout from '../components/Layout';
 import '../styles/globals.css';
@@ -51,6 +51,7 @@ function MyApp({ Component, pageProps }) {
         <title>{meta.title}</title>
         <meta name="description" content={meta.description} />
         <meta name="keywords" content="darkroom, meditation, study, whitenoise, todolist" />
+        <meta name="robots" content="index, follow" />
         <link rel="canonical" href={canonical} />
         <meta property="og:title" content={meta.title} />
         <meta property="og:description" content={meta.description} />

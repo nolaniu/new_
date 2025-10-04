@@ -68,7 +68,7 @@ function TooltipButton({ label, onClick, children }) {
   );
 }
 
-function Layout({ children, breadcrumbItems = [], shareTitle = 'Do StudyHub' }) {
+function Layout({ children, breadcrumbItems = [], shareTitle, meta = {} }) {
   const router = useRouter();
   const hasBreadcrumbs = breadcrumbItems.length > 0;
 
@@ -77,7 +77,8 @@ function Layout({ children, breadcrumbItems = [], shareTitle = 'Do StudyHub' }) 
     if (typeof window !== 'undefined') setShareUrl(window.location.href);
   }, [router.asPath]);
 
-  const links = useMemo(() => buildShareLinks(shareUrl, shareTitle), [shareUrl, shareTitle]);
+  const computedShareTitle = shareTitle || meta.shareTitle || meta.title || 'Do StudyHub';
+  const links = useMemo(() => buildShareLinks(shareUrl, computedShareTitle), [shareUrl, computedShareTitle]);
 
   return (
     <div className="min-h-screen flex flex-col">

@@ -121,9 +121,9 @@ export default function Home({ posts }) {
 }
 
 Home.meta = {
-  title: 'Learning Station - One-stop focus hub blending study tools and mindful breaks',
+  title: 'Learning Station - Focus & mindful study tools',
   description:
-    'I turned my old static to-do list into Learning Station: a focus command center with a fullscreen dark room, customizable Pomodoro, white-noise mixer, priorities to-do, and a 4-4-6 breathing coach. Everything runs locally, no accounts required, and the built-in blog keeps new study playbooks coming.',
+    'Learning Station turns a to-do list into a focus hub with dark room, custom Pomodoro, white-noise mixer, priorities, and a 4-4-6 breathing coach, no logins.',
 };
 
 export async function getStaticProps() {

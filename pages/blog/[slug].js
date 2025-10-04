@@ -2,11 +2,19 @@
 import { MDXRemote } from 'next-mdx-remote';
 import { getPostSlugs, getPostBySlug } from '../../lib/mdx';
 
-const formatter = new Intl.DateTimeFormat('zh-CN', {
-  year: 'numeric',
-  month: 'long',
-  day: 'numeric',
-});
+const formatDate = (date) => {
+  if (!date) return '???';
+  try {
+    const parsed = new Date(date);
+    if (Number.isNaN(parsed.getTime())) return date;
+    const year = parsed.getFullYear();
+    const month = String(parsed.getMonth() + 1).padStart(2, '0');
+    const day = String(parsed.getDate()).padStart(2, '0');
+    return `${year}.${month}.${day}`;
+  } catch {
+    return date;
+  }
+};
 
 const Callout = ({ children }) => (
   <div className="my-6 rounded-2xl border border-brand-200 bg-brand-50/70 p-4 text-sm leading-relaxed text-brand-800">
@@ -22,7 +30,7 @@ export default function BlogPost({ frontMatter, mdxSource }) {
       </Link>
       <h1 className="mt-6 font-display text-4xl font-bold text-slate-900">{frontMatter.title}</h1>
       {/* <p className="text-sm text-slate-500">
-        {frontMatter.date ? formatter.format(new Date(frontMatter.date)) : '未注明日期'} · {frontMatter.readingTime || '5 minutes read'}
+        {frontMatter.date ? formatDate(frontMatter.date) : '未注明日期'} · {frontMatter.readingTime || '5 minutes read'}
       </p> */}
       <MDXRemote {...mdxSource} components={MDX_COMPONENTS} />
     </article>

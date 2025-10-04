@@ -1,15 +1,14 @@
 ﻿import Link from 'next/link';
 
-const formatter = new Intl.DateTimeFormat('zh-CN', {
-  year: 'numeric',
-  month: 'long',
-  day: 'numeric',
-});
-
 const formatDate = (date) => {
   if (!date) return '???';
   try {
-    return formatter.format(new Date(date));
+    const parsed = new Date(date);
+    if (Number.isNaN(parsed.getTime())) return date;
+    const year = parsed.getFullYear();
+    const month = String(parsed.getMonth() + 1).padStart(2, '0');
+    const day = String(parsed.getDate()).padStart(2, '0');
+    return `${year}.${month}.${day}`;
   } catch {
     return date;
   }

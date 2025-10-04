@@ -5,9 +5,9 @@ import '../styles/globals.css';
 import '@leenguyen/react-flip-clock-countdown/dist/index.css';
 
 const DEFAULT_META = {
-  title: 'Learning Station - Focus & mindful study tools',
+  title: 'Do Studyhub - Focus & mindful study tools',
   description:
-    'Learning Station turns a to-do list into a focus hub with dark room, custom Pomodoro, white-noise mixer, priorities, and a 4-4-6 breathing coach, no logins.',
+    'Do Studyhub turns a to-do list into a focus hub with dark room, custom Pomodoro, white-noise mixer, priorities, and a 4-4-6 breathing coach, no logins.',
 };
 
 function MyApp({ Component, pageProps }) {

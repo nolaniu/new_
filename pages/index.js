@@ -124,6 +124,7 @@ Home.meta = {
   title: 'Do Studyhub - Focus & mindful study tools',
   description:
     'Do Studyhub turns a to-do list into a focus hub with dark room, custom Pomodoro, white-noise mixer, priorities, and a 4-4-6 breathing coach, no logins.',
+  canonical: 'https://dostudy.me/',
 };
 
 export async function getStaticProps() {

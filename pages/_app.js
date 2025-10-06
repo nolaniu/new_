@@ -30,7 +30,15 @@ function MyApp({ Component, pageProps }) {
   const meta = { ...DEFAULT_META, ...metaSource };
 
   const canonicalPath = ((router.asPath || '/').split('#')[0] || '/').split('?')[0] || '/';
-  const canonical = `https://dostudy.me${canonicalPath}`;
+  const canonical = (() => {
+    const metaCanonical = typeof meta.canonical === 'string' ? meta.canonical.trim() : '';
+    if (metaCanonical) {
+      if (metaCanonical.startsWith('http://') || metaCanonical.startsWith('https://')) return metaCanonical;
+      const normalized = metaCanonical.startsWith('/') ? metaCanonical : `/${metaCanonical}`;
+      return `https://dostudy.me${normalized}`;
+    }
+    return `https://dostudy.me${canonicalPath}`;
+  })();
 
   const page = <Component {...pageProps} />;
 

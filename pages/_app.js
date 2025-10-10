@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import Layout from '../components/Layout';
 import '../styles/globals.css';
 import '@leenguyen/react-flip-clock-countdown/dist/index.css';
+import { Analytics } from '@vercel/analytics/react';
 
 const DEFAULT_META = {
   title: 'Do Studyhub - Focus & mindful study tools',
@@ -70,6 +71,7 @@ function MyApp({ Component, pageProps }) {
         <meta name="twitter:description" content={meta.description} />
       </Head>
       {renderedPage}
+      <Analytics />
     </>
   );
 }
